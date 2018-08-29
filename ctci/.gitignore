@@ -1,0 +1,6 @@
+# Python
+**/*.pyc
+
+# Temp files
+**/*.md~
+**/*.swp
