@@ -1,3 +1,4 @@
+import collections
 """
 Statement - https://leetcode.com/problems/decode-ways/description/
 
@@ -62,30 +63,44 @@ def decode(numstr):
 
 
 def solve(string):
+    #print("Evaluating: %s" % string)
     if not string:
-        return ['']
+        return []
 
     if len(string) == 1:
-        return [decode(string)]
+        if decode(string):
+            return [decode(string)]
+        else:
+            return []
 
+    #strings = collections.deque()
     strings = []
     single_decoded = decode(string[:1])
     if single_decoded:
-        strings += [single_decoded + each for each in solve(string[1:])]
+        #print("Recursing single decode for %s" % string)
+        strings += [single_decoded +
+                    each for each in solve(string[1:])]
 
     double_decoded = decode(string[:2])
     if double_decoded:
-        strings = [double_decoded + each for each in solve(string[2:])]
+        #print("Recursing double decode for %s" % string)
+        strings += [double_decoded +
+                    each for each in solve(string[2:])]
 
-    return single + double
+    return strings
 
 
 class Solution:
     def numDecodings(self, s):
-        return len(solve(s))
+        solution = solve(s)
+        print(solution)
+        return len(solution)
 
 
 if __name__ == '__main__':
     s = Solution()
     print(s.numDecodings('0'))
-    print(solve('0'))
+    print(s.numDecodings('4'))
+    print(s.numDecodings('12'))
+    print(s.numDecodings('62'))
+    print(s.numDecodings('1223134'))
