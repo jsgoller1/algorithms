@@ -1,4 +1,6 @@
 import collections
+import random
+
 """
 Statement - https://leetcode.com/problems/decode-ways/description/
 
@@ -54,6 +56,8 @@ Execute
 Review
 """
 
+cache = {}
+
 
 def decode(numstr):
     num = int(numstr)
@@ -63,7 +67,10 @@ def decode(numstr):
 
 
 def solve(string):
-    #print("Evaluating: %s" % string)
+    # print("Evaluating: %s" % string)
+    if string in cache:
+        return cache[string]
+
     if not string:
         return []
 
@@ -84,6 +91,7 @@ def solve(string):
         for combination in solve(string[2:]):
             strings.append(single_decoded + combination)
 
+    cache[string] = strings
     return strings
 
 
@@ -101,3 +109,5 @@ if __name__ == '__main__':
     print(s.numDecodings('12'))
     print(s.numDecodings('62'))
     print(s.numDecodings('1223134'))
+    bigNum = ''.join([str(random.randint(0, 9)) for i in range(200)])
+    print(s.numDecodings(bigNum))
