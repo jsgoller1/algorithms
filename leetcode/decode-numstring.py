@@ -73,19 +73,16 @@ def solve(string):
         else:
             return []
 
-    #strings = collections.deque()
-    strings = []
+    strings = collections.deque()
     single_decoded = decode(string[:1])
     if single_decoded:
-        #print("Recursing single decode for %s" % string)
-        strings += [single_decoded +
-                    each for each in solve(string[1:])]
+        for combination in solve(string[1:]):
+            strings.append(single_decoded + combination)
 
     double_decoded = decode(string[:2])
     if double_decoded:
-        #print("Recursing double decode for %s" % string)
-        strings += [double_decoded +
-                    each for each in solve(string[2:])]
+        for combination in solve(string[2:]):
+            strings.append(single_decoded + combination)
 
     return strings
 
