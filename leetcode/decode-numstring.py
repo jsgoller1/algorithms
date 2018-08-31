@@ -68,15 +68,14 @@ def solve(string):
     if len(string) == 1:
         return [decode(string)]
 
-    single = []
+    strings = []
     single_decoded = decode(string[:1])
     if single_decoded:
-        single = [single_decoded + each for each in solve(string[1:])]
+        strings += [single_decoded + each for each in solve(string[1:])]
 
-    double = []
     double_decoded = decode(string[:2])
     if double_decoded:
-        double = [double_decoded + each for each in solve(string[2:])]
+        strings = [double_decoded + each for each in solve(string[2:])]
 
     return single + double
 
