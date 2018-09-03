@@ -37,19 +37,19 @@ There might be an edge case around 0 - 20 is valid as twenty, but not as two-zer
 ----
 Plan
 
-Keep a top level list
 We should have a helper function decode() that converts a number to a string, assuming it's between 1 and 26.
 For our solve():
-  base case: one letter - return a [decode(letter)]
+  base case: empty string - return []
 Recursive case:
-  return [decode([:1]) + string for every string in solve[1:] if valid decode] + [decode([0:2]) + string for every string in solve[2:] if valid decode]
+  return a list containing:
+    - the first letter decoded + solve
+  [decode([:1]) + string for every string in solve[1:] if valid decode] + [decode([0:2]) + string for every string in solve[2:] if valid decode]
 
-12345:
-1 + solve(2345),
-2 + solve(345), 23 + solve(45)
-
-12 + solve(345)
-3 + solve(45), 34 + solve(5)
+d(5) -> base case (1 string)
+d(25) -> d(2) + d(5) && 25 (2 strings)
+d(22) -> d(2) + d(2) && 22 (2 strings)
+d(225) -> d(2) + d(25) && d(22) + d(5) (4 strings)
+d(1225) -> d(1),d(225) && d(12), d(25)
 ----
 Execute
 ----
@@ -59,37 +59,37 @@ Review
 cache = {}
 
 
-def decode(numstr):
-    num = int(numstr)
-    if not (1 <= num <= 26):
-        return ''
-    return chr(65+num)
+def decode(string):
+    if 0 < len(string) < 3 and 1 <= int(string) <= 26 and string[0] != '0':
+        return chr(64 + int(string))
 
 
 def solve(string):
-    # print("Evaluating: %s" % string)
     if string in cache:
         return cache[string]
 
-    if not string:
-        return []
-
-    if len(string) == 1:
+    if len(string) <= 1:
         if decode(string):
-            return [decode(string)]
+            return collections.deque([decode(string)])
         else:
-            return []
+            return collections.deque()
+
+    if len(string) == 2:
+        strings = collections.deque()
+        if decode(string):
+            strings.append(decode(string))
+        if decode(string[0]) and decode(string[1]):
+            strings.append(decode(string[0]) + decode(string[1]))
+        return strings
 
     strings = collections.deque()
-    single_decoded = decode(string[:1])
-    if single_decoded:
-        for combination in solve(string[1:]):
-            strings.append(single_decoded + combination)
+    if decode(string[:1]):
+        for each in solve(string[1:]):
+            strings.append(decode(string[:1]) + each)
 
-    double_decoded = decode(string[:2])
-    if double_decoded:
-        for combination in solve(string[2:]):
-            strings.append(single_decoded + combination)
+    if decode(string[:2]):
+        for each in solve(string[2:]):
+            strings.append(decode(string[:2]) + each)
 
     cache[string] = strings
     return strings
@@ -98,16 +98,22 @@ def solve(string):
 class Solution:
     def numDecodings(self, s):
         solution = solve(s)
-        print(solution)
+        # print(s)
+        # print(solution)
+        # print(len(solution))
+        # print('-------')
         return len(solution)
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.numDecodings('0'))
-    print(s.numDecodings('4'))
-    print(s.numDecodings('12'))
-    print(s.numDecodings('62'))
-    print(s.numDecodings('1223134'))
-    bigNum = ''.join([str(random.randint(0, 9)) for i in range(200)])
-    print(s.numDecodings(bigNum))
+    s.numDecodings('')
+    s.numDecodings('0')
+    s.numDecodings('4')
+    s.numDecodings('01')
+    s.numDecodings('12')
+    s.numDecodings('10')
+    s.numDecodings('62')
+    s.numDecodings('1223134')
+    s.numDecodings(
+        "4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
