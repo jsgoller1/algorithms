@@ -101,6 +101,7 @@ def solve(string):
     """
     Returns only a count of the strings that can be created - much faster.
     """
+    #print("Evaluating %s" % string)
 
     if string in cache:
         return cache[string]
@@ -110,6 +111,7 @@ def solve(string):
     if len(string) <= 1:
         if decode(string):
             count += 1
+        #print("1-bc", string, count)
         return count
 
     if len(string) == 2:
@@ -117,13 +119,16 @@ def solve(string):
             count += 1
         if decode(string[0]) and decode(string[1]):
             count += 1
+        #print("2-bc", string, count)
         return count
 
     if decode(string[:1]):
         count += solve(string[1:])
+        #print(1, string, count)
 
     if decode(string[:2]):
-        count += solve(string[:2])
+        count += solve(string[2:])
+        #print(2, string, count)
 
     cache[string] = count
     return count
@@ -146,6 +151,7 @@ if __name__ == '__main__':
     # s.numDecodings('4')
     # s.numDecodings('01')
     # s.numDecodings('12')
+    s.numDecodings('226')  # 2,26 / 26, 2
     # s.numDecodings('10')
     # s.numDecodings('62')
     # s.numDecodings('1223134')
