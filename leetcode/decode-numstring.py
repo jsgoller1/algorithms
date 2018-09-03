@@ -68,21 +68,20 @@ def solve(string):
     if string in cache:
         return cache[string]
 
+    strings = collections.deque()
+
     if len(string) <= 1:
         if decode(string):
-            return collections.deque([decode(string)])
-        else:
-            return collections.deque()
+            strings.append(decode(string))
+        return strings
 
     if len(string) == 2:
-        strings = collections.deque()
         if decode(string):
             strings.append(decode(string))
         if decode(string[0]) and decode(string[1]):
             strings.append(decode(string[0]) + decode(string[1]))
         return strings
 
-    strings = collections.deque()
     if decode(string[:1]):
         for each in solve(string[1:]):
             strings.append(decode(string[:1]) + each)
@@ -97,23 +96,22 @@ def solve(string):
 
 class Solution:
     def numDecodings(self, s):
-        solution = solve(s)
         # print(s)
+        solution = solve(s)
         # print(solution)
-        # print(len(solution))
+        print(len(solution))
         # print('-------')
         return len(solution)
 
 
 if __name__ == '__main__':
     s = Solution()
-    s.numDecodings('')
-    s.numDecodings('0')
-    s.numDecodings('4')
-    s.numDecodings('01')
-    s.numDecodings('12')
-    s.numDecodings('10')
-    s.numDecodings('62')
+    # s.numDecodings('')
+    # s.numDecodings('0')
+    # s.numDecodings('4')
+    # s.numDecodings('01')
+    # s.numDecodings('12')
+    # s.numDecodings('10')
+    # s.numDecodings('62')
     s.numDecodings('1223134')
-    s.numDecodings(
-        "4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
+    # s.numDecodings("4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
