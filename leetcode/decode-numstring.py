@@ -64,7 +64,10 @@ def decode(string):
         return chr(64 + int(string))
 
 
-def solve(string):
+def solve_strings(string):
+    """
+    Returns the actual list of strings that can be created - much slower.
+    """
     if string in cache:
         return cache[string]
 
@@ -94,14 +97,46 @@ def solve(string):
     return strings
 
 
+def solve(string):
+    """
+    Returns only a count of the strings that can be created - much faster.
+    """
+
+    if string in cache:
+        return cache[string]
+
+    count = 0
+
+    if len(string) <= 1:
+        if decode(string):
+            count += 1
+        return count
+
+    if len(string) == 2:
+        if decode(string):
+            count += 1
+        if decode(string[0]) and decode(string[1]):
+            count += 1
+        return count
+
+    if decode(string[:1]):
+        count += solve(string[1:])
+
+    if decode(string[:2]):
+        count += solve(string[:2])
+
+    cache[string] = count
+    return count
+
+
 class Solution:
     def numDecodings(self, s):
         # print(s)
         solution = solve(s)
-        # print(solution)
-        print(len(solution))
+        print(solution)
+        # print(len(solution))
         # print('-------')
-        return len(solution)
+        return solution
 
 
 if __name__ == '__main__':
@@ -113,5 +148,5 @@ if __name__ == '__main__':
     # s.numDecodings('12')
     # s.numDecodings('10')
     # s.numDecodings('62')
-    s.numDecodings('1223134')
+    # s.numDecodings('1223134')
     # s.numDecodings("4757562545844617494555774581341211511296816786586787755257741178599337186486723247528324612117156948")
