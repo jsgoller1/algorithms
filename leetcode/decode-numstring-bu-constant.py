@@ -117,9 +117,11 @@ Review
 cache = {}
 
 
-def decode(string):
+def valid_decode(string):
     if 0 < len(string) < 3 and 1 <= int(string) <= 26 and string[0] != '0':
-        return chr(64 + int(string))
+        return 1
+    else:
+        return 0
 
 
 class Solution:
@@ -146,21 +148,24 @@ class Solution:
         # Initialize
         k_2 = 0
         k_1 = 0
-        if decode(string[-1]) and decode(string[-2]):
-            k_2 += 1
-            k_1 += 1
-        if decode(string[-2:]):
-            k_1 += 1
-        k = k_1
-        print("%s - initialized k-1: %d, k-2: %d" % (string, k_1, k_2))
+        k = 0
+        if len(string):
+            k_2 += valid_decode(string[-1])
+            k = k_2
+        if len(string) - 1:
+            if valid_decode(string[-1]) and valid_decode(string[-2]):
+                k_1 = k_2
+            if valid_decode(string[-2:]):
+                k_1 += 1
+            k = k_1
 
         # Loop through remainder of string
         for i in range(len(string) - 3, -1, -1):
             if k_1 + k_2 == 0:
                 return 0
 
-            if string[i] != 0:
-                if (decode(string[i:i + 2])):
+            if string[i] != '0':
+                if (valid_decode(string[i:i + 2])):
                     k = k_1 + k_2
                 else:
                     k = k_1
@@ -169,8 +174,8 @@ class Solution:
             else:
                 k_2 = k_1
                 k_1 = 0
+                k = 0
 
-        print(string, k)
         return k
 
 
@@ -181,6 +186,7 @@ if __name__ == '__main__':
     assert s.numDecodings('40') == 0
     assert s.numDecodings('10') == 1
     assert s.numDecodings('11') == 2
+    assert s.numDecodings('012') == 0
     assert s.numDecodings('440') == 0
     assert s.numDecodings('110') == 1
     assert s.numDecodings('229') == 2
