@@ -65,6 +65,8 @@ this, I changed to the below-implemented count strategy, which works for all cas
 
 With comment text removed, this solution runs on LC in 48ms, beating 45% of other
 submissions.
+
+This solution is top-down and in O(n) storage space.
 """
 
 cache = {}
