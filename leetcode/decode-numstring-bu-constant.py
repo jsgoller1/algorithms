@@ -48,7 +48,63 @@ Bottom up:
 Instead of starting with the first and first two elements of the string
 and trying to determine how many possible ways we can "break it down", we
 could start from the last and last two elements of the string and try
-to work our way up. We might be able to think of this as
+to work our way up.
+
+If we are looking at the k-th element in a string
+of n characters, we only need to know how many possible ways we can decode
+the k-1th and k-2th characters; adding these is the number of ways to decode
+the kth character. If there's zero ways to decode the kth character, we return
+zero immediately. Our initialization (instead of base-cases) is for the last
+and second-to-last elements.
+
+pseudocode:
+k-2 = 1 if decode(second to last) and decode(last), else 0
+k-1 = 1 if decode(last two) + k-2
+for each char from third to last to first:
+    if k-1 + k-2 == 0:
+        return 0
+    if not zero:
+        k = k-1 + k-2
+        k-2 = k-1
+        k-1 = k
+    if zero:
+        k-2 = k-1
+        k-1 = 0
+
+Some examples:
+1120 (decode as 1,1,20 and 11,20)
+   0
+  1
+ 1
+2
+
+If we hit a zero mid string, it means that one-decodings are not possible at that point,
+so we should only carry forward two-decodings.
+1020 (decode only as 10,20)
+   0
+  1
+ 0 <--- set k-2 to k-1, k-1 to zero, then go to next iteration.
+1 <- k-1 + k-2
+
+However, we should fail if we see two zeros:
+10020 (invalid)
+    0
+   1
+  0 <- k-2 set to k-1 (1), k-1 set to zero
+ 0 <- fail, k-2 + k-1 = 0
+
+Some examples for if we see a 2-decoding that is invalid, such as 40:
+1040 (invalid)
+   0
+  0
+ x <- fails here, exits on first loop
+
+10411 (only valid decodings are 10,4,1,1 and 10,4,11)
+    1
+   2
+  2 <- only look at k-1, as the 41 would render all k-2 decodings invalid.
+ 0 <- k-1 is invalid for zero
+2
 ----
 Execute
 
@@ -68,28 +124,64 @@ def decode(string):
 
 class Solution:
     def numDecodings(self, string):
-        if string in cache:
-            return cache[string]
+        """
+        Iterative, constant-space solution.
+        pseudocode:
+        k-2 = 1 if decode(second to last) and decode(last), else 0
+        k-1=1 if decode(last two) + k-2
+        for each char from third to last to first:
+            if k-1 + k-2 == 0:
+                return 0
+            if not zero:
+                k=k-1 + k-2
+                k-2=k-1
+                k-1=k
+            if zero:
+                k-2=k-1
+                k-1=0
 
-        count = 0
+                return k
+        """
 
-        if len(string) <= 1:
-            if decode(string):
-                count += 1
-            return count
+        # Initialize
+        k_2 = 0
+        k_1 = 0
+        if decode(string[-1]) and decode(string[-2]):
+            k_2 += 1
+            k_1 += 1
+        if decode(string[-2:]):
+            k_1 += 1
+        k = k_1
+        print("%s - initialized k-1: %d, k-2: %d" % (string, k_1, k_2))
 
-        if len(string) == 2:
-            if decode(string):
-                count += 1
-            if decode(string[0]) and decode(string[1]):
-                count += 1
-            return count
+        # Loop through remainder of string
+        for i in range(len(string) - 3, -1, -1):
+            if k_1 + k_2 == 0:
+                return 0
 
-        if decode(string[:1]):
-            count += self.numDecodings(string[1:])
+            if string[i] != 0:
+                if (decode(string[i:i + 2])):
+                    k = k_1 + k_2
+                else:
+                    k = k_1
+                k_2 = k_1
+                k_1 = k
+            else:
+                k_2 = k_1
+                k_1 = 0
 
-        if decode(string[:2]):
-            count += self.numDecodings(string[2:])
+        print(string, k)
+        return k
 
-        cache[string] = count
-        return count
+
+if __name__ == '__main__':
+    s = Solution()
+    assert s.numDecodings('0') == 0
+    assert s.numDecodings('9') == 1
+    assert s.numDecodings('40') == 0
+    assert s.numDecodings('10') == 1
+    assert s.numDecodings('11') == 2
+    assert s.numDecodings('440') == 0
+    assert s.numDecodings('110') == 1
+    assert s.numDecodings('229') == 2
+    assert s.numDecodings('111') == 3
