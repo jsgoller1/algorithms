@@ -64,12 +64,13 @@ for each char from third to last to first:
     if k-1 + k-2 == 0:
         return 0
     if not zero:
-        k = k-1 + k-2
+        k = k-1 + k-2 if decode(current + current-1), else k = k-1
         k-2 = k-1
         k-1 = k
     if zero:
         k-2 = k-1
         k-1 = 0
+        k = 0
 
 Some examples:
 1120 (decode as 1,1,20 and 11,20)
@@ -128,21 +129,6 @@ class Solution:
     def numDecodings(self, string):
         """
         Iterative, constant-space solution.
-        pseudocode:
-        k-2 = 1 if decode(second to last) and decode(last), else 0
-        k-1=1 if decode(last two) + k-2
-        for each char from third to last to first:
-            if k-1 + k-2 == 0:
-                return 0
-            if not zero:
-                k=k-1 + k-2
-                k-2=k-1
-                k-1=k
-            if zero:
-                k-2=k-1
-                k-1=0
-
-                return k
         """
 
         # Initialize
