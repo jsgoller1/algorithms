@@ -63,7 +63,8 @@ solve(idx):
     if word is valid at idx:
       add to valid parts
   for part in valid_parts:
-    solve(part)
+    if solve(part):
+      return True
   return False
 ----
 Execute
@@ -72,6 +73,7 @@ See below
 ----
 Review
 
+My current solution beats 58% of other solutions.
 """
 
 
