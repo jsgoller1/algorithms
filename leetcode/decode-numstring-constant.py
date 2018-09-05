@@ -126,9 +126,9 @@ def valid_decode(string):
 
 
 class Solution:
-    def numDecodings(self, string):
+    def numDecodings_bu(self, string):
         """
-        Iterative, constant-space solution.
+        Iterative, constant-space solution (bottom up).
         """
 
         # Initialize
@@ -163,6 +163,37 @@ class Solution:
                 k = 0
 
         return k
+
+    def numDecodings(self, string):
+        """
+        Iterative, constant-time solution (top-down). Starting instead with string[1], if string[i-1] is
+        '1' or '2' and string[i] is not '0', we count it as a valid 2-decoding. If string[i] isn't '0',
+        it counts as a valid 1 decoding. Then, just perform string[i] = string[i-1] + string[i-2].
+
+        Ex: 1223
+            1
+             2
+              3
+               5
+
+        Adopted from: https://leetcode.com/problems/decode-ways/discuss/30384/A-concise-dp-solution
+        """
+        if not string or string[0] == '0':
+            return 0
+
+        k_1 = 1
+        k_2 = 1
+        for i, char in enumerate(string[1:], 1):
+            if string[i] == '0':
+                k_1 = 0
+
+            if string[i - 1] == '1' or string[i-1] == '2' and 0 <= int(string[i]) <= 6:
+                k_1 = k_2 + k_1
+                k_2 = k_1 - k_2
+            else:
+                k_2 = k_1
+
+        return k_1
 
 
 if __name__ == '__main__':
