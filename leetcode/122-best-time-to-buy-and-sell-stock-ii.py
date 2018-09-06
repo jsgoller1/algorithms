@@ -102,7 +102,7 @@ if B, ?:
         B -> H
         ? -> B
     if B <= ?:
-        ? -> H
+        ? -> S
 if H, ?:
     if H >= ?:
         ? -> H
@@ -123,25 +123,6 @@ class Solution:
         """
         :type prices: List[int]
         :rtype: int
-if S, ?:
-    S > ?:
-        ? -> B
-    S <= ?:
-        S -> H
-        ? -> S
-if B, ?:
-    if B > ?:
-        B -> H
-        ? -> B
-    if B <= ?:
-        ? -> S
-if H, ?:
-    if H >= ?:
-        ? -> H
-    if H < ?
-        ? -> S
-
-if last item is B, swap to H
         """
         if len(prices) < 2:
             return 0
@@ -184,3 +165,4 @@ if __name__ == '__main__':
     assert s.maxProfit([5, 4, 1]) == 0
     assert s.maxProfit([1, 1, 1]) == 0
     assert s.maxProfit([1, 3, 3, 7]) == 6
+    assert s.maxProfit([7, 1, 5, 3, 6, 4]) == 7
