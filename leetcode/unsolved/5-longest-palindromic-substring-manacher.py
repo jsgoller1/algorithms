@@ -66,16 +66,17 @@ then the distance from the center of the second palindrome to the left bound of 
 is exactly equal to the distance from the center of the third palindrome to the right bound of the
 first palindrome.
 
-P1:   B A B Q Z Q B A B
-      |-|
-P2: Q B A B Q
-                    |-|
-P3:             Q B A B Q
+P1:     B A B Q Z Q B A B
+        |-|
+P2: Z Q B A B Q Z
+                      |-|
+P3:             Z Q B A B Q Z
 
-Explanation: In the above, P2's center is one character away from the left boundary of
-P1, and this implies that P3's center will be 1 character way from the right boundary of P1.
-I think this is only true if the center of P2 and P3 both fall within P1. Observe how
-the above case doesn't hold when the center falls outside of P1:
+Explanation: In the above, P2's center A is one character away from the left boundary B of
+P1, and this implies that P3's center A will be 1 character way from the right boundary B of P1.
+Note that as stated, this is only true if the center of P2 and P3 both fall within P1. Observe how
+the above case doesn't hold when P2 or P3's center falls outside of P1:
+
 P1:           B A B Q B A B
 P2:   B A Q A B
           |-2-|           |---3---|
@@ -87,6 +88,22 @@ right outermost character of the first palindrome would then be compared with it
 character about the center of the third palindrome, until there is no match or no more
 characters to compare.
 
+P1:     B A B Q Z Q B A B
+P3:             Z Q B A B Q Z
+                2 1   *   1 2
+                2 1       1 2
+
+Explanation: We do not know how long P3 is, but we know where its
+center is, annotated by *. We then walk from the right outermost
+character of P1, comparing with the equivalent character on the
+opposite side of P3. Note again that this fails if the center
+of P3 does not fall within P1 (as then we'd have no way of
+inferring where the end of P3 is outside of P1):
+
+P1:     B A B Q Z Q B A B
+P3:                   A B Q Z R D R Z Q B A
+                                *
+
 -----------------------------------
 (Case 3)
 
@@ -95,13 +112,16 @@ Neither the first nor second palindrome provides information
 to help determine the palindromic length of a fourth palindrome
 whose center is outside the right side of the first palindrome.
 
------------------------------------
-Observation #6
+P1:     B A B Q Z Q B A B
+P2:   Q B A B Q
+P3:                 B A B
+P4:                 B A B Z R D R Z B A B
 
+Observation #6
 It is therefore desirable to have a palindrome as a reference (i.e., the role of the first palindrome)
 that possesses characters farthest to the right in a string when determining from left to right the palindromic
 length of a substring in the string (and consequently, the third palindrome in Case 2 and the fourth palindrome
- in Case 3 could replace the first palindrome to become the new reference).
+in Case 3 could replace the first palindrome to become the new reference).
 
 -----------------------------------
 Observation #7
