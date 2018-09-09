@@ -69,6 +69,11 @@ We know that T[C+k] = T[C-k] for all k < R - C (all characters
 reflected across C are equal as long as they are between the
 rightmost boundary and the center.)
 
+Notice that since P[X] holds the radius of the longest palindrome
+at X, it is also the number of palindromes centered at X; each palindrome
+with P contains P many sub-palindromes. 2*P[X]-1 is the actual length
+of the longest palindrome.W
+
 ----
 Execute
 
