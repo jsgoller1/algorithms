@@ -12,6 +12,8 @@ List of started but unfinished problems
 - 862 - Shortest subarray with sum at least k
 - 516 - Longest palindromic subsequence
 - 309 - Best time to buy and sell stock with a cooldown
+- 15 - 3sum
+- 133 - clone graph
 - 5 - Longest palindromic substring. [HackerRank article](https://www.hackerrank.com/topics/manachers-algorithm)
 
 ### Misc.
