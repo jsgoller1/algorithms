@@ -7,3 +7,9 @@ See subfolders for specific details:
 * `exercism` - [Exercism](https://exercism.io/profiles/jsgoller1)
 * `hackerrank` - [HackerRank](https://www.hackerrank.com/jsgoller1)
 * `misc` - Problems from places other than the above
+
+## 2018 Goal
+One piece of advice I got during Bradfield's algorithms class was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
+Extending this advice to LeetCode in general, I am attempting to solve a total of 100 LeetCode problems in 2018, 20 of which are DP problems. Current progress:
+General **(8/80)**
+DP: **(5/20)**
