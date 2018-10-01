@@ -11,5 +11,7 @@ See subfolders for specific details:
 ## 2018 Goal
 One piece of advice I got during Bradfield's algorithms class was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 Extending this advice to LeetCode in general, I am attempting to solve a total of 100 LeetCode problems in 2018, 20 of which are DP problems. Current progress:
+
 General **(8/80)**
+
 DP: **(5/20)**
