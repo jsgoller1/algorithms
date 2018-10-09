@@ -6,8 +6,6 @@ List of started but unfinished problems
 - 743 - Network delay time
 - 79 - Word search
 - 797 - All paths from source to target
-- 789 - Escape ghosts
-- 867 - Transpose matrix
 - 151 - Reverse words in string
 - 862 - Shortest subarray with sum at least k
 - 516 - Longest palindromic subsequence
