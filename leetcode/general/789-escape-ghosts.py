@@ -67,6 +67,8 @@ See code below
 Review
 
 Read these LeetCode discussions:
+https://leetcode.com/problems/escape-the-ghosts/discuss/116511/Short-with-explanation-python
+https://leetcode.com/problems/escape-the-ghosts/discuss/116678/Why-interception-in-the-middle-is-not-a-good-idea-for-ghosts.
 """
 
 
