@@ -52,6 +52,7 @@ Viewed the following discussions:
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -66,14 +67,18 @@ static size_t left_shift_string(char *s, size_t len, size_t dst_i, size_t src_i)
 
   if (src_i < dst_i)
   {
+    /*
     printf("left_shift_string() | illegal src (%lu) and dst (%lu) indices; src must be greater than dst.\n", src_i, dst_i);
+    */
     return len;
   }
 
   if (!(((0 < src_i) && (src_i < len)) && ((0 <= dst_i) && (dst_i < len))))
   {
+    /*
     printf("left_shift_string() | given src (%lu) and dst (%lu) would violate string boundaries.\n", src_i, dst_i);
     printf("left_shift_string() | %s. (%lu)\n", s, len);
+    */
     return len;
   }
 
@@ -95,7 +100,7 @@ static size_t strip_leading_spaces(char *s, size_t len)
 {
   size_t true_start = 0;
   size_t i = 0;
-  while (*(s + i) == ' ')
+  while (isspace(*(s + i)))
   {
     true_start++;
     i++;
@@ -111,16 +116,20 @@ static size_t strip_middle_spaces(char *s, size_t len)
   while (s[i] != '\0' && i < len)
   {
     // Find first whitespace
-    while (s[i++] != ' ')
+    while (!(isspace(s[i])))
     {
+      i++;
     }
 
-    // Count following whitespaces
+    // Count following whitespaces, preserving one
+    i++;
     size_t k = i;
-    while (s[++k] == ' ')
+    while (isspace(s[k]))
     {
+      k++;
     }
 
+    // Left shift substring to remove whitespace
     len = left_shift_string(s, len, i, k);
   }
   return len;
@@ -128,7 +137,7 @@ static size_t strip_middle_spaces(char *s, size_t len)
 
 static size_t strip_trailing_spaces(char *const s, size_t len)
 {
-  while (*(s + len - 1) == ' ')
+  while (isspace(*(s + len - 1)))
   {
     len--;
   }
@@ -159,7 +168,6 @@ static void reverse_words(char *const s, const size_t len)
     // find whitespace between words
     while (isalnum(s[start + end]))
     {
-      //printf("Skipping %c, end = %lu\n", s[start + end], end);
       end++;
     }
 
@@ -169,7 +177,6 @@ static void reverse_words(char *const s, const size_t len)
     // Advance starting point, reset end
     start += end + 1;
     end = 0;
-    //printf("String: %s\n", s);
   }
 }
 
@@ -177,28 +184,23 @@ static void reverseWords(char *s)
 {
   size_t len = strlen(s);
   len = strip_leading_spaces(s, len);
-  printf("Stripped leading: %s.\n", s);
   len = strip_trailing_spaces(s, len);
-  printf("Stripped trailing: %s.\n", s);
   len = strip_middle_spaces(s, len);
-  printf("Stripped middle: %s.\n", s);
-
   reverse(s, len);
   reverse_words(s, len);
 }
 
 int main()
 {
-  // basic smoke test
-  char string1[] = "    the     sky     is    blue   ";
-  char string2[] = "blue is sky the";
-  reverseWords(string1);
-  if (strcmp(string1, string2) != 0)
+  // "    the     sky     is    blue   ";
+  size_t size;
+  char *string = NULL;
+  while (getline(&string, &size, stdin) != -1)
   {
-    printf("Got: %s.\nExpected: %s.\n", string1, string2);
-    return -1;
+    reverseWords(string);
+    printf("%s\n", string);
   }
 
-  printf("Correctly reversed strings.\n");
+  free(string);
   return 0;
 }
