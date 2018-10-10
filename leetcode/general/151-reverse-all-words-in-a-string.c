@@ -53,6 +53,7 @@ Viewed the following discussions:
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 static size_t left_shift_string(char *s, size_t len, size_t dst_i, size_t src_i)
 {
@@ -103,28 +104,6 @@ static size_t strip_leading_spaces(char *s, size_t len)
   return new_len;
 }
 
-static void reverse(char *const s, const size_t len)
-{
-  size_t i = 0;
-  size_t j = len - 1;
-  char tmp = '\0';
-  while (i < j)
-  {
-    //printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
-    tmp = s[i];
-    s[i] = s[j];
-    s[j] = tmp;
-    i++;
-    j--;
-  }
-}
-
-static void reverse_words(char *const s, const size_t len)
-{
-  (void)s;
-  (void)len;
-}
-
 static size_t strip_middle_spaces(char *s, size_t len)
 {
   for (size_t i = 0; i < len; i++)
@@ -155,14 +134,52 @@ static size_t strip_trailing_spaces(char *const s, size_t len)
   return len;
 }
 
+static void reverse(char *const s, const size_t len)
+{
+  size_t i = 0;
+  size_t j = len - 1;
+  char tmp = '\0';
+  while (i < j)
+  {
+    printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
+    tmp = s[i];
+    s[i] = s[j];
+    s[j] = tmp;
+    i++;
+    j--;
+  }
+}
+
+static void reverse_words(char *const s, const size_t len)
+{
+  for (size_t start = 0, end = 0; start < len;)
+  {
+    // find whitespace between words
+    while (isalnum(s[start + end]))
+    {
+      printf("Skipping %c, end = %lu\n", s[start + end], end);
+      end++;
+    }
+
+    // Reverse word
+    reverse(s + start, end);
+
+    // Advance starting point, reset end
+    start += end + 1;
+    end = 0;
+    printf("String: %s\n", s);
+  }
+}
+
 static void reverseWords(char *s)
 {
   size_t len = strlen(s);
   len = strip_leading_spaces(s, len);
   len = strip_middle_spaces(s, len);
   len = strip_trailing_spaces(s, len);
-  printf("Stripped: %s.\n", s);
+  printf("Stripped: %s.\n\n", s);
   reverse(s, len);
+  printf("Reversed: %s.\n\n", s);
   reverse_words(s, len);
 }
 
