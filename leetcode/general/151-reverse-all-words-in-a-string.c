@@ -22,7 +22,11 @@ output: string, modified correctly so it is reversed and has no superfluous spac
 
 
 Compile with:
-clang -std=c11 -g -Weverything -Werror 151-reverse-all-words-in-a-string.c -o ../../bin/151.bin && ../../bin/151.bin
+clang -std=c11 -g -Weverything -Werror 151-reverse-all-words-in-a-string.c -o ../../bin/151.bin
+
+Test with:
+tests/151-test.sh
+
 ----
 Understand / Plan
 
@@ -67,18 +71,14 @@ static size_t left_shift_string(char *s, size_t len, size_t dst_i, size_t src_i)
 
   if (src_i < dst_i)
   {
-    /*
-    printf("left_shift_string() | illegal src (%lu) and dst (%lu) indices; src must be greater than dst.\n", src_i, dst_i);
-    */
+    //fprintf(stderr, "left_shift_string() | illegal src (%lu) and dst (%lu) indices; src must be greater than dst.\n", src_i, dst_i);
     return len;
   }
 
   if (!(((0 < src_i) && (src_i < len)) && ((0 <= dst_i) && (dst_i < len))))
   {
-    /*
-    printf("left_shift_string() | given src (%lu) and dst (%lu) would violate string boundaries.\n", src_i, dst_i);
-    printf("left_shift_string() | %s. (%lu)\n", s, len);
-    */
+    //fprintf(stderr, "left_shift_string() | given src (%lu) and dst (%lu) would violate string boundaries.\n", src_i, dst_i);
+    //fprintf(stderr, "left_shift_string() | %s. (%lu)\n", s, len);
     return len;
   }
 
@@ -147,12 +147,17 @@ static size_t strip_trailing_spaces(char *const s, size_t len)
 
 static void reverse(char *const s, const size_t len)
 {
+  if (len == 0)
+  {
+    return;
+  }
+
   size_t i = 0;
   size_t j = len - 1;
   char tmp = '\0';
   while (i < j)
   {
-    // printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
+    //printf("Swapping s[%lu] (%c) and s[%lu] (%c) [len = %lu]\n", i, s[i], j, s[j], len);
     tmp = s[i];
     s[i] = s[j];
     s[j] = tmp;
@@ -166,7 +171,7 @@ static void reverse_words(char *const s, const size_t len)
   for (size_t start = 0, end = 0; start < len;)
   {
     // find whitespace between words
-    while (isalnum(s[start + end]))
+    while (!(isspace(s[start + end]) || (s[start + end] == '\0')))
     {
       end++;
     }
@@ -192,7 +197,6 @@ static void reverseWords(char *s)
 
 int main()
 {
-  // "    the     sky     is    blue   ";
   size_t size;
   char *string = NULL;
   while (getline(&string, &size, stdin) != -1)
