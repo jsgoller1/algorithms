@@ -73,6 +73,7 @@ static size_t left_shift_string(char *s, size_t len, size_t dst_i, size_t src_i)
   if (!(((0 < src_i) && (src_i < len)) && ((0 <= dst_i) && (dst_i < len))))
   {
     printf("left_shift_string() | given src (%lu) and dst (%lu) would violate string boundaries.\n", src_i, dst_i);
+    printf("left_shift_string() | %s. (%lu)\n", s, len);
     return len;
   }
 
@@ -106,7 +107,8 @@ static size_t strip_leading_spaces(char *s, size_t len)
 
 static size_t strip_middle_spaces(char *s, size_t len)
 {
-  for (size_t i = 0; i < len; i++)
+  size_t i = 0;
+  while (s[i] != '\0' && i < len)
   {
     // Find first whitespace
     while (s[i++] != ' ')
@@ -141,7 +143,7 @@ static void reverse(char *const s, const size_t len)
   char tmp = '\0';
   while (i < j)
   {
-    printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
+    // printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
     tmp = s[i];
     s[i] = s[j];
     s[j] = tmp;
@@ -157,7 +159,7 @@ static void reverse_words(char *const s, const size_t len)
     // find whitespace between words
     while (isalnum(s[start + end]))
     {
-      printf("Skipping %c, end = %lu\n", s[start + end], end);
+      //printf("Skipping %c, end = %lu\n", s[start + end], end);
       end++;
     }
 
@@ -167,7 +169,7 @@ static void reverse_words(char *const s, const size_t len)
     // Advance starting point, reset end
     start += end + 1;
     end = 0;
-    printf("String: %s\n", s);
+    //printf("String: %s\n", s);
   }
 }
 
@@ -175,11 +177,13 @@ static void reverseWords(char *s)
 {
   size_t len = strlen(s);
   len = strip_leading_spaces(s, len);
-  len = strip_middle_spaces(s, len);
+  printf("Stripped leading: %s.\n", s);
   len = strip_trailing_spaces(s, len);
-  printf("Stripped: %s.\n\n", s);
+  printf("Stripped trailing: %s.\n", s);
+  len = strip_middle_spaces(s, len);
+  printf("Stripped middle: %s.\n", s);
+
   reverse(s, len);
-  printf("Reversed: %s.\n\n", s);
   reverse_words(s, len);
 }
 
