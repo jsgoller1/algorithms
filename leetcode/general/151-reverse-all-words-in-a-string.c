@@ -108,11 +108,14 @@ static void reverse(char *const s, const size_t len)
   size_t i = 0;
   size_t j = len - 1;
   char tmp = '\0';
-  while (i++ < j--)
+  while (i < j)
   {
+    //printf("Swapping s[%lu] (%c) and s[%lu] (%c)\n", i, s[i], j, s[j]);
     tmp = s[i];
     s[i] = s[j];
     s[j] = tmp;
+    i++;
+    j--;
   }
 }
 
@@ -122,9 +125,23 @@ static void reverse_words(char *const s, const size_t len)
   (void)len;
 }
 
-static size_t strip_middle_spaces(char *const s, size_t len)
+static size_t strip_middle_spaces(char *s, size_t len)
 {
-  (void)s;
+  for (size_t i = 0; i < len; i++)
+  {
+    // Find first whitespace
+    while (s[i++] != ' ')
+    {
+    }
+
+    // Count following whitespaces
+    size_t k = i;
+    while (s[++k] == ' ')
+    {
+    }
+
+    len = left_shift_string(s, len, i, k);
+  }
   return len;
 }
 
