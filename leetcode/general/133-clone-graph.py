@@ -34,6 +34,7 @@ Review
 Looked at the following discussion posts:
 -
 """
+import collections
 
 
 class UndirectedGraphNode:
@@ -43,6 +44,10 @@ class UndirectedGraphNode:
 
 
 def deserialize_graph(serialized_str):
+    """
+    Convert a graph string in the given format to
+    an in-memory representation
+    """
     serialized_str = serialized_str.strip('{').strip('}')
     serialized_nodes = serialized_str.split('#')
     nodes = {}
@@ -66,6 +71,30 @@ def deserialize_graph(serialized_str):
     return nodes[list(nodes.keys())[0]]
 
 
+def serialize_graph(node):
+    """
+    Convert an in-memory graph to a serialized
+    string representation by DFSing entire graph
+    """
+    visited = []
+    nodestrings = []
+    q = collections.deque([node])
+    while q:
+        current = q.popleft()
+        if current in visited:
+            continue
+        else:
+            visited.append(current)
+
+        nodestring = str(current.label)
+        for neighbor in current.neighbors:
+            nodestring += "," + str(neighbor.label)
+            q.append(neighbor)
+        nodestrings.append(nodestring)
+
+    return '{' + ("#".join(nodestrings)) + '}'
+
+
 class Solution:
     # @param node, a undirected graph node
     # @return a undirected graph node
@@ -75,6 +104,7 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    graph = deserialize_graph("{0,1,2#1,2#2,2}")
-    print(graph)
-    s.cloneGraph(graph)
+    expected = "{0,1,2#1,2#2,2}"
+    actual = serialize_graph(deserialize_graph(expected))
+    print(actual, expected)
+    assert actual == expected
