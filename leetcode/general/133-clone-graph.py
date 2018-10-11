@@ -31,7 +31,12 @@ See code below
 -----------------
 Review
 
+My first attempt worked but only faster than 2% of the solutions,
+and I think it's due to the two-pass algorithm I used. I think
+that if we DFS but keep a visited set, we might be able to do better
+
 Looked at the following discussion posts:
+https://leetcode.com/problems/clone-graph/discuss/42309/Depth-First-Simple-Java-Solution
 -
 """
 import collections
@@ -97,9 +102,30 @@ def serialize_graph(node):
     return '{' + ("#".join(nodestrings)) + '}'
 
 
-class Solution:
+cclass Solution:
     # @param node, a undirected graph node
     # @return a undirected graph node
+    def __init__(self):
+        self.visited = set()
+        self.created = {}
+
+    def dfs_copy(self, old_node, new_node):
+        if old_node in self.visited:
+            return
+        self.visited.add(old_node)
+
+        for old_neighbor in old_node.neighbors:
+            if old_neighbor == old_node:
+                new_node.neighbors.append(new_node)
+            else:
+                if old_neighbor.label in self.created:
+                    new_neighbor = self.created[old_neighbor.label]
+                else:
+                    new_neighbor = UndirectedGraphNode(old_neighbor.label)
+                    self.created[old_neighbor.label] = new_neighbor
+                new_node.neighbors.append(new_neighbor)
+                self.dfs_copy(old_neighbor, new_neighbor)
+
     def cloneGraph(self, node):
         """
         Clone graph via BFS and fixup
@@ -108,41 +134,17 @@ class Solution:
             return
 
         # BFS to produce dict of new nodes
-        visited = []
-        new_graph = {}
-        q = collections.deque([node])
-        while q:
-            current = q.popleft()
-            if current in visited:
-                continue
-            else:
-                visited.append(current)
-                for neighbor in current.neighbors:
-                    q.append(neighbor)
-
-            new_graph[current.label] = UndirectedGraphNode(current.label)
-            new_graph[current.label].neighbors = [
-                neighbor.label for neighbor in current.neighbors]
-
-        # Fix up neighbors
-        for node_id in new_graph.keys():
-            current = new_graph[node_id]
-            actual_neighbors = []
-            for neighbor_id in current.neighbors:
-                actual_neighbors.append(new_graph[neighbor_id])
-            current.neighbors = actual_neighbors
-
-        # Return the copy of the original node
-        return new_graph[node.label]
-
+        new_root = UndirectedGraphNode(node.label)
+        self.dfs_copy(node, new_root)
+        return new_root
 
 if __name__ == '__main__':
     s = Solution()
     # expected = "{0,1,2#1,2#2,2}"
     expected = '{-1,1#1}'
-    actual = serialize_graph(deserialize_graph(expected))
-    print(actual)
-    assert actual == expected
+    #actual = serialize_graph(deserialize_graph(expected))
+    # print(actual)
+    #assert actual == expected
 
     graph1 = deserialize_graph(expected)
     graph2 = s.cloneGraph(graph1)
