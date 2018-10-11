@@ -55,8 +55,10 @@ def deserialize_graph(serialized_str):
     # Create nodes in dictionary
     for serialized_node in serialized_nodes:
         node_ids = serialized_node.split(',')
+        print("Evaluated node " + node_ids[0])
         node = UndirectedGraphNode(node_ids[0])
         node.neighbors = node_ids[1:]
+        print(node_ids, node.neighbors)
         nodes[node_ids[0]] = node
 
     # Fix up labels
@@ -74,7 +76,7 @@ def deserialize_graph(serialized_str):
 def serialize_graph(node):
     """
     Convert an in-memory graph to a serialized
-    string representation by DFSing entire graph
+    string representation by BFSing entire graph
     """
     visited = []
     nodestrings = []
@@ -99,12 +101,51 @@ class Solution:
     # @param node, a undirected graph node
     # @return a undirected graph node
     def cloneGraph(self, node):
-        return node
+        """
+        Clone graph via BFS and fixup
+        """
+        if node == None:
+            return
+
+        # BFS to produce dict of new nodes
+        visited = []
+        new_graph = {}
+        q = collections.deque([node])
+        while q:
+            current = q.popleft()
+            if current in visited:
+                continue
+            else:
+                visited.append(current)
+                for neighbor in current.neighbors:
+                    q.append(neighbor)
+
+            new_graph[current.label] = UndirectedGraphNode(current.label)
+            new_graph[current.label].neighbors = [
+                neighbor.label for neighbor in current.neighbors]
+
+        # Fix up neighbors
+        for node_id in new_graph.keys():
+            current = new_graph[node_id]
+            actual_neighbors = []
+            for neighbor_id in current.neighbors:
+                actual_neighbors.append(new_graph[neighbor_id])
+            current.neighbors = actual_neighbors
+
+        # Return the copy of the original node
+        return new_graph[node.label]
 
 
 if __name__ == '__main__':
     s = Solution()
-    expected = "{0,1,2#1,2#2,2}"
+    # expected = "{0,1,2#1,2#2,2}"
+    expected = '{-1,1#1}'
     actual = serialize_graph(deserialize_graph(expected))
-    print(actual, expected)
+    print(actual)
     assert actual == expected
+
+    graph1 = deserialize_graph(expected)
+    graph2 = s.cloneGraph(graph1)
+    s_graph2 = serialize_graph(graph2)
+    print(s_graph2)
+    assert s_graph2 == expected
