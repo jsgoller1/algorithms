@@ -35,7 +35,27 @@ postorder(node):
   print(node.value)
 
 Tree traversal is O(N) for a tree of N nodes.
+
+Iteration solution:
+In some way, iteration and recursion here are the same solution,
+except that with iteration we explicitly use a stack whereas recursion
+implicitly uses a call stack.
+
+For the iterative example:
+  postorder(node):
+    stack = []
+    while(stack):
+
 ----
+Execute
+
+See below
+----
+Review
+
+The recursive version of this was _super_ easy - I implemented it very quickly.
+I chatted with a friend about why this would be "hard" and he asked
+"can you use a stack?" I decided to give the stack solution a try.
 """
 
 # Definition for a binary tree node.
@@ -54,8 +74,12 @@ class Solution(object):
         self.traverse(root)
         return self.traversal
 
+    # Interative version
+    def traverse(root):
+        stack = []
+
     # "Trivial" (according to LC) recursive solution
-    def traverse(self, root):
+    def traverse_recursive(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
