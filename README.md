@@ -12,9 +12,10 @@ See subfolders for specific details:
 One piece of advice I got during Bradfield's algorithms class was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 Extending this advice to LeetCode in general, I am attempting to solve a total of 100 LeetCode problems in 2018, 20 of which are DP problems. Current progress:
 
-### General (15/80)
+### General (16/80)
   - Looked at solution for #894
   - #133 was only faster than 16% of solutions and should be optimized
+  - A linear space solution exists for #665
 
 ### DP: (6/20)
   - Looked at solution for #790
