@@ -34,20 +34,27 @@ There are three possibilities:
 - the most efficient number of changes involves increasing one value
 in the array, i.e [1,2,3,0]
 - the most efficient number of changes involves decreasing one value
-in the array, i.e [3,2,3,4]
+in the array, i.e [7,2,3,4]
 - the array requires more than one change to make into a non-decreasing
 array: [3,2,3,2]
 
+We can catch the first case by going L-to-R and setting R to L if
+R < L, and the second case by going R-to-L and setting L to R if
+L is greater than R; we have to do both though - if nums[0] is max(nums),
+the L to R run will try to set every value to the right of R when all we need
+to do is lower nums[0]; the same occurs for the R to L approach. Then, having
+kept track of how many changes we made, return whether either of them were 1 or less.
 
-
+There is a more complicated constant-space solution, but this one beats 97% of other
+Golang solutions.
 */
 package main
 
 import (
 	"fmt"
-	"math"
 )
 
+// O(n) space and time solution
 func checkPossibility(nums []int) bool {
 	var rToLChanges int
 	var lToRChanges int
@@ -68,7 +75,7 @@ func checkPossibility(nums []int) bool {
 		}
 	}
 
-	return math.Min(float64(rToLChanges), float64(lToRChanges)) <= 1.0
+	return rToLChanges <= 1 || lToRChanges <= 1
 }
 
 func main() {
@@ -77,9 +84,9 @@ func main() {
 	c := [4]int{3, 4, 2, 3}
 	d := [5]int{1, 2, 5, 3, 3}
 
-	fmt.Println(checkPossibility(a[:]))
-	fmt.Println(checkPossibility(b[:]))
-	fmt.Println(checkPossibility(c[:]))
-	fmt.Println(checkPossibility(d[:]))
+	fmt.Println(checkPossibility(a[:]) == true)
+	fmt.Println(checkPossibility(b[:]) == false)
+	fmt.Println(checkPossibility(c[:]) == false)
+	fmt.Println(checkPossibility(d[:]) == true)
 
 }
