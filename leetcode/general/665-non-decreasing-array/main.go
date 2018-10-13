@@ -62,13 +62,12 @@ func checkPossibility(nums []int) bool {
 	}
 
 	for i := len(rToLNums) - 1; i > 0; i-- {
-		if rToLNums[i-1] >= rToLNums[i] {
-			rToLNums[i-1] = rToLNums[i] - 1
+		if rToLNums[i-1] > rToLNums[i] {
+			rToLNums[i-1] = rToLNums[i]
 			rToLChanges++
 		}
 	}
 
-	// fmt.Println(lToRChanges, rToLChanges)
 	return math.Min(float64(rToLChanges), float64(lToRChanges)) <= 1.0
 }
 
@@ -76,8 +75,11 @@ func main() {
 	a := [3]int{4, 2, 3}
 	b := [3]int{4, 2, 1}
 	c := [4]int{3, 4, 2, 3}
+	d := [5]int{1, 2, 5, 3, 3}
 
 	fmt.Println(checkPossibility(a[:]))
 	fmt.Println(checkPossibility(b[:]))
 	fmt.Println(checkPossibility(c[:]))
+	fmt.Println(checkPossibility(d[:]))
+
 }
