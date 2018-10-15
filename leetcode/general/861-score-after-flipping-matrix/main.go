@@ -173,16 +173,11 @@ func flipCol(pMatrix *[][]int, col int) {
 }
 
 func shouldFlipCol(pMatrix *[][]int, col int) bool {
-	score, opposite := 0, 0
-	matrix := *pMatrix
-	for _, row := range matrix {
-		if row[col] == 1 {
-			score++
-		} else {
-			opposite++
-		}
+	score := 0
+	for _, row := range *pMatrix {
+		score += row[col]
 	}
-	return score < opposite
+	return float64(score) < float64(len(*pMatrix))/float64(2) // make odd-len arrays return a half value instead of rounding down
 }
 
 func matrixScore(matrix [][]int) int {
