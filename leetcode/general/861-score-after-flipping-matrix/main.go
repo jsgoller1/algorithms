@@ -131,11 +131,16 @@ import (
 // TODO: Each of these functions that crunch matrix values
 // can be done in parallel with goroutines, I think
 
+func printMatrix(pMatrix *[][]int) {
+	for _, row := range *pMatrix {
+		fmt.Println(row)
+	}
+}
+
 func calculateScore(pMatrix *[][]int) int {
 	var score int
 	matrix := *pMatrix
 	for _, row := range matrix {
-		// fmt.Println(row)
 		for i, col := range row {
 			if col == 1 {
 				score += 1 << uint(len(matrix[0])-i-1)
@@ -162,9 +167,9 @@ func shouldFlipRow(pMatrix *[][]int, row int) bool {
 	matrix := *pMatrix
 	for i, col := range matrix[row] {
 		if col == 1 {
-			score += ((len(matrix[row]) - 1) - i)
+			score += 1 << uint(((len(matrix[row]) - 1) - i))
 		} else {
-			opposite += ((len(matrix[row]) - 1) - i)
+			opposite += 1 << uint(((len(matrix[row]) - 1) - i))
 		}
 	}
 	return score < opposite
@@ -195,21 +200,21 @@ func flipCol(pMatrix *[][]int, col int) {
 func shouldFlipCol(pMatrix *[][]int, col int) bool {
 	score, opposite := 0, 0
 	matrix := *pMatrix
-	for i, row := range matrix {
+	for _, row := range matrix {
 		if row[col] == 1 {
-			score += ((len(matrix) - 1) - i)
+			score++
 		} else {
-			opposite += ((len(matrix) - 1) - i)
+			opposite++
 		}
 	}
 	return score < opposite
 }
 
-func checkCols(pA *[][]int) bool {
+func checkCols(pMatrix *[][]int) bool {
 	flipped := false
-	for i := range (*pA)[0] {
-		if shouldFlipCol(pA, i) {
-			flipCol(pA, i)
+	for i := range (*pMatrix)[0] {
+		if shouldFlipCol(pMatrix, i) {
+			flipCol(pMatrix, i)
 			flipped = true
 		}
 	}
@@ -225,6 +230,8 @@ func matrixScore(matrix [][]int) int {
 }
 
 func main() {
-	var matrix = [][]int{[]int{0, 0, 1, 1}, []int{1, 0, 1, 0}, []int{1, 1, 0, 0}}
+	// var matrix = [][]int{[]int{0, 0, 1, 1}, []int{1, 0, 1, 0}, []int{1, 1, 0, 0}}
+	// var matrix = [][]int{[]int{0}}
+	var matrix = [][]int{[]int{0, 1, 1}, []int{1, 1, 1}, []int{0, 1, 0}}
 	fmt.Printf("Matrix score: %d\n", matrixScore(matrix))
 }
