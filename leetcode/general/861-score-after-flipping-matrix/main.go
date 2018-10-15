@@ -135,7 +135,12 @@ func calculateScore(pMatrix *[][]int) int {
 	var score int
 	matrix := *pMatrix
 	for _, row := range matrix {
-		fmt.Println(row)
+		// fmt.Println(row)
+		for i, col := range row {
+			if col == 1 {
+				score += 1 << uint(len(matrix[0])-i-1)
+			}
+		}
 	}
 
 	return score
@@ -157,9 +162,9 @@ func shouldFlipRow(pMatrix *[][]int, row int) bool {
 	matrix := *pMatrix
 	for i, col := range matrix[row] {
 		if col == 1 {
-			score += (len(matrix[row]) - i)
+			score += ((len(matrix[row]) - 1) - i)
 		} else {
-			opposite += (len(matrix[row]) - i)
+			opposite += ((len(matrix[row]) - 1) - i)
 		}
 	}
 	return score < opposite
@@ -192,9 +197,9 @@ func shouldFlipCol(pMatrix *[][]int, col int) bool {
 	matrix := *pMatrix
 	for i, row := range matrix {
 		if row[col] == 1 {
-			score += (len(matrix) - i)
+			score += ((len(matrix) - 1) - i)
 		} else {
-			opposite += (len(matrix) - i)
+			opposite += ((len(matrix) - 1) - i)
 		}
 	}
 	return score < opposite
