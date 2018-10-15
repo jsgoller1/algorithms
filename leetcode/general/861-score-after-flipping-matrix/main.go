@@ -167,9 +167,9 @@ func shouldFlipRow(pMatrix *[][]int, row int) bool {
 	matrix := *pMatrix
 	for i, col := range matrix[row] {
 		if col == 1 {
-			score += 1 << uint(((len(matrix[row]) - 1) - i))
+			score += int(math.Exp2(float64(len(matrix[row]) - i - 1)))
 		} else {
-			opposite += 1 << uint(((len(matrix[row]) - 1) - i))
+			opposite += int(math.Exp2(float64(len(matrix[row]) - i - 1)))
 		}
 	}
 	return score < opposite
