@@ -130,7 +130,6 @@ import (
 
 // TODO: Each of these functions that crunch matrix values
 // can be done in parallel with goroutines, I think
-
 func printMatrix(pMatrix *[][]int) {
 	for _, row := range *pMatrix {
 		fmt.Println(row)
@@ -175,17 +174,6 @@ func shouldFlipRow(pMatrix *[][]int, row int) bool {
 	return score < opposite
 }
 
-func checkRows(pMatrix *[][]int) bool {
-	flipped := false
-	for i := range *pMatrix {
-		if shouldFlipRow(pMatrix, i) {
-			flipRow(pMatrix, i)
-			flipped = true
-		}
-	}
-	return flipped
-}
-
 func flipCol(pMatrix *[][]int, col int) {
 	matrix := *pMatrix
 	for i := range matrix {
@@ -210,28 +198,39 @@ func shouldFlipCol(pMatrix *[][]int, col int) bool {
 	return score < opposite
 }
 
-func checkCols(pMatrix *[][]int) bool {
-	flipped := false
-	for i := range (*pMatrix)[0] {
-		if shouldFlipCol(pMatrix, i) {
-			flipCol(pMatrix, i)
-			flipped = true
+func matrixScore(matrix [][]int) int {
+	continueChecking := true
+	for continueChecking {
+		continueChecking = false
+
+		// Attempt to optimize columns;
+		// continue checking if we flip one
+		for i := range matrix[0] {
+			if shouldFlipCol(&matrix, i) {
+				flipCol(&matrix, i)
+				continueChecking = true
+			}
+		}
+
+		// Attempt to optimize rows;
+		// continue checking if we flip one
+		for i := range matrix {
+			if shouldFlipRow(&matrix, i) {
+				flipRow(&matrix, i)
+				continueChecking = true
+			}
 		}
 	}
-	return flipped
-}
 
-func matrixScore(matrix [][]int) int {
-	for checkRows(&matrix) || checkCols(&matrix) {
-		// continue checking rows and columns
-		// until no flips occur in either
-	}
 	return calculateScore(&matrix)
 }
 
 func main() {
-	// var matrix = [][]int{[]int{0, 0, 1, 1}, []int{1, 0, 1, 0}, []int{1, 1, 0, 0}}
-	// var matrix = [][]int{[]int{0}}
-	var matrix = [][]int{[]int{0, 1, 1}, []int{1, 1, 1}, []int{0, 1, 0}}
-	fmt.Printf("Matrix score: %d\n", matrixScore(matrix))
+	var matrix1 = [][]int{[]int{0, 0, 1, 1}, []int{1, 0, 1, 0}, []int{1, 1, 0, 0}}
+	var matrix2 = [][]int{[]int{0}}
+	var matrix3 = [][]int{[]int{0, 1, 1}, []int{1, 1, 1}, []int{0, 1, 0}}
+	fmt.Printf("Matrix score: %d\n", matrixScore(matrix1))
+	fmt.Printf("Matrix score: %d\n", matrixScore(matrix2))
+	fmt.Printf("Matrix score: %d\n", matrixScore(matrix3))
+
 }
