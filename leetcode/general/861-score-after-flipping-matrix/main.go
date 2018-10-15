@@ -126,6 +126,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 // TODO: Each of these functions that crunch matrix values
@@ -142,7 +143,7 @@ func calculateScore(pMatrix *[][]int) int {
 	for _, row := range matrix {
 		for i, col := range row {
 			if col == 1 {
-				score += 1 << uint(len(matrix[0])-i-1)
+				score += int(math.Exp2(float64(len(row) - i - 1)))
 			}
 		}
 	}
