@@ -154,35 +154,21 @@ func calculateScore(pMatrix *[][]int) int {
 func flipRow(pMatrix *[][]int, row int) {
 	matrix := *pMatrix
 	for col := range matrix[row] {
-		if matrix[row][col] == 1 {
-			matrix[row][col] = 0
-		} else {
-			matrix[row][col] = 1
-		}
+		matrix[row][col] = 1 - matrix[row][col]
 	}
 }
 
 func shouldFlipRow(pMatrix *[][]int, row int) bool {
-	score, opposite := 0, 0
-	matrix := *pMatrix
-	for i, col := range matrix[row] {
-		if col == 1 {
-			score += int(math.Exp2(float64(len(matrix[row]) - i - 1)))
-		} else {
-			opposite += int(math.Exp2(float64(len(matrix[row]) - i - 1)))
-		}
-	}
-	return score < opposite
+	// you can only increase a row's value if the first
+	// bit is unset; otherwise you can never increase it by
+	// flipping
+	return (*pMatrix)[row][0] == 0
 }
 
 func flipCol(pMatrix *[][]int, col int) {
 	matrix := *pMatrix
 	for i := range matrix {
-		if matrix[i][col] == 1 {
-			matrix[i][col] = 0
-		} else {
-			matrix[i][col] = 1
-		}
+		matrix[i][col] = 1 - matrix[i][col]
 	}
 }
 
@@ -205,11 +191,13 @@ func matrixScore(matrix [][]int) int {
 		continueChecking = false
 
 		// Attempt to optimize columns;
-		// continue checking if we flip one
+		// this will leave the columns
+		// in an optimized state and we
+		// are unconditionally checking rows after
+		// so we needn't toggle continueChecking
 		for i := range matrix[0] {
 			if shouldFlipCol(&matrix, i) {
 				flipCol(&matrix, i)
-				continueChecking = true
 			}
 		}
 
