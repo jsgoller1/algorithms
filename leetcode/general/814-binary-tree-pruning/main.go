@@ -108,15 +108,29 @@ func pruneTree(root *TreeNode) *TreeNode {
 }
 
 func main() {
-	node := &TreeNode{1, nil, nil}
-	node.Left = &TreeNode{1, nil, nil}
-	node.Left.Right = &TreeNode{0, nil, nil} // should be removed
-	node.Left.Left = &TreeNode{1, nil, nil}
-	node.Right = &TreeNode{0, nil, nil}       // should be removed
-	node.Right.Right = &TreeNode{0, nil, nil} // should be removed
-	dfs(node)
-	pruneTree(node)
-	fmt.Println("--------")
-	dfs(node)
 
+	// Full tree
+	node1 := &TreeNode{1, nil, nil}
+	node1.Left = &TreeNode{0, nil, nil}
+	node1.Left.Right = &TreeNode{0, nil, nil} // should be removed
+	node1.Left.Left = &TreeNode{1, nil, nil}
+	node1.Right = &TreeNode{0, nil, nil}       // should be removed
+	node1.Right.Right = &TreeNode{0, nil, nil} // should be removed
+
+	// Null tree
+	var node2 *TreeNode
+
+	// One node tree
+	node3 := &TreeNode{0, nil, nil}
+
+	testCases := []*TreeNode{node1, node2, node3}
+	for _, node := range testCases {
+		fmt.Println("Unpruned:")
+		dfs(node)
+		pruneTree(node)
+		fmt.Println("Pruned:")
+		dfs(node)
+		fmt.Println("--------")
+
+	}
 }
