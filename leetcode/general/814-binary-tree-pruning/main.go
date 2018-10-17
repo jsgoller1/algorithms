@@ -73,11 +73,24 @@ Review
 */
 package main
 
+import (
+	"fmt"
+)
+
 // TreeNode defines a binary tree node.
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
+}
+
+func dfs(tree *TreeNode) {
+	if tree == nil {
+		return
+	}
+	fmt.Println(tree.Val)
+	dfs(tree.Left)
+	dfs(tree.Right)
 }
 
 func pruneTree(root *TreeNode) *TreeNode {
@@ -94,4 +107,16 @@ func pruneTree(root *TreeNode) *TreeNode {
 	return root
 }
 
-func main() {}
+func main() {
+	node := &TreeNode{1, nil, nil}
+	node.Left = &TreeNode{1, nil, nil}
+	node.Left.Right = &TreeNode{0, nil, nil} // should be removed
+	node.Left.Left = &TreeNode{1, nil, nil}
+	node.Right = &TreeNode{0, nil, nil}       // should be removed
+	node.Right.Right = &TreeNode{0, nil, nil} // should be removed
+	dfs(node)
+	pruneTree(node)
+	fmt.Println("--------")
+	dfs(node)
+
+}
