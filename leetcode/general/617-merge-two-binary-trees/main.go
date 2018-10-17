@@ -105,7 +105,7 @@ func dfsMerge(t1, t2, newTree *TreeNode) {
 		}
 		if t1.Right != nil {
 			t1Right = t1.Right
-			newLeft = &TreeNode{t1.Right.Val, nil, nil}
+			newRight = &TreeNode{t1.Right.Val, nil, nil}
 		}
 	}
 
