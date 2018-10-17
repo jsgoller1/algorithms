@@ -79,14 +79,8 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func dfs(tree *TreeNode) {
-	if tree == nil {
-		return
-	}
-	fmt.Println(tree.Val)
-	dfs(tree.Left)
-	dfs(tree.Right)
-}
+/*
+// First attempt
 
 func dfsMerge(t1, t2, newTree *TreeNode) {
 	var newLeft *TreeNode
@@ -153,6 +147,31 @@ func mergeTrees(t1, t2 *TreeNode) *TreeNode {
 	dfsMerge(t1, t2, &newTree)
 	return &newTree
 }
+*/
+
+func mergeTrees(t1, t2 *TreeNode) *TreeNode {
+	var newTreeVal int
+	var left1, left2, right1, right2 *TreeNode
+
+	if t1 == nil && t2 == nil {
+		return nil
+	}
+
+	if t1 != nil {
+		left1 = t1.Left
+		right1 = t1.Right
+		newTreeVal += t1.Val
+	}
+
+	if t2 != nil {
+		left2 = t2.Left
+		right2 = t2.Right
+		newTreeVal += t2.Val
+	}
+
+	newNode := &TreeNode{newTreeVal, mergeTrees(left1, left2), mergeTrees(right1, right2)}
+	return newNode
+}
 
 func main() {
 	/*
@@ -173,4 +192,13 @@ func main() {
 
 	newTree := mergeTrees(&nodeA, &nodeB)
 	dfs(newTree)
+}
+
+func dfs(tree *TreeNode) {
+	if tree == nil {
+		return
+	}
+	fmt.Println(tree.Val)
+	dfs(tree.Left)
+	dfs(tree.Right)
 }
