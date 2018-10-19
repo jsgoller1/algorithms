@@ -121,7 +121,8 @@ func (cache *LRUCache) Get(key int) int {
 // Put sets a key in an LRU cache
 func (cache *LRUCache) Put(key int, value int) {
 	cache.time++
-	if len(cache.ht) == cache.capacity {
+	_, present := cache.ht[key]
+	if len(cache.ht) == cache.capacity && !present {
 		leastRecentTime := cache.time
 		leastRecentKey := key
 		for k := range cache.ht {
@@ -138,13 +139,14 @@ func (cache *LRUCache) Put(key int, value int) {
 }
 
 func main() {
-	// Your LRUCache object will be instantiated and called as such:
-	capacity := 10
-	cache := Constructor(capacity)
-	for i := 0; i < 10; i++ {
-		cache.Put(i, i*i)
-	}
-	fmt.Println(cache)
-	cache.Put(200, 300)
+	cache := Constructor(2)
+	fmt.Println(cache.Get(2))
+	cache.Put(2, 6)
+	fmt.Println(cache.Get(1))
+	cache.Put(1, 5)
+	cache.Put(1, 2)
+	fmt.Println(cache.Get(1))
+	fmt.Println(cache.Get(2))
+
 	fmt.Println(cache)
 }
