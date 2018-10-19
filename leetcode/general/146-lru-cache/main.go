@@ -132,7 +132,7 @@ type LRUCacheNode struct {
 
 // LRUCache implements Least Recently Used caching
 type LRUCache struct {
-	table    map[int]LRUCacheNode
+	table    map[int]*LRUCacheNode
 	capacity int
 	head     *LRUCacheNode
 	tail     *LRUCacheNode
@@ -140,7 +140,7 @@ type LRUCache struct {
 
 // Constructor creates an LRUCache
 func Constructor(capacity int) LRUCache {
-	ht := make(map[int]LRUCacheNode, capacity)
+	ht := make(map[int]*LRUCacheNode, capacity)
 	return LRUCache{ht, capacity, nil, nil}
 }
 
@@ -151,7 +151,7 @@ func (cache *LRUCache) dumpInfo(message string) {
 	fmt.Printf("%p ", cache.tail)
 	fmt.Println("Tail: ", cache.tail)
 	for key, val := range cache.table {
-		fmt.Printf("%p ", &val)
+		fmt.Printf("%p ", val)
 		fmt.Println(key, val)
 	}
 	fmt.Println()
@@ -161,13 +161,12 @@ func (cache *LRUCache) handleNewNode(node *LRUCacheNode) {
 	if len(cache.table) == 1 {
 		// no previous tail, become tail
 		cache.tail = node
-		fmt.Printf("%p %p\n", node, cache.tail)
 	} else {
 		node.prev = cache.head
 		cache.head.next = node
 	}
 	cache.head = node
-	cache.dumpInfo("handled new")
+	// cache.dumpInfo("handled new")
 }
 
 func (cache *LRUCache) updateExistingNode(node *LRUCacheNode) {
@@ -184,7 +183,7 @@ func (cache *LRUCache) updateExistingNode(node *LRUCacheNode) {
 	node.next = nil
 	cache.head.next = node
 	cache.head = node
-	cache.dumpInfo("updated existing")
+	// cache.dumpInfo("updated existing")
 }
 
 func (cache *LRUCache) evictOldestNode() {
@@ -197,7 +196,7 @@ func (cache *LRUCache) evictOldestNode() {
 		cache.tail.prev = nil
 	}
 	delete(cache.table, oldest.key)
-	cache.dumpInfo("eviction")
+	// cache.dumpInfo("eviction")
 }
 
 // Get retrieves a key from an LRU cache
@@ -207,25 +206,24 @@ func (cache *LRUCache) Get(key int) int {
 		return -1
 	}
 
-	cache.updateExistingNode(&node)
+	cache.updateExistingNode(node)
 	return node.val
 }
 
 // Put sets a key in an LRU cache
 func (cache *LRUCache) Put(key int, value int) {
-	node, present := cache.table[key]
+	nodep, present := cache.table[key]
 	if len(cache.table) == cache.capacity && !present {
 		cache.evictOldestNode()
 	}
 
 	if present {
-		node.val = value
-		fmt.Println(node)
-		cache.updateExistingNode(&node)
+		nodep.val = value
+		cache.updateExistingNode(nodep)
 	} else {
-		newEntry := LRUCacheNode{key: key, val: value, prev: nil, next: nil}
+		newEntry := &LRUCacheNode{key: key, val: value, prev: nil, next: nil}
 		cache.table[key] = newEntry
-		cache.handleNewNode(&newEntry)
+		cache.handleNewNode(newEntry)
 	}
 }
 
@@ -234,8 +232,9 @@ func main() {
 	//cache.Get(2)
 	cache.Put(2, 6)
 	//cache.Get(1)
-	//cache.Put(1, 5)
-	//cache.Put(1, 2)
+	cache.Put(1, 2)
+	cache.Put(2, 5)
 	//cache.Get(1)
 	//cache.Get(2)
+	//fmt.Println(cache)
 }
