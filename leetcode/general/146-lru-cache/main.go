@@ -57,14 +57,16 @@ constant time operations:
 is a node in a doubly linked list.
 - Keep track of list head and tail
 - We do our sets and gets in the hashtable as normal. For updating
-	recency, we have four cases:
-	- Insert into empty list
-		- New node becomes head and tail
-	- Update the head
-		- Quit immediately, head is most recent
-	- Update the tail
-		- tail.next becomes tail, tail.prev is old head, tail.next is null, tail becomes head
-	- Update a middle
+	recency, we have the following cases:
+	- Inserting a new node
+		- List was empty
+		- List was nonempty
+	- Updating an existing node
+		- Node was the head
+			- quit, already most recent
+		- Node was the tail
+			- tail.next becomes tail, tail.prev is old head, tail.next is null, tail becomes head
+	- Node was in the middle
 		- prev.next = node.next, next.prev = node.prev, node.prev = head, head.next = node, head = node
 
 
@@ -142,37 +144,54 @@ func Constructor(capacity int) LRUCache {
 	return LRUCache{ht, capacity, nil, nil}
 }
 
+func (cache *LRUCache) dumpInfo(message string) {
+	fmt.Println(message)
+	fmt.Printf("%p ", cache.head)
+	fmt.Println("Head: ", cache.head)
+	fmt.Printf("%p ", cache.tail)
+	fmt.Println("Tail: ", cache.tail)
+	for key, val := range cache.table {
+		fmt.Printf("%p ", &val)
+		fmt.Println(key, val)
+	}
+	fmt.Println()
+}
+
+func (cache *LRUCache) handleNewNode(node *LRUCacheNode) {
+	if len(cache.table) == 1 {
+		// no previous tail, become tail
+		cache.tail = node
+		fmt.Printf("%p %p\n", node, cache.tail)
+	} else {
+		node.prev = cache.head
+		cache.head.next = node
+	}
+	cache.head = node
+	cache.dumpInfo("handled new")
+}
+
 // updateRecency makes the given key the most recent
 // in the doubly linked list given four cases above
-func (cache *LRUCache) updateRecency(key int) {
-	node := cache.table[key]
-	if len(cache.table) == 1 {
-		cache.head = &node
-		cache.tail = &node
+func (cache *LRUCache) updateExistingNode(node *LRUCacheNode) {
+	if node == cache.head {
 		return
-	}
-	if &node == cache.head {
-		return
-	}
-
-	// Updating a middle or the tail involves
-	// setting a new head
-	if &node == cache.tail {
-		cache.tail = node.next
+	} else if node == cache.tail {
+		cache.tail = cache.tail.next
+		cache.tail.prev = nil
 	} else {
 		node.prev.next = node.next
 		node.next.prev = node.prev
 	}
-
-	// set node to new head
 	node.prev = cache.head
-	cache.head.next = &node
-	cache.head = &node
+	node.next = nil
+	cache.head.next = node
+	cache.head = node
+	cache.dumpInfo("updated existing")
 }
 
 // evict removes the key from doubly linked list
 // and updates the list accordingly
-func (cache *LRUCache) evictOldest() {
+func (cache *LRUCache) evictOldestNode() {
 	oldest := cache.tail
 	if len(cache.table) == 1 {
 		cache.head = nil
@@ -182,44 +201,45 @@ func (cache *LRUCache) evictOldest() {
 		cache.tail.prev = nil
 	}
 	delete(cache.table, oldest.key)
+	cache.dumpInfo("eviction")
 }
 
 // Get retrieves a key from an LRU cache
 func (cache *LRUCache) Get(key int) int {
-	v, present := cache.table[key]
+	node, present := cache.table[key]
 	if !present {
 		return -1
 	}
 
-	cache.updateRecency(key)
-	return v.val
+	cache.updateExistingNode(&node)
+	return node.val
 }
 
 // Put sets a key in an LRU cache
 func (cache *LRUCache) Put(key int, value int) {
 	node, present := cache.table[key]
 	if len(cache.table) == cache.capacity && !present {
-		cache.evictOldest()
+		cache.evictOldestNode()
 	}
 
-	if !present {
+	if present {
+		node.val = value
+		fmt.Println(node)
+		cache.updateExistingNode(&node)
+	} else {
 		newEntry := LRUCacheNode{key: key, val: value, prev: nil, next: nil}
 		cache.table[key] = newEntry
-	} else {
-		node.val = value
+		cache.handleNewNode(&newEntry)
 	}
-	cache.updateRecency(key)
 }
 
 func main() {
 	cache := Constructor(2)
-	fmt.Println(cache.Get(2))
+	//cache.Get(2)
 	cache.Put(2, 6)
-	fmt.Println(cache.Get(1))
-	cache.Put(1, 5)
-	cache.Put(1, 2)
-	fmt.Println(cache.Get(1))
-	fmt.Println(cache.Get(2))
-
-	fmt.Println(cache)
+	//cache.Get(1)
+	//cache.Put(1, 5)
+	//cache.Put(1, 2)
+	//cache.Get(1)
+	//cache.Get(2)
 }
