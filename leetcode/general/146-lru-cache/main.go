@@ -170,8 +170,6 @@ func (cache *LRUCache) handleNewNode(node *LRUCacheNode) {
 	cache.dumpInfo("handled new")
 }
 
-// updateRecency makes the given key the most recent
-// in the doubly linked list given four cases above
 func (cache *LRUCache) updateExistingNode(node *LRUCacheNode) {
 	if node == cache.head {
 		return
@@ -189,8 +187,6 @@ func (cache *LRUCache) updateExistingNode(node *LRUCacheNode) {
 	cache.dumpInfo("updated existing")
 }
 
-// evict removes the key from doubly linked list
-// and updates the list accordingly
 func (cache *LRUCache) evictOldestNode() {
 	oldest := cache.tail
 	if len(cache.table) == 1 {
