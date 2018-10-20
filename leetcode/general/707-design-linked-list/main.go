@@ -170,21 +170,20 @@ func (ll *MyLinkedList) DeleteAtIndex(index int) {
 		if index == 0 {
 			// deleting head
 			ll.head = ll.head.next
-		} else if index == ll.len-1 {
-			// deleting tail
-			curr := ll.head
-			for i := 0; i < index-1; i++ {
-				curr = curr.next
-			}
-			ll.tail = curr
-			curr.next = nil
 		} else {
-			// deleting middle
+			// deleting tail or middle
 			curr := ll.head
 			for i := 0; i < index-1; i++ {
 				curr = curr.next
 			}
-			curr.next = curr.next.next
+			if index == ll.len-1 {
+				// deleting tail
+				ll.tail = curr
+				curr.next = nil
+			} else {
+				// deleting middle
+				curr.next = curr.next.next
+			}
 		}
 	}
 	ll.len--
