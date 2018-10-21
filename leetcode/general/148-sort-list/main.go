@@ -189,6 +189,15 @@ func mergesort(head *ListNode, length int) *ListNode {
 		return head
 	}
 
+	var leftLength, rightLength int
+	if length%2 != 0 {
+		leftLength = length / 2
+		rightLength = leftLength + 1
+	} else {
+		leftLength = length / 2
+		rightLength = length / 2
+	}
+
 	// Walk to midpoint
 	curr := head
 	for i := 1; i < length/2; i++ {
@@ -197,9 +206,9 @@ func mergesort(head *ListNode, length int) *ListNode {
 	mid := curr.Next
 	curr.Next = nil
 
-	// TODO: Handle odd length cases
-	left := mergesort(head, length/2)
-	right := mergesort(mid, length/2)
+	// Recursively merge sublists
+	left := mergesort(head, leftLength)
+	right := mergesort(mid, rightLength)
 
 	return merge(left, right)
 }
@@ -212,6 +221,6 @@ func sortList(head *ListNode) *ListNode {
 }
 
 func main() {
-	ll := createLL(4, false)
+	ll := createLL(6, false)
 	ll = sortList(ll)
 }
