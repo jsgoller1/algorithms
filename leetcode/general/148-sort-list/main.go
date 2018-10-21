@@ -134,14 +134,11 @@ func createLL(size int, isSorted bool) *ListNode {
 }
 
 func merge(head1, head2 *ListNode) *ListNode {
-	fmt.Println("merge", head1, head2)
 	var mergedList *ListNode
 	if head1.Val <= head2.Val {
-		fmt.Println("Starting with head1: ", head1)
 		mergedList = head1
 		head1 = head1.Next
 	} else {
-		fmt.Println("Starting with head12 ", head2)
 		mergedList = head2
 		head2 = head2.Next
 	}
@@ -149,11 +146,9 @@ func merge(head1, head2 *ListNode) *ListNode {
 	curr := mergedList
 	for head1 != nil && head2 != nil {
 		if head1.Val <= head2.Val {
-			fmt.Println("Appending head1: ", head1)
 			curr.Next = head1
 			head1 = head1.Next
 		} else {
-			fmt.Println("Appending head2: ", head1)
 			curr.Next = head2
 			head2 = head2.Next
 		}
@@ -161,15 +156,11 @@ func merge(head1, head2 *ListNode) *ListNode {
 	}
 
 	if head1 != nil {
-		fmt.Println("Final append head1: ", head1)
 		curr.Next = head1
 	} else if head2 != nil {
-		fmt.Println("Final append head2: ", head2)
 		curr.Next = head2
 	}
 
-	Walk(mergedList)
-	fmt.Println("merged")
 	return mergedList
 }
 
@@ -184,7 +175,6 @@ func mergesort(head *ListNode, length int) *ListNode {
 			- call mergesort(list, len/2) on first half (original list reference)
 			 - merge() first half and second half, return merged
 	*/
-	fmt.Println("mergesort", length)
 	if length == 1 {
 		return head
 	}
@@ -221,6 +211,9 @@ func sortList(head *ListNode) *ListNode {
 }
 
 func main() {
-	ll := createLL(6, false)
+	ll := createLL(0, false)
+	Walk(ll)
 	ll = sortList(ll)
+	Walk(ll)
+
 }
