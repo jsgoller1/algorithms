@@ -86,13 +86,27 @@ type ListNode struct {
 }
 
 // Walk walks the linked list
-func (ll *ListNode) Walk() {
+func Walk(ll *ListNode) {
 	fmt.Println("----------------------------------------")
 	for i := 0; ll != nil; i++ {
 		fmt.Printf("%d: %p ", i, ll)
 		fmt.Println(ll)
 		ll = ll.Next
 	}
+	fmt.Println("----------------------------------------")
+}
+
+// Len gets the length of the list
+func (ll *ListNode) Len() int {
+	if ll == nil {
+		return 0
+	}
+
+	var length int
+	for length = 0; ll != nil; length++ {
+		ll = ll.Next
+	}
+	return length
 }
 
 func createLL(size int, isSorted bool) *ListNode {
@@ -120,29 +134,84 @@ func createLL(size int, isSorted bool) *ListNode {
 }
 
 func merge(head1, head2 *ListNode) *ListNode {
+	fmt.Println("merge", head1, head2)
+	var mergedList *ListNode
+	if head1.Val <= head2.Val {
+		fmt.Println("Starting with head1: ", head1)
+		mergedList = head1
+		head1 = head1.Next
+	} else {
+		fmt.Println("Starting with head12 ", head2)
+		mergedList = head2
+		head2 = head2.Next
+	}
 
-	return nil
+	curr := mergedList
+	for head1 != nil && head2 != nil {
+		if head1.Val <= head2.Val {
+			fmt.Println("Appending head1: ", head1)
+			curr.Next = head1
+			head1 = head1.Next
+		} else {
+			fmt.Println("Appending head2: ", head1)
+			curr.Next = head2
+			head2 = head2.Next
+		}
+		curr = curr.Next
+	}
+
+	if head1 != nil {
+		fmt.Println("Final append head1: ", head1)
+		curr.Next = head1
+	} else if head2 != nil {
+		fmt.Println("Final append head2: ", head2)
+		curr.Next = head2
+	}
+
+	Walk(mergedList)
+	fmt.Println("merged")
+	return mergedList
 }
 
-func mergesort(head *ListNode, len int) *ListNode {
+func mergesort(head *ListNode, length int) *ListNode {
+	/*
+			mergesort(list, len)
+		- if list len == 1: return
+		- else:
+			- walk to midway of first half of list
+			- call mergesort(node, len/2) on second half
+			- set next of last node in first half to nil
+			- call mergesort(list, len/2) on first half (original list reference)
+			 - merge() first half and second half, return merged
+	*/
+	fmt.Println("mergesort", length)
+	if length == 1 {
+		return head
+	}
 
-	return nil
+	// Walk to midpoint
+	curr := head
+	for i := 1; i < length/2; i++ {
+		curr = curr.Next
+	}
+	mid := curr.Next
+	curr.Next = nil
+
+	// TODO: Handle odd length cases
+	left := mergesort(head, length/2)
+	right := mergesort(mid, length/2)
+
+	return merge(left, right)
 }
 
 func sortList(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-
-	curr := head
-	var len int
-	for len = 1; curr != nil; len++ {
-		curr = curr.Next
-	}
-	return mergesort(head, len)
+	return mergesort(head, head.Len())
 }
 
 func main() {
-	ll := createLL(10, false)
-	ll.Walk()
+	ll := createLL(4, false)
+	ll = sortList(ll)
 }
