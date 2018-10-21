@@ -12,11 +12,12 @@ See subfolders for specific details:
 One piece of advice I got during Bradfield's algorithms class was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 Extending this advice to LeetCode in general, I am attempting to solve a total of 150 LeetCode problems in 2018, a minimum of 20 being DP problems. Current progress:
 
-### General (24/130)
+### General (27/130)
   - Looked at solution for #894
   - #133 was only faster than 16% of solutions and should be optimized
-  - A linear space solution exists for #665
+  - #665 has a linear space solution
   - #861 should be redone with goroutines
+  - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
 
 ### DP: (6/20)
   - Looked at solution for #790

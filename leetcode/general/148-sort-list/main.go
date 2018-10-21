@@ -96,19 +96,6 @@ func Walk(ll *ListNode) {
 	fmt.Println("----------------------------------------")
 }
 
-// Len gets the length of the list
-func (ll *ListNode) Len() int {
-	if ll == nil {
-		return 0
-	}
-
-	var length int
-	for length = 0; ll != nil; length++ {
-		ll = ll.Next
-	}
-	return length
-}
-
 func createLL(size int, isSorted bool) *ListNode {
 	if size == 0 {
 		return nil
@@ -131,6 +118,19 @@ func createLL(size int, isSorted bool) *ListNode {
 		curr = curr.Next
 	}
 	return ll
+}
+
+// Len gets the length of the list
+func Len(ll *ListNode) int {
+	if ll == nil {
+		return 0
+	}
+
+	var length int
+	for length = 0; ll != nil; length++ {
+		ll = ll.Next
+	}
+	return length
 }
 
 func merge(head1, head2 *ListNode) *ListNode {
@@ -207,7 +207,7 @@ func sortList(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	return mergesort(head, head.Len())
+	return mergesort(head, Len(head))
 }
 
 func main() {
