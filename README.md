@@ -18,6 +18,7 @@ Extending this advice to LeetCode in general, I am attempting to solve a total o
   - #665 has a linear space solution
   - #861 should be redone with goroutines
   - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
+  - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
 
 ### DP: (6/20)
   - Looked at solution for #790
