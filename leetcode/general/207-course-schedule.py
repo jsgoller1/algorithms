@@ -70,10 +70,16 @@ shaped directed graph (A->B,C, B->D, C->D) where you reach the same node twice.
 
 class Solution:
     def removeChildlessNode(self, childlessNode, children):
-        for parent in children.keys():
+        for parent in children:
             if childlessNode in children[parent]:
                 children[parent].remove(childlessNode)
         del(children[childlessNode])
+
+    def getChildlessNode(self, children):
+        for parent in children:
+            if children[parent] == []:
+                return parent
+        return None
 
     def getChildren(self, numCourses, prerequisites):
         children = {i: [] for i in range(numCourses)}
@@ -82,21 +88,13 @@ class Solution:
         return children
 
     def canFinish(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
         children = self.getChildren(numCourses, prerequisites)
         while children:
-            noEmpty = True
-            for parent in children.keys():
-                if children[parent] == []:
-                    self.removeChildlessNode(parent, children)
-                    noEmpty = False
-                    break
-            if noEmpty:
+            emptyParent = self.getChildlessNode(children)
+            if emptyParent == None:
                 return False
+            else:
+                self.removeChildlessNode(emptyParent, children)
         return True
 
 
