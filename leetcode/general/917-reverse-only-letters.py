@@ -1,4 +1,6 @@
 """
+This problem was part of LeetCode Weekly Contest #105
+
 Constraints:
   - S.length <= 100
   - 33 <= S[i].ASCIIcode <= 122
