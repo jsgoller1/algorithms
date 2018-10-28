@@ -67,7 +67,8 @@ countPalindromes(string):
                 return cache
 """
 
-
+"""""
+# First attempt; 1300ms
 class Solution:
     def isPalindrome(self, string):
         if string in self.palindromes:
@@ -100,9 +101,27 @@ class Solution:
         self.cache = {}
         self.palindromes = {}
         return self.recurse(string)
+"""
+
+
+class Solution:
+    # From https://leetcode.com/problems/palindromic-substrings/discuss/105687/Python-Straightforward-with-Explanation-(Bonus-O(N)-solution)
+    def countSubstrings(self, string):
+        size = len(string)
+        count = 0
+        for mid in range(2 * size - 1):
+            left = mid // 2
+            right = left + mid % 2
+            print(left, mid, right, string[left], string[right])
+            while left >= 0 and right < size and string[left] == string[right]:
+                count += 1
+                left -= 1
+                right += 1
+        return count
 
 
 if __name__ == '__main__':
     s = Solution()
-    assert s.countSubstrings('aaa') == 6
-    assert s.countSubstrings('abc') == 3
+    #assert s.countSubstrings('aaa') == 6
+    #assert s.countSubstrings('abc') == 3
+    print(s.countSubstrings('abcdefedcba'))
