@@ -14,6 +14,7 @@ One piece of advice I got during Bradfield's algorithms class was `don't assume 
   - #2 probably has an in-place solution
   - #207 has a solution that does not involve deleting nodes from the graph
 
-### DP: (9/20)
+### DP: (10/20; I decided to look at solutions earlier than normal for some of these as I built intuition for DP)
   - Looked at solution for #790
   - Looked at hints in discussion for #918 (contest #105)
+  - Had a hint for #647 before looking at solution
