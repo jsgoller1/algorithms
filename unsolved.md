@@ -15,6 +15,7 @@ List of started but unfinished problems
 - 748. Shortest completing word
 - 797. All paths from source to target
 - 862. Shortest subarray with sum at least k
+- 919. Complete Binary Tree Inserter
 - 920. Number of Music Playlists
 
 ### Misc.
