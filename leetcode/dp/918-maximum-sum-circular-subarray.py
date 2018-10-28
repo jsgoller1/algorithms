@@ -24,43 +24,22 @@ and then pick the max of wrapped and regular arays.
 
 class Solution:
     def maxSubarraySumCircular(self, A):
-        maxCache = {}
-        minCache = {}
         total = 0
-        nonnegCount = 0
-        for i, val in enumerate(A):
-            if val >= 0:
-                nonnegCount += 1
+        currentMax = 0
+        currentMin = 0
+        maxVal = -float("inf")
+        minVal = float("inf")
+        for val in A:
             total += val
-            minCache[i] = self.minSubarraySum(i, A, minCache)
-            maxCache[i] = self.maxSubarraySum(i, A, maxCache)
+            currentMax = max(val, currentMax + val)
+            currentMin = min(val, currentMin + val)
+            maxVal = max(currentMax, maxVal)
+            minVal = min(currentMin, minVal)
 
-        #print("nonnegCount: {0}".format(nonnegCount))
-        if nonnegCount == 0:
-            return max(A)
+        if maxVal < 0:
+            return maxVal
         else:
-            maxVal = maxCache[max(maxCache, key=maxCache.get)]
-            minVal = minCache[min(minCache, key=minCache.get)]
-            #print("maxVal: {0}".format(maxVal))
-            #print("minVal: {0}".format(minVal))
-            #print("total: {0}".format(total))
             return max(maxVal, total - minVal)
-
-    def maxSubarraySum(self, i, arr, cache):
-        if i in cache:
-            return cache[i]
-        if i == 0:
-            return arr[0]
-        else:
-            return max(self.maxSubarraySum(i - 1, arr, cache) + arr[i], arr[i])
-
-    def minSubarraySum(self, i, arr, cache):
-        if i in cache:
-            return cache[i]
-        if i == 0:
-            return arr[0]
-        else:
-            return min(self.minSubarraySum(i - 1, arr, cache) + arr[i], arr[i])
 
 
 if __name__ == '__main__':
