@@ -1,19 +1,133 @@
+"""
+A sequence of number is called arithmetic if it consists of at least three elements
+and if the difference between any two consecutive elements is the same.
+
+For example, these are arithmetic sequence:
+* 1, 3, 5, 7, 9
+* 7, 7, 7, 7
+* 3, -1, -5, -9
+
+The following sequence is not arithmetic.
+1, 1, 2, 5, 7
+
+A zero-indexed array A consisting of N numbers is given. A slice of that
+array is any pair of integers (P, Q) such that 0 <= P < Q < N.
+
+A slice (P, Q) of array A is called arithmetic if the sequence:
+A[P], A[p + 1], ..., A[Q - 1], A[Q] is arithmetic. In particular, this means that P + 1 < Q.
+
+The function should return the number of arithmetic slices in the array A.
+
+Example:
+
+A = [1, 2, 3, 4]
+
+return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] itself.
+
+In: Array of integers
+Out: Number of slices within A that are arithmetic
+----------------------------------------
+- any array with 2 or fewer ints is non aritmetic
+- A 3-len array is our base case
+- I don't think it's possible to have two overlapping arithmetic arrays unless
+every element in both differs by the same amount
+- Suppose we have an arithmetic array of [1,2,3,4, ... ,N] elements; they all differ by 1. How
+many different arithmetic subarrays are there?
+  - N=3 [1,2,3] -> 1
+    - [1,2,3]
+  - N=4 [1,2,3,4] -> 3
+    - [1,2,3] (in N=3)
+    - [2,3,4]
+    - [1,2,3,4]
+  - N=5 [1,2,3,4,5] -> 6
+    - [1,2,3] (in N=4)
+    - [2,3,4] (in N=4)
+    - [3,4,5]
+    - [1,2,3,4] (in N=4)
+    - [2,3,4,5]
+    - [1,2,3,4,5]
+  - N=6 [1,2,3,4,5,6] -> 10
+    - All of N=5
+    - [4,5,6]
+    - [3,4,5,6]
+    - [2,3,4,5,6]
+    - [1,2,3,4,5,6]
+
+- For an arithmetic array of length N, the number of
+arithmetic slices in that array is calculated by:
+  if N = 3, return 1
+  if N > 3, return subarrays for N-1 + (1 for i from 3 to N including N)
+    - This probably has an explicit solution computable in O(c)
+
+- If a subarray of M elements contains an N-element arithmetic subarray (N < M),
+we can remove the elements not part of the arithmetic subarray and then run the above procedure
+
+- What is the explicit computation for subarray count given above?
+  f(N) = f(N-1) + (N-2)
+  f(4) = f(3) + (4-2) = 1 + 2 = 3
+  f(5) = f(4) + (5-2) = 3 + 3 = 6
+  f(6) = f(5) + (6-2) = 6 + 4 = 10
+  f(7) = 10 + 5 = 15
+-------------------------------
+solve(arr):
+  - count number of arithmetic sequences in arr, save their lengths
+  - for each one, compute based on heuristic above how many subsequences it contains
+  - return count of each
+
+
+[1,2,3, 4, -1, -2, -3, -10]
+     s
+
+4, 3
+
+get_arithmetic_slices(arr):
+start = 0
+length = 0
+slice_lengths = []
+while end < len(arr-1):
+  if abs(arr[start] - arr[start+1]) == abs(arr[start+1] - arr[start+2]):
+    length += 1
+    end += 1
+  else:
+    if length > 0:
+      slice_lengths.append(length+2)
+    end += 2
+    length = 0
+
+return slice_lengths
+"""
+
 class Solution:
+    def __init__(self):
+        self.cache = {0: 0, 1: 0, 2: 0, 3: 1}
+
+    def computeSubarrCount(self, length):
+        if length in self.cache:
+            return self.cache[length]
+        else:
+            self.cache[length] = self.computeSubarrCount(
+                length - 1) + (length - 2)
+            return self.cache[length]
+
     def numberOfArithmeticSlices(self, arr):
         if len(arr) < 3:
             return 0
-        dp = [0 for i in range(len(arr))]
         total = 0
-        start = 2
+        start = 0
         length = 0
-        while start < len(arr):
-            if arr[start] - arr[start - 1] == arr[start - 1] - arr[start - 2]:
-              print(arr[start:start+3])
-              dp[start] = 1 + dp[start - 1]
-              total += dp[start]
+        while start < len(arr) - 2:
+            if arr[start] - arr[start + 1] == arr[start + 1] - arr[start + 2]:
+              length += 1
+            else:
+                if 0 < length:
+                    total += self.computeSubarrCount(length + 2)
+                length = 0
             start += 1
-        return total
 
+        if length != 0:
+            total += self.computeSubarrCount(length + 2)
+
+        return total
 
 if __name__ == '__main__':
     s = Solution()
