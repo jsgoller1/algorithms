@@ -68,29 +68,21 @@ class Solution:
             costs[0][col] = ord(char) + costs[0][col-1]
         for row, char in enumerate(s2, 1):
             costs[row][0] = ord(char) + costs[row-1][0]
-        print(len(s1), len(costs[0]), len(s2), len(costs))
 
         for row, char2 in enumerate(s2, 1):
             for col, char1 in enumerate(s1, 1):
-                # Same char means no delete necessary
                 if char1 == char2:
                     costs[row][col] = costs[row-1][col - 1]
-                # if up >= left, pick left and add character from s1
-                elif costs[row - 1][col] >= costs[row][col - 1]:
-                    costs[row][col] = costs[row][col - 1] + ord(char1)
-                # if up < left, pick up and add character from s2
                 else:
-                    costs[row][col] = costs[row-1][col] + ord(char2)
-
-        for row in costs:
-            print(row)
+                    costs[row][col] = min(
+                        costs[row][col - 1] + ord(char1), costs[row-1][col] + ord(char2))
         return costs[-1][-1]
 
 
 if __name__ == '__main__':
     s = Solution()
-    #assert s.minimumDeleteSum('sea', 'sea') == 0
-    #assert s.minimumDeleteSum('sea', 'eat') == 231
-    #assert s.minimumDeleteSum('delete', 'leet') == 403
-    #assert s.minimumDeleteSum("ccaccjp", "fwosarcwge") == 1399
+    assert s.minimumDeleteSum('sea', 'sea') == 0
+    assert s.minimumDeleteSum('sea', 'eat') == 231
+    assert s.minimumDeleteSum('delete', 'leet') == 403
+    assert s.minimumDeleteSum("ccaccjp", "fwosarcwge") == 1399
     assert s.minimumDeleteSum("caabcccaccccca", "cacbaaac") == 1178
