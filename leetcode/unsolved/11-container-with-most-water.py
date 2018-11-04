@@ -39,8 +39,14 @@ Cases:
 - If we pick two lines, there is no way to catch more water by picking any lines in between that are shorter; could by picking greater.
   - if we pick the two maxes, we don't need to look any further inwards for better lines
   - what do we need to do so we know we don't need to look outwards? Is there a way to quickly disqualify remaining elements
-- Suppose we've picked the maxes in [...,20,...21,10,7,8,9], which are 10 and 11. If we want to pick the correct rightmost line, there is no reason to pick any line
-with a taller/equal line to its right; 7 and 8 cannot be the correct answer. Same logic applies to other side as well. Cases:
+- Suppose we've picked the maxes in [...,20,...21,6,7,8,9], which are 20 and 21. Reapplying the same logic,
+ there is no reason to pick any line with a taller/equal line to its right; 6,7, and 8 cannot be the correct answer.
+ Same logic applies to other side as well. However this is still problematic with [...,20,...21,10,9,8,7]
+- Suppose we had a 10 element array ending in 7. Picking this a side, the greatest possible
+value of caught water is 70. Call this a "positional max" - the highest value possible given its position in the array.
+- Once we locate a max, if we find the positional max between it and the end of the array, there is no reason to consider
+any other values as bounds between the max and the array end.
+
 
 
 "Two pointers" approaches:
@@ -62,10 +68,75 @@ with a taller/equal line to its right; 7 and 8 cannot be the correct answer. Sam
        max is 24 with outermost 4s, but strategy picks 20 with two 10s.
 - Start with outermost and look no further inwards than maxes; only replace if we find a boundary that is better than the outermost
     - passes 1,4-7, fails 2 and 3
-- Obtain maxes, and then return the highest amount of water from four passes
-  - leftmost element, inwards from rightmost
-  - left max, inwards from rightmost
-  - rightmost element, inmost from leftmost
-  - right max, inward from leftmost
-  - passes
+
+- Obtain maxes in array, then get positional maxes between each and array end, then return greatest of:
+  - left max, right max
+  - left pmax, right max
+  - left max, right pmax
+  - left pmax, right pmax
 """
+class Solution:
+    def maxArea(self, heights):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        # Scan array for two max values
+        rmaxi = -1
+        for i in range(len(heights)):
+          if heights[i] >= heights[rmaxi]:
+            rmaxi = i
+
+        lmaxi = 0
+        for i in range(len(heights)-1,-1,-1):
+          if heights[i] >= heights[lmaxi] and i != rmaxi:
+            lmaxi = i
+
+        # print("{0} ({1}), {2} ({3})".format(lmaxi, heights[lmaxi], rmaxi, heights[rmaxi]))
+
+        # Get pmax between right max and right bound
+        prmaxi = len(heights)-1
+        for val in heights[rmaxi:]:
+          pass
+
+        # Get pmax between left max and left bound
+        plmaxi = 0
+        for val in heights[:lmaxi]:
+          pass
+
+        # Get the highest of the 4 possible combinations of bounds; return max
+        maxes = []
+        return max(maxes)
+
+"""
+     for case in cases:
+        maxes = [max(val*len(sides[:i]), val*(len(sides[i:])-1))
+                 for i, val in enumerate(sides)]
+        print(sides)
+        print(maxes)
+        print("-"*20)
+"""
+
+if __name__ == '__main__':
+    s = Solution()
+    cases = [
+        # (pick arr[1] and arr[-1])
+        ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
+        # (pick arr[2] and arr[-3])
+        ([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
+        # (pick 99s)
+        ([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
+        # (pick first and last)
+        ([1, 1, 1, 1, 1],4),
+        # (pick first and last)
+        ([1, 1, 1, 1, 1, 1, 2, 2],7),
+        # (pick outermost 5s)
+        ([5, 1, 10, 1, 10, 1, 5],30),
+        # (pick outermost 4s - 24)
+        ([4, 1, 10, 1, 10, 1, 4],24),
+        # pick leftmost 10 and right 7
+        ([4, 1, 10, 1, 10, 1, 7],28)
+    ]
+    for case in cases:
+      assert s.maxArea(case[0]) == case[1]
+
