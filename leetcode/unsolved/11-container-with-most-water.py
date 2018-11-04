@@ -47,7 +47,8 @@ value of caught water is 70. Call this a "positional max" - the highest value po
 - Once we locate a max, if we find the positional max between it and the end of the array, there is no reason to consider
 any other values as bounds between the max and the array end.
 
-
+------------------------------------
+Plan:
 
 "Two pointers" approaches:
 - What if starting at outermost, we determine if moving either inwards results in a better solution?
@@ -74,23 +75,49 @@ any other values as bounds between the max and the array end.
   - left pmax, right max
   - left max, right pmax
   - left pmax, right pmax
+
+--------
+Review:
+- Finding maxes and pos maxes is SUPER complicated.
+- Do we even need to find "maxes"? Is finding just the positional maxes sufficient?
+  - No, there are cases where the positional max is not the correct choice.
 """
+import collections
+
+def bruteForce(heights):
+  amounts = collections.Counter()
+  most = -float('inf')
+  mostBounds = None
+  for l in range(len(heights)):
+    for r in range(l+1, len(heights)):
+      caught = min(heights[l], heights[r])*(r-l)
+      if caught > most:
+        most = caught
+        mostBounds = (l,r)
+      amounts[l,r] = caught
+  #print("Heights: {0}".format(heights))
+  #print(amounts)
+  print("Solution: {0}".format(most))
+  print("Bounds: {0}".format(mostBounds))
+  return most
+
 class Solution:
     def maxArea(self, heights):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
         # Scan array for two max values
-        rmaxi = -1
-        for i in range(len(heights)):
-          if heights[i] >= heights[rmaxi]:
-            rmaxi = i
+        max1i = max2i = 0
+        for i, val in enumerate(heights):
+          if val >= heights[max1i]:
+            max2i = max1i
+            max1i = i
+          elif  heights[max1i] > val > heights[max2i]:
+            max2i = i
 
-        lmaxi = 0
-        for i in range(len(heights)-1,-1,-1):
-          if heights[i] >= heights[lmaxi] and i != rmaxi:
-            lmaxi = i
+        if max1i < max2i:
+          lmaxi = max1i
+          rmaxi = max2i
+        else:
+          lmaxi = max2i
+          rmaxi = max1i
 
         # Get pmax between left max and left bound
         posLeftMax = 0
@@ -136,25 +163,28 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     cases = [
-        # (pick arr[1] and arr[-1])
-        #([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
-        # (pick arr[2] and arr[-3])
-        #([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
-        # (pick 99s)
-        #([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
-        # (pick first and last)
-        #([1, 1, 1, 1, 1],4),
-        # (pick first and last)
-        #([1, 1, 1, 1, 1, 1, 2, 2],7),
-        # (pick outermost 5s)
-        #([5, 1, 10, 1, 10, 1, 5],30),
-        # (pick outermost 4s - 24)
-        #([4, 1, 10, 1, 10, 1, 4],24),
-        # pick leftmost 10 and right 7
-        #([4, 1, 10, 1, 10, 1, 7],28),
-        # pick leftmost 2 and right 3
-        ([1,2,4,3],4)
+        # # (pick arr[1] and arr[-1])
+        # ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
+        # # (pick arr[2] and arr[-3])
+        # ([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
+        # # (pick 99s)
+        # ([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
+        # # (pick first and last)
+        # ([1, 1, 1, 1, 1],4),
+        # # (pick first and last)
+        # ([1, 1, 1, 1, 1, 1, 2, 2],7),
+        # # (pick outermost 5s)
+        # ([5, 1, 10, 1, 10, 1, 5],30),
+        # # (pick outermost 4s - 24)
+        # ([4, 1, 10, 1, 10, 1, 4],24),
+        # # pick leftmost 10 and right 7
+        # ([4, 1, 10, 1, 10, 1, 7],28),
+        # # pick leftmost 2 and right 3
+        # ([1, 2, 4, 3], 4),
+        # # pick 10s
+        # ([1, 10, 1, 11, 1, 10, 1], 40),
+        # ????
+        ([76,155,15,188,180,154,84,34,187,142,22,5,27,183,111,128,50,58,2,112,179,2,100,111,115,76,134,120,118,103,31,146,58,198,134,38,104,170,25,92,112,199,49,140,135,160,20,185,171,23,98,150,177,198,61,92,26,147,164,144,51,196,42,109,194,177,100,99,99,125,143,12,76,192,152,11,152,124,197,123,147,95,73,124,45,86,168,24,34,133,120,85,81,163,146,75,92,198,126,191], 18048)
     ]
     for case in cases:
-      assert s.maxArea(case[0]) == case[1]
-
+      assert bruteForce(case[0]) == s.maxArea(case[0]) == case[1]
