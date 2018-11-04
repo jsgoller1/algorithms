@@ -97,12 +97,43 @@ def bruteForce(heights):
       amounts[l,r] = caught
   #print("Heights: {0}".format(heights))
   #print(amounts)
-  print("Solution: {0}".format(most))
-  print("Bounds: {0}".format(mostBounds))
+  #print("Solution: {0}".format(most))
+  #print("Bounds: {0}".format(mostBounds))
   return most
+
+def experiment(heights):
+  lMax = l = 0
+  rMax = r = len(heights)-1
+  maxCaught = -float('inf')
+  while (l < r):
+    l+=1
+    r-=1
+    caughtAmounts = {}
+    caughtAmounts[min(heights[l], heights[r])*(r-l)] = (l,r)
+    caughtAmounts[min(heights[lMax], heights[r])*(r-lMax)] = (lMax,r)
+    caughtAmounts[min(heights[l], heights[rMax])*(rMax-l)] = (l,rMax)
+    caughtAmounts[min(heights[lMax], heights[rMax])*(rMax-lMax)] = (lMax,rMax)
+    if max(caughtAmounts) > maxCaught:
+      maxCaught = max(caughtAmounts)
+      l, r = caughtAmounts[maxCaught]
+  return maxCaught
 
 class Solution:
     def maxArea(self, heights):
+      area = -float('inf')
+      l = 0
+      r = len(heights)-1
+      while(l != r):
+        total = min(heights[l], heights[r])*(r-l)
+        area = max(area,total)
+        if heights[l] <= heights[r]:
+         l+=1
+        else:
+          r-=1
+      return area
+
+
+    def posMaxIncorrect(self, heights):
         # Scan array for two max values
         max1i = max2i = 0
         for i, val in enumerate(heights):
@@ -163,28 +194,30 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     cases = [
-        # # (pick arr[1] and arr[-1])
-        # ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
-        # # (pick arr[2] and arr[-3])
-        # ([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
-        # # (pick 99s)
-        # ([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
-        # # (pick first and last)
-        # ([1, 1, 1, 1, 1],4),
-        # # (pick first and last)
-        # ([1, 1, 1, 1, 1, 1, 2, 2],7),
-        # # (pick outermost 5s)
-        # ([5, 1, 10, 1, 10, 1, 5],30),
-        # # (pick outermost 4s - 24)
-        # ([4, 1, 10, 1, 10, 1, 4],24),
-        # # pick leftmost 10 and right 7
-        # ([4, 1, 10, 1, 10, 1, 7],28),
-        # # pick leftmost 2 and right 3
-        # ([1, 2, 4, 3], 4),
-        # # pick 10s
-        # ([1, 10, 1, 11, 1, 10, 1], 40),
+        # (pick arr[1] and arr[-1])
+        ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
+        # (pick arr[2] and arr[-3])
+        ([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
+        # (pick 99s)
+        ([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
+        # (pick first and last)
+        ([1, 1, 1, 1, 1],4),
+        # (pick first and last)
+        ([1, 1, 1, 1, 1, 1, 2, 2],7),
+        # (pick outermost 5s)
+        ([5, 1, 10, 1, 10, 1, 5],30),
+        # (pick outermost 4s - 24)
+        ([4, 1, 10, 1, 10, 1, 4],24),
+        # pick leftmost 10 and right 7
+        ([4, 1, 10, 1, 10, 1, 7],28),
+        # pick leftmost 2 and right 3
+        ([1, 2, 4, 3], 4),
+        # pick 10s
+        ([1, 10, 1, 11, 1, 10, 1], 40),
         # ????
-        ([76,155,15,188,180,154,84,34,187,142,22,5,27,183,111,128,50,58,2,112,179,2,100,111,115,76,134,120,118,103,31,146,58,198,134,38,104,170,25,92,112,199,49,140,135,160,20,185,171,23,98,150,177,198,61,92,26,147,164,144,51,196,42,109,194,177,100,99,99,125,143,12,76,192,152,11,152,124,197,123,147,95,73,124,45,86,168,24,34,133,120,85,81,163,146,75,92,198,126,191], 18048)
+        ([76,155,15,188,180,154,84,34,187,142,22,5,27,183,111,128,50,58,2,112,179,2,100,111,115,76,134,120,118,103,31,146,58,198,134,38,104,170,25,92,112,199,49,140,135,160,20,185,171,23,98,150,177,198,61,92,26,147,164,144,51,196,42,109,194,177,100,99,99,125,143,12,76,192,152,11,152,124,197,123,147,95,73,124,45,86,168,24,34,133,120,85,81,163,146,75,92,198,126,191], 18048),
+        #
+        ([2,3,4,5,18,17,6],17)
     ]
     for case in cases:
-      assert bruteForce(case[0]) == s.maxArea(case[0]) == case[1]
+      assert s.maxArea(case[0]) == case[1]
