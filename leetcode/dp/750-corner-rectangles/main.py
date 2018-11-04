@@ -20,6 +20,7 @@ Strategy for an MxN matrix:
 Review
 - Initial implementation times out; instead of going row by row and adding to pairs, we can probably look at each pair and then scan every row for those
 pairs and add to a running sum; this way, no dictionary is required and we don't have to run a computeRectangleCount() afterwords
+- Second implementation was also too slow; the first approach was actually a correct one, but we don't need to try pairs where one of the values is 0
 """
 import collections
 import test
@@ -35,9 +36,10 @@ class Solution:
 
     def countPairs(self, row, pairCounts):
       for left in range(len(row)):
-        for right in range(left+1, len(row)):
-          if row[left] == row[right] == 1:
-            pairCounts[(left,right)] += 1
+        if row[left]:
+          for right in range(left+1, len(row)):
+            if row[left] == row[right] == 1:
+              pairCounts[(left,right)] += 1
 
     def countCornerRectangles(self, grid):
         pairCounts = collections.defaultdict(int)
