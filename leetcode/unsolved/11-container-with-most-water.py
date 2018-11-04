@@ -92,20 +92,35 @@ class Solution:
           if heights[i] >= heights[lmaxi] and i != rmaxi:
             lmaxi = i
 
-        # print("{0} ({1}), {2} ({3})".format(lmaxi, heights[lmaxi], rmaxi, heights[rmaxi]))
+        # Get pmax between left max and left bound
+        posLeftMax = 0
+        for i in range(lmaxi):
+          if heights[i]*(len(heights)-1-i) >= heights[posLeftMax]*(len(heights)-1-posLeftMax):
+            posLeftMax = i
 
         # Get pmax between right max and right bound
-        prmaxi = len(heights)-1
-        for val in heights[rmaxi:]:
-          pass
-
-        # Get pmax between left max and left bound
-        plmaxi = 0
-        for val in heights[:lmaxi]:
-          pass
+        posRightMax = len(heights)-1
+        for i in range(len(heights)-1, rmaxi, -1):
+          if heights[i]*i > heights[posRightMax]*posRightMax:
+            posRightMax = i
 
         # Get the highest of the 4 possible combinations of bounds; return max
-        maxes = []
+        maxes = [
+          min(heights[rmaxi], heights[lmaxi])*(rmaxi-lmaxi),
+          min(heights[rmaxi], heights[posLeftMax])*(rmaxi-posLeftMax),
+          min(heights[posRightMax], heights[lmaxi])*(posRightMax-lmaxi),
+          min(heights[posRightMax], heights[posLeftMax])*(posRightMax-posLeftMax)
+        ]
+
+        # Print info about index selection
+        #print("Heights: {0}".format(heights))
+        #print("L pmaxes:  {0}".format([val*(len(heights)-1-i) for i, val in enumerate(heights)]))
+        #print("R pmaxes:  {0}".format([heights[i]*i for i in range(len(heights)-1, -1, -1)][::-1]))
+        #print("arr[{0}] = {1}; arr[{2}] = {3}".format(lmaxi, heights[lmaxi], rmaxi, heights[rmaxi]))
+        #print("posLeftMax: arr[{0}] = {1}".format(posLeftMax, heights[posLeftMax]))
+        #print("posRightMax: arr[{0}] = {1}".format(posRightMax, heights[posRightMax]))
+        #print("maxes: {0}".format(maxes))
+        #print("answer: {0}\n".format(max(maxes)))
         return max(maxes)
 
 """
