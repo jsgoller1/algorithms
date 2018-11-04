@@ -113,14 +113,15 @@ class Solution:
         ]
 
         # Print info about index selection
-        #print("Heights: {0}".format(heights))
-        #print("L pmaxes:  {0}".format([val*(len(heights)-1-i) for i, val in enumerate(heights)]))
-        #print("R pmaxes:  {0}".format([heights[i]*i for i in range(len(heights)-1, -1, -1)][::-1]))
-        #print("arr[{0}] = {1}; arr[{2}] = {3}".format(lmaxi, heights[lmaxi], rmaxi, heights[rmaxi]))
-        #print("posLeftMax: arr[{0}] = {1}".format(posLeftMax, heights[posLeftMax]))
-        #print("posRightMax: arr[{0}] = {1}".format(posRightMax, heights[posRightMax]))
-        #print("maxes: {0}".format(maxes))
-        #print("answer: {0}\n".format(max(maxes)))
+        print("Heights: {0}".format(heights))
+        print("L pmaxes:  {0}".format([val*(len(heights)-1-i) for i, val in enumerate(heights)]))
+        print("R pmaxes:  {0}".format([heights[i]*i for i in range(len(heights)-1, -1, -1)][::-1]))
+        print("Left max: arr[{0}] = {1}".format(lmaxi, heights[lmaxi]))
+        print("Right max: arr[{0}] = {1}".format(rmaxi, heights[rmaxi]))
+        print("posLeftMax: arr[{0}] = {1}".format(posLeftMax, heights[posLeftMax]))
+        print("posRightMax: arr[{0}] = {1}".format(posRightMax, heights[posRightMax]))
+        print("maxes: {0}".format(maxes))
+        print("answer: {0}\n".format(max(maxes)))
         return max(maxes)
 
 """
@@ -136,21 +137,23 @@ if __name__ == '__main__':
     s = Solution()
     cases = [
         # (pick arr[1] and arr[-1])
-        ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
+        #([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
         # (pick arr[2] and arr[-3])
-        ([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
+        #([2, 1, 8, 6, 2, 5, 4, 8, 3, 7, 1, 2],49),
         # (pick 99s)
-        ([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
+        #([1, 1, 1, 1, 99, 1, 1, 99, 1, 1, 1, 1],297),
         # (pick first and last)
-        ([1, 1, 1, 1, 1],4),
+        #([1, 1, 1, 1, 1],4),
         # (pick first and last)
-        ([1, 1, 1, 1, 1, 1, 2, 2],7),
+        #([1, 1, 1, 1, 1, 1, 2, 2],7),
         # (pick outermost 5s)
-        ([5, 1, 10, 1, 10, 1, 5],30),
+        #([5, 1, 10, 1, 10, 1, 5],30),
         # (pick outermost 4s - 24)
-        ([4, 1, 10, 1, 10, 1, 4],24),
+        #([4, 1, 10, 1, 10, 1, 4],24),
         # pick leftmost 10 and right 7
-        ([4, 1, 10, 1, 10, 1, 7],28)
+        #([4, 1, 10, 1, 10, 1, 7],28),
+        # pick leftmost 2 and right 3
+        ([1,2,4,3],4)
     ]
     for case in cases:
       assert s.maxArea(case[0]) == case[1]
