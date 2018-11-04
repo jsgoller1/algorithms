@@ -16,6 +16,10 @@ Strategy for an MxN matrix:
   - Finally, total = 0; for each in counts.keys(), total+= (counts[each]-1*(counts[each]))/2; return total
     - The way to count the number of rectangles is similar to 1+2+3+4...; except here 1 -> 0, 2 -> 1, 3 -> 3, etc.
       1+2+3+4... can be explictly computed with f(n) = n*(n+1)/2. In our case, f(n) = (n-1)*n/2
+---------------
+Review
+- Initial implementation times out; instead of going row by row and adding to pairs, we can probably look at each pair and then scan every row for those
+pairs and add to a running sum; this way, no dictionary is required and we don't have to run a computeRectangleCount() afterwords
 """
 import collections
 import test
@@ -51,4 +55,4 @@ if __name__ == '__main__':
   assert s.countCornerRectangles([[1, 1, 1],[1, 1, 1],[1, 1, 1]]) == 9
   assert s.countCornerRectangles([[1, 1, 1, 1]]) == 0
   """
-  print(s.countCornerRectangles(test.huge))
+  assert s.countCornerRectangles(test.huge) == 196164
