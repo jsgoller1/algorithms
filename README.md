@@ -1,22 +1,54 @@
 # programming-problems
 Solutions to LeetCode problems, plus a few other sources; there are way more LeetCode problems than anything else.
 
+## How I work on programming problems
+I follow a modified form of [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf) that I call `SUPER`:
+* **State the problem**
+  * What are you trying solve?
+  * What is the expected input? What is the expected output?
+  * What constraints exist on the input? How large can it be? What range of values is expected?
+  * What is the expected performance of the solution? What complexity classes are allowable?
+* **Understand the problem**
+  * What cases _could_ occur, even if you don't expect them? List some of them. Is a null/empty input possible? What about a singleton input?
+  * What work _must_ you do? Do you have to look at every portion of the input? Is there a way to avoid doing unnecessary work?
+  * Does the problem feel like it can be "boiled down" to a common type of problem? Are there obviously usable data structures or algorithms (e.g. graph search, stacks, etc) that could be used to make the solution trivial?
+* **Plan your approach**
+  * Write pseudocode, with above in mind.
+  * Consider how your approach might fail with edge cases; try performing your pseudocode by hand on a few and seeing if it can be corrected.
+* **Execute your approach**
+  * Once you are 90% confident about your approach, create some test cases, implement the approach in real code, and run it against them.
+* **Review your answer**
+  * Who else has solved this problem? How performant is their solution?
+  * Does your solution do any work it shouldn't? Are you creating any intermediary data structures (especially accidentally) that are hurting performance?
+  * How short can you make your code without making it unreadable?
+  * Are you reinventing the wheel? Can you rely more on standard libraries or lanaguage primatives?
+
+When I get stuck on a problem, I will usually do the following things in order:
+  - Try multiple approaches, sometimes over several days.
+  - Check the titles (but not the bodies) of the posts in the problem discussion; they will usually have helpful clues
+  about the execution time of the optimal solution, e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
+  - Google to see if it would be hard to solve without
+  having learned about it first, e.g. [Manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring) for longest palindromic substrings or the [longest common subsequence problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem).
+  - Look at the LeetCode hints.
+  - Ask a friend for advice.
+  - Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
+
 ## 2018 Goal
-One piece of advice I got during Bradfield's algorithms class was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`. Extending this advice to LeetCode in general, I am attempting to solve a total of 150 LeetCode problems in 2018, a minimum of 20 being DP problems.
+I am attempting to solve a total of 150 LeetCode problems in 2018, a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
 ## Current progress: (50/150)
 #### Problems to reattempt
-  - Looked at solution for #894
-  - Spent a few days on #11 and got close to a solution before viewing
-  - Looked at solution for #790
-  - Looked at hints in discussion for #918 (contest #105)
-  - Had a hint for #647 before looking at solution
-  - Looked at titles for #750; eventually looked at solution but already had correct algorithm minus one detail.
-#### Problems to revisit and improve
+  - #11: Viewed solution - tried multiple failed approaches over a few days
+  - #647: Viewed solution - trying to understand DP
+  - #750: Viewed solution - already had correct algorithm minus one detail.
+  - #790: Viewed solution - trying to understand DP
+  - #894: Viewed solution - wasn't familiar enough with array representations of trees
+  - #918: Viewed solution (after contest #105)
+#### Problems to revisit / improve
+  - #2 probably has an in-place solution
   - #133 was only faster than 16% of solutions and should be optimized
+  - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
+  - #207 has a solution that does not involve deleting nodes from the graph
+  - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
   - #665 has a linear space solution
   - #861 should be redone with goroutines
-  - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
-  - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
-  - #2 probably has an in-place solution
-  - #207 has a solution that does not involve deleting nodes from the graph
