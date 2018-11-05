@@ -109,3 +109,4 @@ venv.bak/
 # Ignore binaries
 bin/
 bin/*
+**/*.zip
