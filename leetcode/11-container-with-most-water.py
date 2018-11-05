@@ -119,20 +119,6 @@ def experiment(heights):
   return maxCaught
 
 class Solution:
-    def maxArea(self, heights):
-      area = -float('inf')
-      l = 0
-      r = len(heights)-1
-      while(l != r):
-        total = min(heights[l], heights[r])*(r-l)
-        area = max(area,total)
-        if heights[l] <= heights[r]:
-         l+=1
-        else:
-          r-=1
-      return area
-
-
     def posMaxIncorrect(self, heights):
         # Scan array for two max values
         max1i = max2i = 0
@@ -182,14 +168,18 @@ class Solution:
         print("answer: {0}\n".format(max(maxes)))
         return max(maxes)
 
-"""
-     for case in cases:
-        maxes = [max(val*len(sides[:i]), val*(len(sides[i:])-1))
-                 for i, val in enumerate(sides)]
-        print(sides)
-        print(maxes)
-        print("-"*20)
-"""
+    def maxArea(self, heights):
+      area = -float('inf')
+      l = 0
+      r = len(heights)-1
+      while(l != r):
+        total = min(heights[l], heights[r])*(r-l)
+        area = max(area,total)
+        if heights[l] <= heights[r]:
+         l+=1
+        else:
+          r-=1
+      return area
 
 if __name__ == '__main__':
     s = Solution()
