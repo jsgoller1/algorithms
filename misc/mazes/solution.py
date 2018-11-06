@@ -69,16 +69,15 @@ def findPath(maze):
             if 0 <= nextRow < len(maze) and 0 <= nextCol < len(maze[0]) and maze[nextRow][nextCol] != '#':
                 # If we see a previously seen node and see a better path, update our cost.
                 # Otherwise, ignore more expensive paths
-                if (nextRow, nextCol) in parents:
-                    if nextCost < costs[(nextRow, nextCol)]:
-                        parents[(nextRow, nextCol)] == (row, col)
-                        costs[(nextRow, nextCol)] = nextCost
-                else:
+                if (nextRow, nextCol) not in parents:
                     parents[(nextRow, nextCol)] = (row, col)
                     costs[(nextRow, nextCol)] = nextCost
                     priority = euclideanDistance(
                         endRow, nextRow, endCol, nextCol)+currentCost
                     toVisit.append((priority, nextCost, nextRow, nextCol))
+                elif nextCost < costs[(nextRow, nextCol)]:
+                    parents[(nextRow, nextCol)] == (row, col)
+                    costs[(nextRow, nextCol)] = nextCost
 
     # Walk parent list to draw path
     current = parents[(endRow, endCol)]
