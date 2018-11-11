@@ -45,27 +45,28 @@ O(n*m) time; we will see each matrix entry at most twice
 
 class Solution:
   def zeroLock(self, y, x, matrix):
-    for i, _ in enumerate(matrix):
-      matrix[i][x] = None
+    for i, row in enumerate(matrix):
+      if row[x] != 0:
+        matrix[i][x] = None
 
-    for j, _ in enumerate(matrix[0]):
-      matrix[y][j] = None
-
+    for j, colVal in enumerate(matrix[y]):
+      if colVal != 0:
+        matrix[y][j] = None
 
   def setZeroes(self, matrix):
     for y, row in enumerate(matrix):
       for x, col in enumerate(row):
         if col == 0:
           self.zeroLock(y,x, matrix)
+
     for y, row in enumerate(matrix):
       for x, col in enumerate(row):
         if col == None:
           matrix[y][x] = 0
 
-    return matrix
-
 if __name__ == '__main__':
   s = Solution()
+  """
   assert s.setZeroes([[]]) == [[]]
   assert s.setZeroes([[0]]) == [[0]]
   assert s.setZeroes([[1, 1, 1],
@@ -73,3 +74,18 @@ if __name__ == '__main__':
                       [1, 1, 1]]) == [[ 1, 0, 1],
                                      [0, 0, 0],
                                      [1, 0, 1]]
+  assert s.setZeroes([[0, 1, 0],
+                      [1, 1, 1],
+                      [1, 1, 1]]) == [[ 0, 0, 0],
+                                     [0, 1, 0],
+                                     [0, 1, 0]]
+  assert s.setZeroes([[0,0,0,5],
+                      [4,3,1,4],
+                      [0,1,1,4],
+                      [1,2,1,3],
+                      [0,0,1,1]]) == [[0,0,0,0],
+                                      [0,0,0,4],
+                                      [0,0,0,0],
+                                      [0,0,0,3],
+                                      [0,0,0,0]]
+  """
