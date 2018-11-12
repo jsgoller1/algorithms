@@ -47,6 +47,7 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (50 easy, 70 m
   - #918: Contest problem (LeetCode Weekly #105)
 #### Problems to revisit / improve
   - #2 probably has an in-place solution
+  - #94 can be implemented using threaded BSTs / Morris traversal
   - #133 was only faster than 16% of solutions and should be optimized
   - #138 has a O(c) space solution
   - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
