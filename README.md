@@ -36,17 +36,19 @@ When I get stuck on a problem, I will usually do the following things in order:
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (50 easy, 70 medium, 30 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 53/150
-#### Problems to reattempt
-  - #11: Viewed solution - tried multiple failed approaches over a few days
-  - #647: Viewed solution - trying to understand DP
-  - #750: Viewed solution - already had correct algorithm minus one detail.
-  - #790: Viewed solution - trying to understand DP
-  - #894: Viewed solution - wasn't familiar enough with array representations of trees
-  - #918: Viewed solution (after contest #105)
+## Current progress: 57/150
+#### Problems to reattempt (viewed solution)
+  - #11: tried multiple failed approaches over a few days
+  - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
+  - #647: trying to understand DP
+  - #750: already had correct algorithm minus one detail.
+  - #790: trying to understand DP
+  - #894: wasn't familiar enough with array representations of trees
+  - #918: Contest problem (LeetCode Weekly #105)
 #### Problems to revisit / improve
   - #2 probably has an in-place solution
   - #133 was only faster than 16% of solutions and should be optimized
+  - #138 has a O(c) space solution
   - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
   - #207 has a solution that does not involve deleting nodes from the graph
   - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
