@@ -36,7 +36,7 @@ When I get stuck on a problem, I will usually do the following things in order:
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (50 easy, 70 medium, 30 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 58/150
+## Current progress: 60/150
 #### Problems to reattempt (viewed solution)
   - #11: tried multiple failed approaches over a few days
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
@@ -48,7 +48,8 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (50 easy, 70 m
 #### Problems to revisit / improve
   - #2 probably has an in-place solution
   - #94 can be implemented using threaded BSTs / Morris traversal
-  - #133 was only faster than 16% of solutions and should be optimized
+  - #130 only beat #17.26% of solutions
+  - #133 only beat 16% of solutions
   - #138 has a O(c) space solution
   - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
   - #207 has a solution that does not involve deleting nodes from the graph
