@@ -41,7 +41,7 @@ Output: None, modify input in-place
 
 
 class Solution(object):
-    def surroundDFS(self, y, x, visited, uncapturable, board):
+    def surroundDFS(self, y, x, uncapturable, board):
         discovered = set()
         capturable = True
         q = [(y, x)]
@@ -49,7 +49,6 @@ class Solution(object):
         while q:
             currY, currX = q.pop()
             #print("Visiting {0}".format((currY, currX)))
-            visited.add((currY, currX))
             discovered.add((currY, currX))
             if not ((1 <= currY < len(board) - 1) and (1 <= currX < len(board[0]) - 1)):
                 capturable = False
@@ -60,7 +59,7 @@ class Solution(object):
                 if board[nextY][nextX] == 'O':
                     if (nextY, nextX) in uncapturable:
                         capturable = False
-                    elif (nextY, nextX) not in visited:
+                    elif (nextY, nextX) not in discovered:
                         q.append((nextY, nextX))
 
         for y, x in discovered:
@@ -70,15 +69,11 @@ class Solution(object):
                 uncapturable.add((y, x))
 
     def solve(self, board):
-        visited = set()
         uncapturable = set()
         for y, row in enumerate(board):
             for x, col in enumerate(row):
-                if board[y][x] not in visited:
-                    if col == "O":
-                        self.surroundDFS(y, x, visited, uncapturable, board)
-                    else:
-                        visited.add((y, x))
+                if col == "O" and (y, x) not in uncapturable:
+                    self.surroundDFS(y, x, uncapturable, board)
 
 
 if __name__ == '__main__':
@@ -154,7 +149,7 @@ if __name__ == '__main__':
         s.solve(board)
         for y, row in enumerate(board):
             for x, col in enumerate(row):
-                print("Verifying {0}".format((y, x)))
+                #print("Verifying {0}".format((y, x)))
                 try:
                     assert col == solution[y][x]
                 except AssertionError:
