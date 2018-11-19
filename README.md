@@ -36,9 +36,9 @@ When I get stuck on a problem, I will usually do the following things in order:
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 67/150
+## Current progress: 68/150
 - Easy: 13/30
-- Medium: 51/80
+- Medium: 52/80
 - Hard: 3/40
 #### Problems to reattempt (viewed solution)
   - #11: tried multiple failed approaches over a few days
