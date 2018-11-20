@@ -99,6 +99,9 @@ pseudo(arr):
 - then return max(curr, most)
 
 - above doesn't work in [0, 1, 6, 6, 6, 6, 4, 4, 6]
+- what if we used a list where list[0] is the basket item seen less recently and list[1] is
+seen more recently? Then we evict the last recently seen one?
+  - would we need to keep counts of how many of each we've seen?
 """
 
 class Solution(object):
