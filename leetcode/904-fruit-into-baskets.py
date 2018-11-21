@@ -130,17 +130,12 @@ class Solution(object):
         start = 0
         baskets = set([tree[start], tree[end]])
         for i in range(2, len(tree)):
-            # print(baskets)
-            #print(start, end, i)
             if tree[i] in baskets:
                 end = i
-                # print("Advanced i to {0} ({1})".format(i, tree[i]))
             elif len(baskets) < 2:
                 baskets.add(tree[i])
                 end = i
             else:
-                # print("Saving {0} (len = {1})".format(
-                #    tree[start:end+1], len(tree[start:end+1])))
                 most = max(most, len(tree[start:end+1]))
                 k = end
                 while tree[k-1] == tree[end]:
@@ -148,7 +143,6 @@ class Solution(object):
                 start = k
                 end = i
                 baskets = set([tree[start], tree[end]])
-        #print(most, len(tree[start:end+1]))
         return max(most, len(tree[start:end+1]))
 
 
