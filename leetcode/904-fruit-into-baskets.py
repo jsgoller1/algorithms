@@ -77,14 +77,6 @@ constant space, linear time dp approach:
       curr = 2
   return greatest
 
-- cases:
-  Trivial: [], [1], [1,2]
-  Simple: [1,2,2], [2,2,1]
-  Single nontrivial subarray: [1,2,3,4,5,4,5,4,5,4,5,6,7]
-  Multiple nontrivial subarrays: [1,2,1,2,1,6,7,6,7,6,7,6,7]
-
-pseudo(arr):
-------------------------
 - first approach didn't work for all cases; ran into some edge cases like [0,0,0,0] for how we determine baskets
 - if we use a set as the basket, we can handle cases like the above
 - quit if there are less than 2 trees
@@ -99,44 +91,82 @@ pseudo(arr):
 - then return max(curr, most)
 
 - above doesn't work in [0, 1, 6, 6, 6, 6, 4, 4, 6]
-- what if we used a list where list[0] is the basket item seen less recently and list[1] is
-seen more recently? Then we evict the last recently seen one?
-  - would we need to keep counts of how many of each we've seen?
+- what if we used a list of tuples; our "baskets" are [(type,count), (type,count)];
+each time we see a new value:
+  - it's an item in one of our baskets, so we increment that basket's count?
+- this won't work for [0,1,0,1,0,2,0,2]; we can't make use of any zeros sandwiched
+between the 1s.
+
+- Looked at related topics, saw "two pointers"; how can we solve this with two pointers?
+- I think the two pointers would point at the subarray boundaries
+- We don't need direct representations of baskets, just keeping track of values at arr indices
+- What about this:
+  - biggest = 2
+  - start = 0, end = 1
+  - for each character in the string from arr[1] to arr[len-1], increment end:
+    # might change this to comparison for speed
+    if len(set(arr[start], arr[end-1], arr[end])) < 3:
+      continue
+    else:
+      - biggest = max(biggest, len(arr[start:end+1]))
+      - walk left from end-1 to the last index where the val == arr[end] or arr[end-1]; set that index to start
+  - return len(arr[start:end+1]))
+- The approach above is close, but doesn't work for [0, 6, 1, 1, 1, 6, 4, 4, 6] because of the 1s nested between
+the 6s; keeping track of "baskets" misses the 1s in between the 6s
+- Can we modify the approach so that it works?
+- What if the "baskets" are a set created when the indices are created,
+and we dump it each time we do the walk-back procedure?
+------------------------
+- Tried and failed several approaches
 """
+
 
 class Solution(object):
     def totalFruit(self, tree):
         if len(tree) < 2:
-          return len(tree)
-
-        baskets = set(tree[:2])
-        curr = most = 2
-        for i in range(2,len(tree)):
-          if tree[i] in baskets:
-            curr +=1
-          else:
-            if len(baskets) == 1:
-              baskets.add(tree[i])
-              curr+=1
+            return len(tree)
+        most = 2
+        end = 1
+        start = 0
+        baskets = set([tree[start], tree[end]])
+        for i in range(2, len(tree)):
+            # print(baskets)
+            #print(start, end, i)
+            if tree[i] in baskets:
+                end = i
+                # print("Advanced i to {0} ({1})".format(i, tree[i]))
+            elif len(baskets) < 2:
+                baskets.add(tree[i])
+                end = i
             else:
-              most = max(curr,most)
-              baskets = set([tree[i], tree[i-1]])
-              curr = 2
+                # print("Saving {0} (len = {1})".format(
+                #    tree[start:end+1], len(tree[start:end+1])))
+                most = max(most, len(tree[start:end+1]))
+                k = end
+                while tree[k-1] == tree[end]:
+                    k -= 1
+                start = k
+                end = i
+                baskets = set([tree[start], tree[end]])
+        #print(most, len(tree[start:end+1]))
+        return max(most, len(tree[start:end+1]))
 
-        return max(curr, most)
 
 if __name__ == '__main__':
-  s = Solution()
-  assert s.totalFruit([]) == 0
-  assert s.totalFruit([1]) == 1
-  assert s.totalFruit([1,2]) == 2
-  assert s.totalFruit([1,2,1]) == 3
-  assert s.totalFruit([0,1,2,2]) == 3
-  assert s.totalFruit([2,3,2,2]) == 4
-  assert s.totalFruit([3,3,3,1,2,1,1,2,3,3,4]) == 5
-  assert s.totalFruit([1,2,1,2,1,6,7,6,7,6,7,6,7]) == 8
-  assert s.totalFruit([0,0,1,1]) == 4
-  assert s.totalFruit([1,0,1,1]) == 4
-  assert s.totalFruit([0, 1, 6, 6, 4, 4, 6]) == 5
-  assert s.totalFruit([0, 1, 6, 6, 6, 6, 4, 4, 6]) == 7
-  assert s.totalFruit([0, 6, 1, 1, 1, 6, 4, 4, 6]) == 5
+    s = Solution()
+    # Trivial cases
+    assert s.totalFruit([]) == 0
+    assert s.totalFruit([1]) == 1
+    assert s.totalFruit([1, 2]) == 2
+    assert s.totalFruit([1, 2, 1]) == 3
+    assert s.totalFruit([0, 1, 2, 2]) == 3
+    assert s.totalFruit([2, 3, 2, 2]) == 4
+    assert s.totalFruit([3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4]) == 5
+    assert s.totalFruit([1, 2, 1, 2, 1, 6, 7, 6, 7, 6, 7, 6, 7]) == 8
+    assert s.totalFruit([0, 0, 1, 1]) == 4
+    assert s.totalFruit([1, 0, 1, 1]) == 4
+    assert s.totalFruit([0, 1, 6, 6, 4, 4, 6]) == 5
+    assert s.totalFruit([0, 1, 6, 6, 6, 6, 4, 4, 6]) == 7
+    assert s.totalFruit([6, 1, 1, 1, 1, 4, 4]) == 6
+    assert s.totalFruit([0, 1, 0, 1, 0, 1, 0, 2, 0, 2, 0, 2, 0, 2, 0])
+    assert s.totalFruit([0, 6, 1, 1, 1, 6, 4, 4, 6]) == 5
