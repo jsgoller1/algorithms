@@ -78,21 +78,10 @@ def walkList(listHead):
 
 class Solution(object):
     def mergeTwoLists(self, l1, l2):
-        if not l1:
-            return l2
-        if not l2:
-            return l1
-
-        # Set up head
-        if l1.val <= l2.val:
-            newHead = l1
-            l1 = l1.next
-        else:
-            newHead = l2
-            l2 = l2.next
+        preHead = ListNode("foobar")
 
         # Merge
-        curr = newHead
+        curr = preHead
         while (l1 != None and l2 != None):
             if l1.val <= l2.val:
                 curr.next = l1
@@ -108,13 +97,13 @@ class Solution(object):
         if l2:
             curr.next = l2
 
-        return newHead
+        return preHead.next
 
 
 if __name__ == '__main__':
     s = Solution()
-    l1 = createSortedList(0)
-    l2 = createSortedList(0)
+    l1 = createSortedList(5)
+    l2 = createSortedList(5)
     print("List 1: {0}\nList 2: {1}".format(walkList(l1), walkList(l2)))
     l3 = s.mergeTwoLists(l1, l2)
     print("Merged: {0}".format(walkList(l3)))
