@@ -88,6 +88,11 @@ and somehow give a letter a definitive "priority" that we can then use to genera
 
 class Solution(object):
     def createTopOrder(self, words):
+        """
+        Given the set of words, create a topological ordering
+        by mapping chars to chars that come after them in our
+        alien language
+        """
         topOrder = {}
         # First ensure that all letters are in topOrder
         for word in words:
@@ -108,15 +113,27 @@ class Solution(object):
         return topOrder
 
     def topOrderPurge(self, topOrder, removalKey):
+        """
+        Helper method to remove all instances of a character
+        from the topOrder dict (both as a key and as a list value
+        for any other keys); prevents "deleted key during iteration" bug
+        """
         for key in topOrder.keys():
             if removalKey in topOrder[key]:
                 topOrder[key].remove(removalKey)
         del topOrder[removalKey]
 
     def alienOrder(self, words):
+        """
+        Main method
+        """
         finalOrder = ""
         topOrder = self.createTopOrder(words)
-        while topOrder != {}:
+
+        # Now remove words from the dict until it is empty
+        # or none can be removed because no valid topological order
+        # exists
+        while topOrder:
             removed = False
             for key in topOrder.keys():
                 if topOrder[key] == set():
