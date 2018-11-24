@@ -115,7 +115,6 @@ class Codec:
         self.serialized += [None] * size
 
     def dfsSerialize(self, root, idx):
-        print("DFS; idx = {0}, root val = {1}".format(idx, root.val))
         if len(self.serialized) < idx+1:
             self.resizeSerializedArray(idx + 1)
         self.serialized[idx] = root.val
@@ -126,7 +125,8 @@ class Codec:
 
     def serialize(self, root):
         self.serialized = []
-        self.dfsSerialize(root, 0)
+        if root:
+            self.dfsSerialize(root, 0)
         return self.serialized
 
     def dfsDeserialize(self, idx):
