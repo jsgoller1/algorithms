@@ -36,10 +36,10 @@ When I get stuck on a problem, I will usually do the following things in order:
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 76/150
+## Current progress: 77/150
 - Easy: 18/30
 - Medium: 53/80
-- Hard: 5/40
+- Hard: 6/40
 #### Problems to reattempt (viewed solution)
   - #11: tried multiple failed approaches over a few days
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
