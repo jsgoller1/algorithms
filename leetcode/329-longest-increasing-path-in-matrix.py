@@ -78,6 +78,13 @@ set the global max to max(cell's cost, current max); then at the end return the 
 - Overall running time is linear, as is space use.
   - Because it's a recursive function, we are going to wind up with linear space no matter what.
   - Using a stack to hold node values would also be linear space
+----------------------------------------------------------------------------------------
+Review:
+  - First attempt initially failed because implementation checks for 0 to see if a cell
+  can be visited and does full UDLR sweep during DFS, meaning that we are ping-ponging between
+  two cells; is it too risky to instead initialize our pathLengths dict with None, then set it to
+  0 if we've already visited but don't know the path cost, but then set it to 1 or greater once we know
+  the path cost?
 """
 
 
@@ -89,40 +96,46 @@ class Solution(object):
     def isValidCell(self, *, y, x):
         validY = 0 <= y < len(self.matrix)
         validX = 0 <= x < len(self.matrix[0])
-        visited = self.longestPathLength[y][x] != 0
-        return validX and validY and not visited
+        return validX and validY
+
+    def wasVisited(self, *, y, x):
+        return self.longestPathLength[y][x] != 0
+
+    def isIncreasingPath(self, *, currY, neighborY, currX, neighborX):
+        return self.matrix[currY][currX] < self.matrix[neighborY][neighborX]
 
     def getMaxNeighborPathLength(self, *, y, x):
         maxLength = 0
         for direction in self.directions:
             neighborY = y + direction[0]
             neighborX = x + direction[1]
-            if self.isValidCell(y=neighborY, x=neighborX):
-                maxLength = max(maxLength, self.longestPathLength[y][x])
+            if self.isValidCell(y=neighborY, x=neighborX) and self.isIncreasingPath(currY=y, neighborY=neighborY, currX=x, neighborX=neighborX):
+                maxLength = max(
+                    maxLength, self.longestPathLength[neighborY][neighborX])
+        return maxLength
 
     def dfs(self, *, y, x):
-        noValidNeighbors = True
+        self.longestPathLength[y][x] = 1
         for direction in self.directions:
             neighborY = y + direction[0]
             neighborX = x + direction[1]
-            if self.isValidCell(y=neighborY, x=neighborX):
-                noValidNeighbors = False
-                self.dfs(neighborY, neighborX)
-        if noValidNeighbors:
-            self.longestPathLength[y][x] = 1
-        else:
-            self.longestPathLength = self.getMaxNeighborPathLength(
-                y=y, x=x) + 1
+            if self.isValidCell(y=neighborY, x=neighborX) and not self.wasVisited(y=neighborY, x=neighborX) and self.isIncreasingPath(currY=y, neighborY=neighborY, currX=x, neighborX=neighborX):
+                self.dfs(y=neighborY, x=neighborX)
+
+        self.longestPathLength[y][x] += self.getMaxNeighborPathLength(
+            y=y, x=x)
+        self.globalLongestPath = max(
+            self.globalLongestPath,  self.longestPathLength[y][x])
 
     def longestIncreasingPath(self, matrix):
-        self.longestPathLength = [[0 for col in matrix[0]] for row in matrix]
-        self.longestPath = 0
         self.matrix = matrix
+        self.longestPathLength = [[0 for col in matrix[0]] for row in matrix]
+        self.globalLongestPath = 0
         for y, row in enumerate(matrix):
-            for x, col in enumerate(matrix[row])
+            for x, col in enumerate(matrix[y]):
                 if self.longestPathLength[y][x] == 0:
                     self.dfs(y=y, x=x)
-        return self.longestPath
+        return self.globalLongestPath
 
 
 if __name__ == '__main__':
@@ -132,11 +145,11 @@ if __name__ == '__main__':
           [3, 2, 6],
           [2, 2, 1]],
          4),
-        ([[3, 4, 5],  # normal case
-          [3, 2, 6],
-          [2, 2, 1]],
-         4),
-        ([[1, 2, 3],  # every element of array is used
+        ([[9, 8, 7],  # upward, every element of array is used
+          [4, 5, 6],
+          [3, 2, 1]],
+         9),
+        ([[1, 2, 3],  # downward, every element of array is used
           [6, 5, 4],
           [7, 8, 9]],
          9),
