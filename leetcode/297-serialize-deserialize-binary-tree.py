@@ -65,6 +65,7 @@ to accomdate our linked list of 10 nodes, we wind up allocating a whopping 1024-
 """
 import math
 import collections
+import random
 
 
 class TreeNode(object):
@@ -87,11 +88,13 @@ def treeInsert(node, val):
             node.right = TreeNode(val)
 
 
-def createBst(size):
+def createBst(size, randomize=True):
     if size < 1:
         return
     root = TreeNode(0)
     for val in range(1, size + 1):
+        if randomize:
+            val = random.randint(-100, 100)
         treeInsert(root, val)
     return root
 
@@ -101,57 +104,55 @@ def levelOrderTraversal(root):
     while q:
         curr = q.popleft()
         print(curr.val)
-        if curr:
-            if curr.left:
-                q.append(curr.left)
-            if curr.right:
-                q.append(curr.right)
+        if curr and curr.left:
+            q.append(curr.left)
+        if curr and curr.right:
+            q.append(curr.right)
 
 
 class Codec:
-    def resizeSerializedArray(self, requiredIdx):
-        exponent = int(math.log(requiredIdx, 2)) + 1
-        size = (2 ** exponent) - len(self.serialized)
-        self.serialized += [None] * size
-
-    def dfsSerialize(self, root, idx):
-        if len(self.serialized) < idx+1:
-            self.resizeSerializedArray(idx + 1)
-        self.serialized[idx] = root.val
-        if root.left:
-            self.dfsSerialize(root.left, 2 * idx + 1)
-        if root.right:
-            self.dfsSerialize(root.right, 2 * idx + 2)
+    def bfsSerialize(self, root):
+        q = collections.deque([root])
+        serialString = ''
+        while q:
+            curr = q.popleft()
+            if curr == None:
+                serialString += "None,"
+            else:
+                serialString += str(curr.val) + ","
+                q.append(curr.left)
+                q.append(curr.right)
+        return serialString
 
     def serialize(self, root):
-        self.serialized = []
         if root:
-            self.dfsSerialize(root, 0)
-        return self.serialized
+            return self.bfsSerialize(root)
 
-    def dfsDeserialize(self, idx):
-        if idx >= len(self.data) or self.data[idx] == None:
-            return
-        node = TreeNode(self.data[idx])
-        node.left = self.dfsDeserialize(2*idx+1)
-        node.right = self.dfsDeserialize(2*idx+2)
+    def dfsDeserialize(self, data, idx):
+        if idx >= len(data) or data[idx] == None:
+            print("Rejecting idx: {0}".format(idx))
+            return None
+
+        node = TreeNode(data[idx])
+        print("Node val: {0}, idx: {1}".format(data[idx], idx))
+        node.left = self.dfsDeserialize(data, 2*idx+1)
+        node.right = self.dfsDeserialize(data, 2*idx+2)
         return node
 
     def deserialize(self, data):
-        self.data = data
-        return self.dfsDeserialize(0)
-
-
-# Your Codec object will be instantiated and called as such:
-# codec = Codec()
-# codec.deserialize(codec.serialize(root))
+        if data == None:
+            return None
+        data = collections.deque([eval(val) for val in data.split(',') if val])
+        print(data)
+        return self.dfsDeserialize(data, 0)
 
 
 if __name__ == '__main__':
     c = Codec()
-    t = createBst(10)
-    levelOrderTraversal(t)
-    serialized = c.serialize(t)
-    print(len(serialized), serialized)
-    deserialized = c.deserialize(serialized)
-    levelOrderTraversal(deserialized)
+    # t = createBst(10)
+    # levelOrderTraversal(t)
+    # serialized = c.serialize(t)
+    # deserialized = c.deserialize(serialized)
+    # print(c.serialize(t))
+    # levelOrderTraversal(deserialized)
+    levelOrderTraversal(c.deserialize('5,2,3,None,None,2,4,3,1'))
