@@ -1,5 +1,5 @@
 # programming-problems
-Solutions to LeetCode problems, plus a few other sources; there are way more LeetCode problems than anything else.
+Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), programming competition and interview questions, and some algorithms / data structures implemented for practice.
 
 ## How I work on programming problems
 I follow a modified form of [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf) that I call `SUPER`:
