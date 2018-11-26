@@ -49,6 +49,8 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 m
   - #894: wasn't familiar enough with array representations of trees
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
   - #918: Contest problem (LeetCode Weekly #105)
+  - #945: Contest problem (LeetCode Weekly #112)
+  - #947: Contest problem (LeetCode Weekly #112)
 #### Problems to revisit / improve
   - #2 probably has an in-place solution
   - #94 can be implemented using threaded BSTs / Morris traversal
