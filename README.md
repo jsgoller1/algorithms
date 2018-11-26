@@ -25,11 +25,10 @@ I follow a modified form of [Polya's problem solving method](https://math.berkel
 
 When I get stuck on a problem, I will usually do the following things in order:
   - Try multiple approaches, sometimes over several days.
-  - Check the titles (but not the bodies) of the posts in the problem discussion; they will usually have helpful clues
-  about the execution time of the optimal solution, e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
+  - If discussuions exist (LeetCode problem discussions, forum posts, etc.), check the titles (but not the bodies) of the posts; the title can be a helpful clue , e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
   - Google to see if it would be hard to solve without
   having learned about it first, e.g. [Manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring) for longest palindromic substrings or the [longest common subsequence problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem).
-  - Look at the LeetCode hints.
+  - Look at hints, if any are given.
   - Ask a friend for advice.
   - Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
 
