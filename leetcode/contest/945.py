@@ -17,21 +17,26 @@ we do more work than necessary?
 O(c) time what the minimum number of moves to make it unique is?
 """
 
+import collections
+
+
 class Solution:
     def minIncrementForUnique(self, A):
         total = 0
-        uniques = set()
-        for val in A:
-            while val in uniques:
-              val += 1
-              total +=1
-            uniques.add(val)
+        c = collections.Counter(A)
+        duplicates = collections.deque([])
+        for i in range(40000):
+            if c[i] > 1:
+                duplicates += [i] * (c[i]-1)
+            elif duplicates and c[i] == 0:
+                total += i - duplicates.popleft()
         return total
 
+
 if __name__ == '__main__':
-  s = Solution()
-  assert s.minIncrementForUnique([4,3,2,1,0,0]) == 5
-  assert s.minIncrementForUnique([1,2,2]) == 1
-  assert s.minIncrementForUnique([3,2,1,2,1,7]) == 6
-  assert s.minIncrementForUnique([1,1,1]) == 3
-  assert s.minIncrementForUnique([]) == 0
+    s = Solution()
+    assert s.minIncrementForUnique([4, 3, 2, 1, 0, 0]) == 5
+    assert s.minIncrementForUnique([1, 2, 2]) == 1
+    assert s.minIncrementForUnique([3, 2, 1, 2, 1, 7]) == 6
+    assert s.minIncrementForUnique([1, 1, 1]) == 3
+    assert s.minIncrementForUnique([]) == 0
