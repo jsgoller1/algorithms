@@ -49,45 +49,44 @@ backtracking search(word):
 
 class Solution:
     def __init__(self):
-      self.directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        self.directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
-    def isValidCell(y, x):
-     return 0 <= y < len(self.board) and 0 <= x < len(self.board[0])
+    def isValidCell(self, y, x):
+        return 0 <= y < len(self.board) and 0 <= x < len(self.board[0])
 
-    def btSearch(word, cell):
-      for y, x in self.directions:
-        y += cell[0]
-        x += cell[1]
+    def btSearch(self, word, y, x):
         if self.isValidCell(y, x) and (y, x) not in self.visited and self.board[y][x] == word[0]:
-          self.visited.add((y, x))
-          if self.btSearch(word[1:], (y, x)):
-            return True
-          self.visited.remove(y, x)
-      return False
+            self.visited.add((y, x))
+            for dY, dX in self.directions:
+                nextY = y + dY
+                nextX = x + dX
+                if word[1:] == "" or self.btSearch(word[1:], nextY, nextX):
+                    return True
+            self.visited.remove((y, x))
+        return False
 
     def exist(self, board, word):
+        if word == "":
+            return True
         self.board = board
         self.visited = set()
         for y, row in enumerate(board):
-          for x, col in enumerate(row):
-            if col == word[0]:
-              visited.add((y, x))
-              if self.btSearch(word[1:]) == True:
-                return True
-              visited.remove((y, x))
+            for x, col in enumerate(row):
+                if col == word[0] and self.btSearch(word, y, x) == True:
+                    return True
         return False
 
 
 if __name__ == '__main__':
-  s = Solution()
- board = [
-  ['A','B','C','E'],
-  ['S','F','C','S'],
-  ['A','D','E','E']
-]
-assert s.exist(board, "ABCCED") == True
-assert s.exist(board, "SEE") == True
-assert s.exist(board, "ABCB") == False
-assert s.exist(board, "") == True
-
-
+    s = Solution()
+    board = [
+        ['A', 'B', 'C', 'E'],
+        ['S', 'F', 'C', 'S'],
+        ['A', 'D', 'E', 'E']
+    ]
+    assert s.exist(board, "ABCCED") == True
+    assert s.exist(board, "SEE") == True
+    assert s.exist(board, "ABCB") == False
+    assert s.exist(board, "") == True
+    assert s.exist(board, "ESEED") == True
+    assert s.exist(board, "EEDASFCSECBA") == True
