@@ -6,7 +6,6 @@ List of started but unfinished problems
 - 5. Longest palindromic substring. [HackerRank article](https://www.hackerrank.com/topics/manachers-algorithm)
 - 149. Max points on a line
 - 309. Best time to buy and sell stock with a cooldown
-- 322. Coin change
 - 516. Longest palindromic subsequence
 - 720. Longest word in dictionary
 - 743. Network delay time
