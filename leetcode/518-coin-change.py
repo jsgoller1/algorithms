@@ -111,21 +111,21 @@ coinchange(coins, amount):
 
 class Solution:
     def solve(self, coins, amount, spaces=0):
-        spaces += 2
+        #spaces += 2
         #print(" "*spaces+"Evaluating {0},{1}".format(coins, amount))
         if (coins, amount) in self.cache:
             return self.cache[(coins, amount)]
         if amount == 0:
             return 1
         if len(coins) == 1:
-            return not amount % coins[0]  # python hack; True + 0 == 1
-        if amount < 0:
+            return 1 if amount % coins[0] == 0 else 0
+        if amount < 0 or len(coins) == 0:
             return 0
         self.cache[(coins, amount)] = self.solve(
             coins[1:], amount, spaces) + self.solve(coins, amount-coins[0], spaces)
         return self.cache[(coins, amount)]
 
-    def change(self, coins, amount):
+    def change(self, amount, coins):
         self.cache = {}
         coins = tuple(coins)
         return self.solve(coins, amount)
@@ -133,7 +133,8 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    assert s.change([1, 2, 5], 5) == 4
-    assert s.change([1, 5, 10], 15) == 6
-    assert s.change([5, 10], 7) == 0
-    assert s.change([3], 3) == 1
+    assert s.change(5, [1, 2, 5]) == 4
+    assert s.change(15, [1, 5, 10]) == 6
+    assert s.change(7, [5, 10]) == 0
+    assert s.change(3, [3]) == 1
+    assert s.change(2, [3]) == 0
