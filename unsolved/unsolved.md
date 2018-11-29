@@ -4,8 +4,6 @@ List of started but unfinished problems
 ### Leetcode
 - 4. Median of Two Sorted Arrays
 - 5. Longest palindromic substring. [HackerRank article](https://www.hackerrank.com/topics/manachers-algorithm)
-- 15. 3sum
-- 79. Word search
 - 149. Max points on a line
 - 309. Best time to buy and sell stock with a cooldown
 - 322. Coin change
