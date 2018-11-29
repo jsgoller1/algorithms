@@ -47,24 +47,68 @@ of len(n+1). So the question is:
 - modified 2-sum procedure, with arg k:
   - i = 0, j = 1
   - while i < j:
-    - if arr[i] + arr[j] + arr[k] <= target:
+    - tripleSum = if arr[i] + arr[j] + arr[k]
+    - tripleSum == target:
+      store arr[i],arr[j],arr[k]
+      i++
+      j--
+    - elif tripleSum > target:
+      j--
+    - else
+      i++
+
+- in the twosum procedure, we should modify both indices on a match. Suppose
+we were only modifying one index, say i. the only way that the new i would match
+the old j is if the new i was equal to the old i, which is necessarily a duplicate.
+--------------------------
+-  Initial run worked on all cases except [0,0,0,...,0], which timed out.
+- What if we tried pre-processing by converting nums to a set? Will need additional work
+  if every element in the array is the same, but should speed things up.
+- Preprocess by conversion to a set. If the length of the set is less than 3, add one of every
+element of the set to the array until it isn't.
 """
+
+import collections
 
 
 class Solution:
+    def twoSumPlusK(self, *, nums, triplets, k):
+        start = 0
+        end = k - 1
+        while start < end:
+            if nums[start] + nums[end] + nums[k] == 0:
+                triplets.add((nums[start], nums[end], nums[k]))
+                start += 1
+                end -= 1
+            elif nums[start] + nums[end] + nums[k] > 0:
+                end -= 1
+            else:
+                start += 1
+
+    def preprocess(self, nums):
+        counts = collections.Counter(nums)
+        processedNums = []
+        for key in counts:
+            processedNums += [key] * min(3, counts[key])
+        return sorted(processedNums)
+
     def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        return []
+        if len(nums) < 3:
+            return []
+
+        nums = self.preprocess(nums)
+        triplets = set()
+        for k in range(2, len(nums)):
+            self.twoSumPlusK(nums=nums, triplets=triplets, k=k)
+        print([[item for item in triplet] for triplet in triplets])
+        return [[item for item in triplet] for triplet in triplets]
 
 
 if __name__ == '__main__':
     s = Solution()
     assert s.threeSum([-1, 0, 1, 2, -1, -4]) == [
-        [-1, 0, 1],
-        [-1, -1, 2]
+        [-1, -1, 2],
+        [-1, 0, 1]
     ]
     assert s.threeSum([-7, -6, -4, -3, 10]) == [
         [-7, -3, 10],
