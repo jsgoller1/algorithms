@@ -35,10 +35,14 @@ When I get stuck on a problem, I will usually do the following things in order:
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 87/150
-- Easy: 22/30
-- Medium: 59/80
-- Hard: 6/40
+## Current progress: 94/150
+- Easy: 24/30
+- Medium: 63/80
+- Hard: 7/40
+- Contests: 5
+  - LeetCode: #87, #100, #105, #112
+  - CodeForces: #511
+
 #### Problems to reattempt (viewed solution)
   - #11: tried multiple failed approaches over a few days
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
@@ -46,6 +50,7 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 m
   - #750: already had correct algorithm minus one detail.
   - #790: trying to understand DP
   - #894: wasn't familiar enough with array representations of trees
+  - #898: Contest problem (LeetCode Weekly #100)
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
   - #918: Contest problem (LeetCode Weekly #105)
   - #945: Contest problem (LeetCode Weekly #112)
