@@ -32,6 +32,8 @@ When I get stuck on a problem, I will usually do the following things in order:
   - Ask a friend for advice.
   - Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
 
+I typically review the solutions to contest problems after the contest ends.
+
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
@@ -43,19 +45,23 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 m
   - LeetCode: #87, #100, #105, #112
   - CodeForces: #511
 
-#### Problems to reattempt (viewed solution)
+### Problems to reattempt (viewed solution)
+#### Couldn't complete myself
   - #11: tried multiple failed approaches over a few days
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
   - #647: trying to understand DP
   - #750: already had correct algorithm minus one detail.
   - #790: trying to understand DP
   - #894: wasn't familiar enough with array representations of trees
-  - #898: Contest problem (LeetCode Weekly #100)
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
-  - #918: Contest problem (LeetCode Weekly #105)
-  - #945: Contest problem (LeetCode Weekly #112)
-  - #947: Contest problem (LeetCode Weekly #112)
-#### Problems to revisit / improve
+#### Contest problems (couldn't complete in time)
+  - #888 (LeetCode Weekly #98)
+  - #898 (LeetCode Weekly #100)
+  - #918 (LeetCode Weekly #105)
+  - #945 (LeetCode Weekly #112)
+  - #947 (LeetCode Weekly #112)
+
+### Problems to revisit / improve
   - #2 probably has an in-place solution
   - #94 can be implemented using threaded BSTs / Morris traversal
   - #130 only beat #17.26% of solutions
