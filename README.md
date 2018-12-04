@@ -3,7 +3,7 @@ Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), pro
 
 
 ## 2018 Goal
-I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
+I am attempting to complete a total of 33 programming contests and 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), with at least 20 problems solved using dynamic programing (a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`). I am counting contest problems towards my total problem count.
 
 ## Current progress: 96/150
 - Easy: 25/30
@@ -12,6 +12,7 @@ I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 m
 - Contests (virtual): 6
   - LeetCode: #87, #100, #105, #112, #98
   - CodeForces: #511
+- Dynamic programming: 14/20
 
 ### Problems to reattempt (viewed solution)
 #### Couldn't complete myself
