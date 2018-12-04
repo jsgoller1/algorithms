@@ -32,17 +32,17 @@ When I get stuck on a problem, I will usually do the following things in order:
   - Ask a friend for advice.
   - Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
 
-I typically review the solutions to contest problems after the contest ends.
+I typically review the solutions to contest problems after the contest ends, unless I'm pretty sure I can finish them with more time.
 
 ## 2018 Goal
 I am attempting to solve a total of 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), a minimum of 20 being DP problems; a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
 
-## Current progress: 94/150
-- Easy: 24/30
-- Medium: 63/80
+## Current progress: 96/150
+- Easy: 25/30
+- Medium: 64/80
 - Hard: 7/40
-- Contests: 5
-  - LeetCode: #87, #100, #105, #112
+- Contests (virtual): 6
+  - LeetCode: #87, #100, #105, #112, #98
   - CodeForces: #511
 
 ### Problems to reattempt (viewed solution)
