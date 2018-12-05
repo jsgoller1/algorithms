@@ -14,6 +14,9 @@ ssize_t pq_young_child(ssize_t n);
 
 // construction.c
 void pq_init(priority_queue *q);
+void make_heap(priority_queue *q, ITEM_TYPE s[], size_t item_count);
+
+// insertion.c
 void pq_insert(priority_queue *q, ITEM_TYPE x);
 void pq_swap(priority_queue *q, ssize_t child, ssize_t parent);
 void bubble_up(priority_queue *q, ssize_t p);
