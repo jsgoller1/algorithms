@@ -34,6 +34,25 @@ class priority_queue():
         while self.pq:
             yield self.extract_min()
 
+    def kth_smallest_greater_than(self, k, string, curr=0):
+      """
+      See Algorithm Design Manual 2nd ed, 4.3.4 (p. 116). Note the difference
+      here from the stated function in the textbook due to implementation;
+      because we are storing strings and determining the priority of a string
+      independently from the string itself, we are asking if the
+      kth highest priority string is lexicographically greater than :string (i.e.
+      it would come after :string in an English dictionary). This still has the
+      same runtime as the given implementation in the textbook, O(k).
+      """
+      print("curr: {0}".format(curr))
+      if curr >= len(self.pq):
+        return False
+      if curr == k-1:
+        print("{0}th smallest: {1}".format(k, self.pq[curr]))
+        return self.pq[curr].data > string
+      if curr < k-1:
+        return self.kth_smallest_greater_than(k, string, 2*curr+1) or self.kth_smallest_greater_than(k, string, 2*curr+2)
+
     def _bubble_up(self, idx):
         if idx > 0:
           parent = idx//2
@@ -56,5 +75,6 @@ if __name__ == '__main__':
   for name in names:
     pq.insert(random.randint(0,100), name)
   pq.display()
+  print(pq.kth_smallest_greater_than(7, "david"))
   for item in pq.heapsort():
     print(item)
