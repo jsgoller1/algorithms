@@ -1,5 +1,5 @@
 # Algos
-Algorithms and data structures implemented for practice / learning
+Algorithms and data structures implemented for practice / learning. Most of the code here was written while reading Steve Skiena's _Algorithm Design Manual_.
 
 ## TODO from _The Algorithm Design Manual_
 ### Combinatorics
@@ -29,3 +29,4 @@ Algorithms and data structures implemented for practice / learning
 - https://en.wikipedia.org/wiki/Mathematical_optimization#Optimization_problems
 ### Skiena's papers
 - https://www.cs.umd.edu/gvil/papers/CADstrips.pdf
+
