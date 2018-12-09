@@ -33,22 +33,22 @@ Out: string
 Strategy seems to work, but some corner cases:
   - what does "" mean? Should that be an empty string?
 """
+import collections
 
 
 class Solution(object):
     def simplifyPath(self, path):
-        stack = []
-        directories = [directory for directory in path.split('/') if directory]
-        for directory in directories:
+        stack = collections.deque([])
+        for directory in path.split('/'):
             if directory == '..':
-                stack = stack[:-1]
-            elif directory != '.':
+                _ = stack.pop() if stack else None  # O(1) safe pop
+            elif directory != '.' and directory:
                 stack.append(directory)
 
         simplifiedPath = '/'
         while stack:
             simplifiedPath += stack[0]
-            stack = stack[1:]
+            _ = stack.popleft() if stack else None
             if stack:
                 simplifiedPath += '/'
         return simplifiedPath
