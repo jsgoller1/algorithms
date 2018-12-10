@@ -27,6 +27,16 @@ Algorithms and data structures implemented for practice / learning. Most of the 
 - https://en.wikipedia.org/wiki/Bellman_equation
 - https://en.wikipedia.org/wiki/Sequential_analysis
 - https://en.wikipedia.org/wiki/Mathematical_optimization#Optimization_problems
+### Graphs
+- https://en.wikipedia.org/wiki/A*_search_algorithm#Variants
+- https://en.wikipedia.org/wiki/Biconnected_component
+- https://en.wikipedia.org/wiki/Line_graph
+- https://en.wikipedia.org/wiki/Incidence_matrix
+- https://en.wikipedia.org/wiki/Tree_(data_structure)
+- https://en.wikipedia.org/wiki/Complement_graph
+- https://en.wikipedia.org/wiki/Dense_graph
+- https://en.wikipedia.org/wiki/Critical_path_method
+
 ### Skiena's papers
 - https://www.cs.umd.edu/gvil/papers/CADstrips.pdf
 
