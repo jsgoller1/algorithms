@@ -24,11 +24,11 @@ def find_entrance_exit(maze):
     :rtype cell: tuple(int,int)
     """
     for y, row in enumerate(maze):
-        for x, coll in enumerate(row):
-            if maze[row][col] == 'X':
-                start = (row, col)
-            elif maze[row][col] == 'O':
-                end = (row, col)
+        for x, col in enumerate(row):
+            if col == 'X':
+                end = (y, x)
+            elif col == 'O':
+                start = (y, x)
     return start, end
 
 
@@ -66,23 +66,24 @@ def heuristic_search(maze, heuristic):
 
     # Traverse maze to find exit (A* search)
     while pq:
-        curr = min(toVisit, key=lambda tup: tup[0])
-        pq.remove(curr)
-        _, cost, row, col = curr
+        pq_item = min(pq, key=lambda tup: tup[0])
+        pq.remove(pq_item)
+        _, cost, curr = pq_item
         if curr == end:
             break
 
         next_cost = cost+1
         for y, x in directions:
-            next_cell = (curr[0]+y, curr[y]+x)
+            next_cell = (curr[0]+y, curr[1]+x)
             if valid_neighbor_cell(maze, next_cell):
-                # If we see a previously seen node and see a better path, update our cost.
-                # Otherwise, ignore more expensive paths
                 if next_cell not in parents:
                     parents[next_cell] = curr
                     costs[next_cell] = next_cost
                     priority = heuristic(curr, next_cell)+next_cost
-                    pq.append((priority, nextCost, next_cell))
+                    pq.append((priority, next_cost, next_cell))
+
+                # If we see a previously seen node and see a better path, update our cost.
+                # Otherwise, ignore more expensive paths
                 elif next_cost < costs[next_cell]:
                     parents[next_cell] = curr
                     costs[next_cell] = next_cost
@@ -107,6 +108,6 @@ def uniform_cost_search(maze):
 if __name__ == '__main__':
     mazeFiles = ['maze1.txt', 'maze2.txt', 'maze3.txt', 'maze4.txt']
     for filename in mazeFiles:
-        maze = util.readMaze('mazes/'+filepath)
+        maze = util.readMaze('mazes/' + filename)
         modifiedMaze = a_star_search(maze)
-        util.render(modifiedMaze, filepath)
+        util.render(modifiedMaze)

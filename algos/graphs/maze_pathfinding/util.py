@@ -1,4 +1,4 @@
-def render(maze, filepath):
+def render(maze):
     """
     Draws a maze in ASCII to screen
     """
