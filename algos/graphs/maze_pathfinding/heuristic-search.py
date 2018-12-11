@@ -15,36 +15,6 @@ def null_heuristic(current_cell, next_cell):
     return 0
 
 
-def find_entrance_exit(maze):
-    """
-    Finds entrance and exit in maze grid
-
-    :type maze: list[list[string]]
-    :rtype cell: tuple(int,int)
-    :rtype cell: tuple(int,int)
-    """
-    for y, row in enumerate(maze):
-        for x, col in enumerate(row):
-            if col == 'X':
-                end = (y, x)
-            elif col == 'O':
-                start = (y, x)
-    return start, end
-
-
-def valid_neighbor_cell(maze, cell):
-    """
-    Determines if cell coords are valid for a given maze
-
-    :type maze: list[list[string]]
-    :type cell: tuple(int,int)
-    :rtype: bool
-    """
-    y = cell[0]
-    x = cell[1]
-    return 0 <= y < len(maze) and 0 <= x < len(maze[0]) and maze[y][x] != '#'
-
-
 def heuristic_search(maze, heuristic):
     """
     Executes generic heuristic graph search for finding shortest path.
@@ -53,13 +23,7 @@ def heuristic_search(maze, heuristic):
     :type heuristic: fn(tuple(int,int), tuple(int,int))
     :rtype: list[list[string]]
     """
-    directions = [
-        (-1, 0),  # Up
-        (1, 0),  # Down
-        (0, 1),  # Left
-        (0, -1)  # Right
-    ]
-    start, end = find_entrance_exit(maze)
+    start, end = util.find_entrance_exit(maze)
     parents = {start: None}
     costs = {start: 0}
     pq = [(0, 0, start)]
@@ -73,9 +37,9 @@ def heuristic_search(maze, heuristic):
             break
 
         next_cost = cost+1
-        for y, x in directions:
+        for y, x in util.directions:
             next_cell = (curr[0]+y, curr[1]+x)
-            if valid_neighbor_cell(maze, next_cell):
+            if util.valid_neighbor_cell(maze, next_cell):
                 if next_cell not in parents:
                     parents[next_cell] = curr
                     costs[next_cell] = next_cost
@@ -88,13 +52,7 @@ def heuristic_search(maze, heuristic):
                     parents[next_cell] = curr
                     costs[next_cell] = next_cost
 
-    # Walk parent list to draw path
-    current = parents[end]
-    while current != start:
-        row, col = current
-        maze[row][col] = '.'
-        current = parents[current]
-    return maze
+    return util.draw_path(maze, parents, start, end)
 
 
 def a_star_search(maze):
@@ -108,6 +66,6 @@ def uniform_cost_search(maze):
 if __name__ == '__main__':
     mazeFiles = ['maze1.txt', 'maze2.txt', 'maze3.txt', 'maze4.txt']
     for filename in mazeFiles:
-        maze = util.readMaze('mazes/' + filename)
-        modifiedMaze = a_star_search(maze)
-        util.render(modifiedMaze)
+        maze = util.parse_maze('mazes/' + filename)
+        modified_maze = a_star_search(maze)
+        util.render(modified_maze)
