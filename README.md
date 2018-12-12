@@ -5,10 +5,10 @@ Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), pro
 ## 2018 Goal
 I am attempting to complete a total of 15 programming contests and 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), with at least 20 problems solved using dynamic programing (a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`). I am counting contest problems towards my total problem count.
 
-## Current progress: 102/150
+## Current progress: 104/150
 - Easy: 26/30
-- Medium: 69/80
-- Hard: 7/40
+- Medium: 70/80
+- Hard: 8/40
 - Contests (virtual): 6
   - LeetCode: #87, #100, #105, #112, #98
   - CodeForces: #511
@@ -32,6 +32,7 @@ I am attempting to complete a total of 15 programming contests and 150 LeetCode 
 
 ### Problems to revisit / improve
   - #2 probably has an in-place solution
+  - #37 took 1.6 seconds and only beat 6% of solutions
   - #94 can be implemented using threaded BSTs / Morris traversal
   - #130 only beat #17.26% of solutions
   - #133 only beat 16% of solutions

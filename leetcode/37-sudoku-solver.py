@@ -54,13 +54,17 @@ picked the next cell to go to? the "goodness" of every case then
 is proportional to how many clues are given
 - Additionally, wouldn't a randomized search be like a left-to-right search
 where every clue is as top-left as possible?
+
+- Randomized didn't work, added to failures/
+- Actually, all we need to do is check the row, cell, and square of
+a recent addition (not the entire board)
 """
 import random
 import collections
 
 
 class Solution:
-    def valid(self, board):
+    def validBoard(self, board):
         # rows
         for row in board:
             row_set = set()
@@ -92,17 +96,56 @@ class Solution:
                             square_set.add(board[y + i][x + j])
         return True
 
-    def solve(self, board, cell_id):
-        if cell_id == 81 and self.valid(board):
+    def validCell(self, board, cellId):
+        row, col = cellId // 9, cellId % 9
+
+        # row
+        row_set = set()
+        for item in board[row]:
+            if item in row_set:
+                return False
+            elif item != '.':
+                row_set.add(item)
+
+        # column
+        col_set = set()
+        for each_row in board:
+            if each_row[col] in col_set:
+                return False
+            elif each_row[col] != '.':
+                col_set.add(each_row[col])
+
+        # 3x3
+        y = 0
+        x = 0
+        square_starts = [0, 3, 6]
+        for nearestY in square_starts:
+            if row > nearestY:
+                y = nearestY
+        for nearestX in square_starts:
+            if col > nearestX:
+                x = nearestX
+
+        square_set = set()
+        for i in range(3):
+            for j in range(3):
+                if board[y + i][x + j] in square_set:
+                    return False
+                elif board[y + i][x + j] != '.':
+                    square_set.add(board[y + i][x + j])
+        return True
+
+    def solve(self, board, cellId):
+        if cellId == 81:
             return True
 
-        row, col = cell_id // 9, cell_id % 9
+        row, col = cellId // 9, cellId % 9
         if board[row][col] != '.':
-            return self.solve(board, cell_id + 1)
+            return self.solve(board, cellId + 1)
         else:
             for val in range(1, 10):
                 board[row][col] = str(val)
-                if self.valid(board) and self.solve(board, cell_id + 1):
+                if self.validCell(board, cellId) and self.solve(board, cellId + 1):
                     return True
             board[row][col] = '.'
 
@@ -190,7 +233,7 @@ if __name__ == '__main__':
     s.solveSudoku(hardBoard)
     for row in hardBoard:
         print(row)
-    assert s.valid(hardBoard) == True
+    assert s.validBoard(hardBoard) == True
     #assert s.solveSudoku(solvedBoard) == True
     #assert s.solveSudoku(solvedBoardInvalid) == False
     #assert s.solveSudoku(validBoard) == True
