@@ -1,3 +1,3 @@
 # failures
 Here's a handful of programs I thought would be clever but wound up not working because they
-used wrong approach. It's not really a failure if you wind up learning from it!
+used wrong approach. But it's not really a failure if you wind up learning from it!
