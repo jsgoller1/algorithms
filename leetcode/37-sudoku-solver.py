@@ -44,34 +44,52 @@ solve(board, cell_id):
 
 sudoku_solve(board):
   return solve(board, 0)
+-------------------------------------------------------------
+- The given algorithm works for non-pathological cases, but doesn't
+  for a relatively sparse first-row (times out).
+- Looking around Wikipedia, it seems like bad cases are caused by
+a lot of uncertainty higher in the search tree
+- Per Skiena's discussion of randomized quicksorting, what if we randomly
+picked the next cell to go to? the "goodness" of every case then
+is proportional to how many clues are given
+- Additionally, wouldn't a randomized search be like a left-to-right search
+where every clue is as top-left as possible?
 """
+import random
+import collections
 
 
 class Solution:
     def valid(self, board):
         # rows
         for row in board:
-            row = [item for item in row if item != '.']
-            if len(set(row)) != len(row):
-                #print("Invalid row: {0}".format(row))
-                return False
+            row_set = set()
+            for item in row:
+                if item in row_set:
+                    return False
+                elif item != '.':
+                    row_set.add(item)
 
         # columns
         for i in range(9):
-            column = [row[i] for row in board if row[i] != '.']
-            if len(column) != len(set(column)):
-                #print("Invalid column: {0}".format(column))
-                return False
+            col_set = set()
+            for row in board:
+                if row[i] in col_set:
+                    return False
+                elif row[i] != '.':
+                    col_set.add(row[i])
 
         # 3x3s
         square_starts = [0, 3, 6]
         for y in square_starts:
             for x in square_starts:
-                square = [board[y + i][x + j]
-                          for i in range(3) for j in range(3) if board[y + i][x + j] != '.']
-                if len(square) != len(set(square)):
-                    #print("Invalid square: {0}".format(square))
-                    return False
+                square_set = set()
+                for i in range(3):
+                    for j in range(3):
+                        if board[y + i][x + j] in square_set:
+                            return False
+                        elif board[y + i][x + j] != '.':
+                            square_set.add(board[y + i][x + j])
         return True
 
     def solve(self, board, cell_id):
@@ -105,7 +123,7 @@ if __name__ == '__main__':
         ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
         ["3", "4", ".", "2", "8", ".", "1", "7", "."]
     ]
-    validBoard = [
+    mediumBoard = [
         ["5", "3", ".", ".", "7", ".", ".", ".", "."],
         ["6", ".", ".", "1", "9", "5", ".", ".", "."],
         [".", "9", "8", ".", ".", ".", ".", "6", "."],
@@ -114,8 +132,28 @@ if __name__ == '__main__':
         ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
         [".", "6", ".", ".", ".", ".", "2", "8", "."],
         [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-        [".", ".", ".", ".", "8", ".", ".", "7", "9"]
+        [".", ".", ".", ".", "8", ".", ".", "7", "9"]]
+    hardBoard = [
+        [".", ".", ".", ".", ".", "7", ".", ".", "9"],
+        [".", "4", ".", ".", "8", "1", "2", ".", "."],
+        [".", ".", ".", "9", ".", ".", ".", "1", "."],
+        [".", ".", "5", "3", ".", ".", ".", "7", "2"],
+        ["2", "9", "3", ".", ".", ".", ".", "5", "."],
+        [".", ".", ".", ".", ".", "5", "3", ".", "."],
+        ["8", ".", ".", ".", "2", "3", ".", ".", "."],
+        ["7", ".", ".", ".", "5", ".", ".", "4", "."],
+        ["5", "3", "1", ".", "7", ".", ".", ".", "."]
     ]
+    veryHardBoard = [
+        [".", "3", ".", ".", "7", ".", ".", ".", "."],
+        ["6", ".", ".", "1", ".", ".", ".", ".", "."],
+        [".", ".", "8", ".", ".", ".", ".", "6", "."],
+        ["8", ".", ".", ".", ".", ".", ".", ".", "3"],
+        [".", ".", ".", "8", ".", "3", ".", ".", "."],
+        [".", ".", ".", ".", "2", ".", ".", ".", "6"],
+        [".", "6", ".", ".", ".", ".", "2", ".", "."],
+        [".", ".", ".", "4", ".", "9", ".", ".", "."],
+        [".", ".", ".", ".", "8", ".", ".", "7", "."]]
     invalidBoard = [
         ["8", "3", ".", ".", "7", ".", ".", ".", "."],
         ["6", ".", ".", "1", "9", "5", ".", ".", "."],
@@ -149,8 +187,10 @@ if __name__ == '__main__':
         ["2", "8", "7", "4", "1", "9", "6", "3", "5"],
         ["3", "4", "5", "2", "8", "6", "1", "7", "9"]
     ]
-    s.solveSudoku(easyBoard)
-    assert easyBoard == solvedBoard
+    s.solveSudoku(hardBoard)
+    for row in hardBoard:
+        print(row)
+    assert s.valid(hardBoard) == True
     #assert s.solveSudoku(solvedBoard) == True
     #assert s.solveSudoku(solvedBoardInvalid) == False
     #assert s.solveSudoku(validBoard) == True
