@@ -2,6 +2,8 @@
 Algorithms and data structures implemented for practice / learning. Much of the code here was written while reading Steve Skiena's _Algorithm Design Manual_.
 
 # TODO List
+- http://algorist.com/algorist.html
+
 ### Combinatorics
 - https://en.wikipedia.org/wiki/Knapsack_problem
 
