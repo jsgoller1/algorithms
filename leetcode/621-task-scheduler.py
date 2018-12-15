@@ -59,19 +59,19 @@ class Solution:
         taskCount = collections.defaultdict(int)
         for task in tasks:
             taskCount[task] += 1
-        totalIntervals = 0
+        intervals = 0
         while (taskCount):
-            remainingIntervals = n + 1
+            remaining = n + 1
             for task in [task for task in taskCount]:
                 if taskCount[task] > 0:
-                    totalIntervals += 1
-                    remainingIntervals -= 1
+                    intervals += 1
+                    remaining -= 1
                     taskCount[task] -= 1
                 if taskCount[task] == 0:
                     del taskCount[task]
             if taskCount:
-                totalIntervals += max(0, remainingIntervals)
-        return totalIntervals
+                intervals += max(0, remaining)
+        return intervals
 
 
 if __name__ == '__main__':
