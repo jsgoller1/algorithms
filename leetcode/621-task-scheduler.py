@@ -60,7 +60,6 @@ class Solution:
         for task in tasks:
             taskCount[task] += 1
         totalIntervals = 0
-        taskList = ''
         while (taskCount):
             remainingIntervals = n + 1
             for task in [task for task in taskCount]:
@@ -68,14 +67,10 @@ class Solution:
                     totalIntervals += 1
                     remainingIntervals -= 1
                     taskCount[task] -= 1
-                    taskList += task
                 if taskCount[task] == 0:
                     del taskCount[task]
             if taskCount:
                 totalIntervals += max(0, remainingIntervals)
-                taskList += '0' * max(0, remainingIntervals)
-        print(totalIntervals)
-        print(taskList)
         return totalIntervals
 
 
