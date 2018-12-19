@@ -1,0 +1,47 @@
+# Graphs
+
+- Finding articulation vertices
+- Graph coloring
+- Finding strongly connected compo
+- https://en.wikipedia.org/wiki/A*_search_algorithm#Variants
+- https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
+- https://en.wikipedia.org/wiki/B*
+- https://en.wikipedia.org/wiki/Beam_search
+- https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
+- https://en.wikipedia.org/wiki/Best-first_search
+- https://en.wikipedia.org/wiki/Biconnected_component
+- https://en.wikipedia.org/wiki/Bidirectional_search
+- https://en.wikipedia.org/wiki/Branch_and_bound
+- https://en.wikipedia.org/wiki/British_Museum_algorithm
+- https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm
+- https://en.wikipedia.org/wiki/Complement_graph
+- https://en.wikipedia.org/wiki/Critical_path_method
+- https://en.wikipedia.org/wiki/D*
+- https://en.wikipedia.org/wiki/Dense_graph
+- https://en.wikipedia.org/wiki/Edmonds%27_algorithm
+- https://en.wikipedia.org/wiki/Eulerian_path
+- https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+- https://en.wikipedia.org/wiki/Fringe_search
+- https://en.wikipedia.org/wiki/Graph_coloring
+- https://en.wikipedia.org/wiki/Hamiltonian_path
+- https://en.wikipedia.org/wiki/Hill_climbing
+- https://en.wikipedia.org/wiki/Incidence_matrix
+- https://en.wikipedia.org/wiki/Instant_Insanity
+- https://en.wikipedia.org/wiki/Iterative_deepening_A*
+- https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search
+- https://en.wikipedia.org/wiki/Johnson%27s_algorithm
+- https://en.wikipedia.org/wiki/Jump_point_search
+- https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+- https://en.wikipedia.org/wiki/Lexicographic_breadth-first_search
+- https://en.wikipedia.org/wiki/Lifelong_Planning_A*
+- https://en.wikipedia.org/wiki/Line_graph
+- https://en.wikipedia.org/wiki/Maximum_flow_problem
+- https://en.wikipedia.org/wiki/Minimum_spanning_tree
+- https://en.wikipedia.org/wiki/Network_simplex_algorithm
+- https://en.wikipedia.org/wiki/Minimum_k-cut
+- https://en.wikipedia.org/wiki/Prim%27s_algorithm
+- https://en.wikipedia.org/wiki/SMA*
+- https://en.wikipedia.org/wiki/Steiner_tree_problem
+- https://en.wikipedia.org/wiki/Travelling_salesman_problem
+
+
