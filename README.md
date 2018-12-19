@@ -17,6 +17,7 @@ I am attempting to complete a total of 15 programming contests and 150 LeetCode 
 ### Problems to reattempt (viewed solution)
 #### Couldn't complete myself
   - #11: tried multiple failed approaches over a few days
+  - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
   - #647: trying to understand DP
   - #750: already had correct algorithm minus one detail.
