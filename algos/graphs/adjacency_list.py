@@ -67,17 +67,30 @@ class adjacency_list():
             print(line[:-2])
 
 
-if __name__ == '__main__':
+def create_fixed_undirected_graph():
+    """
+    Create the following undirected graph:
+    a - b   f - h
+    |   |   |   |
+    c - d - e - g - i
+    """
     al = adjacency_list()
-    for v in ['a', 'b', 'c', 'd']:
-        al.add_vertex(v)
+    for v in range(97, 106):  # a to i
+        al.add_vertex(chr(v))
 
     edges = [
-        ('a', 'b', 3),
-        ('c', 'd', 42),
-        ('b', 'd', 10)
+        ('a', 'b', 1),
+        ('a', 'c', 1),
+        ('b', 'd', 1),
+        ('d', 'e', 1),
+        ('e', 'f', 1),
+        ('e', 'g', 1),
+        ('f', 'h', 1),
+        ('h', 'g', 1),
+        ('g', 'i', 1),
     ]
     for e in edges:
         al.add_edge(e[0], e[1], e[2])
 
     al.print()
+    return al
