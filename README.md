@@ -24,6 +24,8 @@ I am attempting to complete a total of 15 programming contests and 150 LeetCode 
   - #790: trying to understand DP
   - #894: wasn't familiar enough with array representations of trees
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
+  - #920: thought the problem required hard combinatorics knowledge.
+
 #### Contest problems (couldn't complete in time)
   - #888 (LeetCode Weekly #98)
   - #898 (LeetCode Weekly #100)
