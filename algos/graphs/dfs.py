@@ -1,6 +1,5 @@
 import util
 
-
 PRE_ORDER = 1
 IN_ORDER = 2
 POST_ORDER = 3

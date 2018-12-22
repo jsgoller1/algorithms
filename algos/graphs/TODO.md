@@ -9,8 +9,6 @@
   - https://en.wikipedia.org/wiki/Biconnected_graph
 - Graph coloring
   - https://en.wikipedia.org/wiki/Graph_coloring
-- Prim's algorithm
-  - https://en.wikipedia.org/wiki/Prim%27s_algorithm
 - Kruskal's algorithm
   - https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
 

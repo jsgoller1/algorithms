@@ -1,5 +1,6 @@
 """
-Adapted from The Algorithm Design Manual, ch. 5.
+An implementation of adjacency lists, adapted from
+The Algorithm Design Manual, ch. 5.
 
 Operations necessary:
 - initialization
@@ -15,7 +16,7 @@ How will adjacencies be stored?
   to lists of namedtuples
   - For a more efficent approach, the graph can be
   a dict of vertices mapping labels to dicts to edges; edge dicts
-  can map dest labels to edge weights. This might not be viable
+  can map dest labels to edge weights. This might not be as simple
   in a language like C that doesn't natively support hashmaps
   but should make determining whether node A has an edge
   to node B a O(1) operation.

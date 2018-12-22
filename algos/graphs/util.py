@@ -1,3 +1,8 @@
+"""
+Utility code for graph work, mostly for working with
+the mazes in /mazes.
+"""
+
 directions = [
     (-1, 0),  # Up
     (1, 0),  # Down
