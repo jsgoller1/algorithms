@@ -47,6 +47,9 @@ class adjacency_list():
             self.vertices[label] = {}
 
     def get_vertices(self):
+        """
+        :rtype vertices: a set containing all the graph's vertices
+        """
         return set(v for v in self.vertices)
 
     def add_edge(self, src, dst, weight=0):
