@@ -25,7 +25,17 @@ import collections
 
 
 class adjacency_list():
+    """
+    Implements an adjacency list structure for
+    storing graphs
+    """
+
     def __init__(self, *, directed=False):
+        """
+        :param bool directed: defaults to False; if set to True,
+        edges will only be created one-way. Otherwise, adding
+        add_edge(x,y,0) will also add an edge (y,x,0).
+        """
         # Skiena uses an array for his implementation, but since
         # array indices will change as we remove and add items
         # from the arr, we should explicitly map labels to node lists
@@ -36,6 +46,9 @@ class adjacency_list():
         if not label in self.vertices:
             self.vertices[label] = {}
 
+    def get_vertices(self):
+        return set(v for v in self.vertices)
+
     def add_edge(self, src, dst, weight=0):
         for v in [src, dst]:
             if v not in self.vertices:
@@ -45,6 +58,16 @@ class adjacency_list():
         self.vertices[src][dst] = weight
         if not self.directed:
             self.vertices[dst][src] = weight
+
+    def get_edges(self):
+        edges = set()
+        for src in self.vertices:
+            for dst in self.vertices[src]:
+                if not self.directed and (dst, src, self.vertices[src][dst]) in edges:
+                    # in undirected graphs, (a,b,0) is the same edge as (b,a,0), so skip it.
+                    continue
+                edges.add((src, dst, self.vertices[src][dst]))
+        return edges
 
     def remove_edge(self, src, dst):
         for v in [src, dst]:
@@ -60,19 +83,25 @@ class adjacency_list():
 
     def print(self):
         for vert in self.vertices:
-            line = '{0}: '.format(vert)
+            header = '{0}: '.format(vert)
+            line = []
             for dest in self.vertices[vert]:
-                line += "{0} (wt: {1}), ".format(dest,
-                                                 self.vertices[vert][dest])
-            print(line[:-2])
+                line.append("{0} (wt: {1})".format(dest,
+                                                   self.vertices[vert][dest]))
+            print(header + ', '.join(line))
 
 
-def create_fixed_undirected_graph():
+def articulation_vertex_test_graph():
     """
-    Create the following undirected graph:
+    Create the below undirected, unweighted graph
+    as an adjacency list. This graph is suitable
+    for testing algorithms that find articulation vertices.
+
     a - b   f - h
     |   |   |   |
     c - d - e - g - i
+
+    Articulation vertices: D, E, G
     """
     al = adjacency_list()
     for v in range(97, 106):  # a to i
@@ -82,6 +111,7 @@ def create_fixed_undirected_graph():
         ('a', 'b', 1),
         ('a', 'c', 1),
         ('b', 'd', 1),
+        ('c', 'd', 1),
         ('d', 'e', 1),
         ('e', 'f', 1),
         ('e', 'g', 1),
@@ -91,6 +121,4 @@ def create_fixed_undirected_graph():
     ]
     for e in edges:
         al.add_edge(e[0], e[1], e[2])
-
-    al.print()
     return al
