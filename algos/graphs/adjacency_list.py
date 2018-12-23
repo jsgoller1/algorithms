@@ -44,6 +44,9 @@ class adjacency_list():
         self.directed = directed
 
     def add_vertex(self, label):
+        """
+        Add a vertex to the graph.
+        """
         if not label in self.vertices:
             self.vertices[label] = {}
 
@@ -54,6 +57,10 @@ class adjacency_list():
         return set(v for v in self.vertices)
 
     def add_edge(self, src, dst, weight=0):
+        """
+        Add an edge with the given weight to
+        the graph.
+        """
         for v in [src, dst]:
             if v not in self.vertices:
                 raise ValueError(
@@ -78,6 +85,11 @@ class adjacency_list():
         return edges
 
     def remove_edge(self, src, dst):
+        """
+        Remove an edge from the graph;
+        currently assumes one edge
+        is allowed between nodes.
+        """
         for v in [src, dst]:
             if v not in self.vertices:
                 raise ValueError(
@@ -90,6 +102,9 @@ class adjacency_list():
             del self.vertices[dst][src]
 
     def print(self):
+        """
+        Print the adjacency list in a readable format.
+        """
         for vert in sorted(self.vertices):
             header = '{0}: '.format(vert)
             line = []
