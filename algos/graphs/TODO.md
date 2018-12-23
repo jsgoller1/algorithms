@@ -11,6 +11,9 @@
   - https://en.wikipedia.org/wiki/Graph_coloring
 - Kruskal's algorithm
   - https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+- Steiner trees
+  - https://en.wikipedia.org/wiki/Steiner_tree_problem
+
 
 ### Wikipedia
 - https://en.wikipedia.org/wiki/A*_search_algorithm#Variants
@@ -23,6 +26,7 @@
 - https://en.wikipedia.org/wiki/Branch_and_bound
 - https://en.wikipedia.org/wiki/British_Museum_algorithm
 - https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm
+- https://en.wikipedia.org/wiki/Chebyshev_distance
 - https://en.wikipedia.org/wiki/Clique_(graph_theory)
 - https://en.wikipedia.org/wiki/Complement_graph
 - https://en.wikipedia.org/wiki/Critical_path_method
@@ -30,6 +34,7 @@
 - https://en.wikipedia.org/wiki/Dense_graph
 - https://en.wikipedia.org/wiki/Edmonds%27_algorithm
 - https://en.wikipedia.org/wiki/Eulerian_path
+- https://en.wikipedia.org/wiki/Five_room_puzzle
 - https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 - https://en.wikipedia.org/wiki/Fringe_search
 - https://en.wikipedia.org/wiki/Hamiltonian_path
@@ -46,9 +51,9 @@
 - https://en.wikipedia.org/wiki/Minimum_spanning_tree
 - https://en.wikipedia.org/wiki/Network_simplex_algorithm
 - https://en.wikipedia.org/wiki/Minimum_k-cut
+- https://en.wikipedia.org/wiki/Route_inspection_problem
 - https://en.wikipedia.org/wiki/Simplex_graph
 - https://en.wikipedia.org/wiki/SMA*
-- https://en.wikipedia.org/wiki/Steiner_tree_problem
 - https://en.wikipedia.org/wiki/Travelling_salesman_problem
 - https://en.wikipedia.org/wiki/Topological_graph_theory
 
