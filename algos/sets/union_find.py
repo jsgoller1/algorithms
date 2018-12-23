@@ -30,14 +30,14 @@ class union_find():
         """
         Remove an item from the union-find structure. There are
         some tricky edge cases to handle here:
-        - If the size of X's subtree is only 1,
+        - If the size of X's subtree is empty,
         we can safely delete X.
         - Else:
-        - If X has a parent, replace all of X's
-        children with X's parent, then delete it.
-        - If X is the root of its parent tree, then
-        get its first child, make that the root, and
-        then change all other children's parents to it.
+          - If X has a parent, replace all of X's
+          children with X's parent, then delete it.
+          - If X is the root of its parent tree, then
+          get its first child, make that the root, and
+          then change all other children's parents to it.
         """
         if item not in self.parent:
             return

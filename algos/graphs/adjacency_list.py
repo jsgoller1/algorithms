@@ -64,13 +64,17 @@ class adjacency_list():
             self.vertices[dst][src] = weight
 
     def get_edges(self):
+        """
+        :rtype edges set(tuple(int,int,int)): a set containing all the graph's edges
+        as tuples (src, dest, weight)
+        """
         edges = set()
         for src in self.vertices:
             for dst in self.vertices[src]:
-                if not self.directed and (dst, src, self.vertices[src][dst]) in edges:
-                    # in undirected graphs, (a,b,0) is the same edge as (b,a,0), so skip it.
+                if not self.directed and (self.vertices[src][dst], dst, src) in edges:
+                    # in undirected graphs, (0,a,b) is the same edge as (0,b,a), so skip it.
                     continue
-                edges.add((src, dst, self.vertices[src][dst]))
+                edges.add((self.vertices[src][dst], src, dst))
         return edges
 
     def remove_edge(self, src, dst):
@@ -86,10 +90,10 @@ class adjacency_list():
             del self.vertices[dst][src]
 
     def print(self):
-        for vert in self.vertices:
+        for vert in sorted(self.vertices):
             header = '{0}: '.format(vert)
             line = []
-            for dest in self.vertices[vert]:
+            for dest in sorted(self.vertices[vert]):
                 line.append("{0} (wt: {1})".format(dest,
                                                    self.vertices[vert][dest]))
             print(header + ', '.join(line))
