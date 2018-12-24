@@ -112,36 +112,3 @@ class adjacency_list():
                 line.append("{0} (wt: {1})".format(dest,
                                                    self.vertices[vert][dest]))
             print(header + ', '.join(line))
-
-
-def articulation_vertex_test_graph():
-    """
-    Create the below undirected, unweighted graph
-    as an adjacency list. This graph is suitable
-    for testing algorithms that find articulation vertices.
-
-    a - b   f - h
-    |   |   |   |
-    c - d - e - g - i
-
-    Articulation vertices: D, E, G
-    """
-    al = adjacency_list()
-    for v in range(97, 106):  # a to i
-        al.add_vertex(chr(v))
-
-    edges = [
-        ('a', 'b', 1),
-        ('a', 'c', 1),
-        ('b', 'd', 1),
-        ('c', 'd', 1),
-        ('d', 'e', 1),
-        ('e', 'f', 1),
-        ('e', 'g', 1),
-        ('f', 'h', 1),
-        ('h', 'g', 1),
-        ('g', 'i', 1),
-    ]
-    for e in edges:
-        al.add_edge(e[0], e[1], e[2])
-    return al
