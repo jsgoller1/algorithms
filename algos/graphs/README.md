@@ -22,6 +22,8 @@
 - https://en.wikipedia.org/wiki/Beam_search
 - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 - https://en.wikipedia.org/wiki/Best-first_search
+- https://en.wikipedia.org/wiki/Biconnected_graph
+- https://en.wikipedia.org/wiki/Biconnected_component
 - https://en.wikipedia.org/wiki/Bidirectional_search
 - https://en.wikipedia.org/wiki/Branch_and_bound
 - https://en.wikipedia.org/wiki/British_Museum_algorithm
@@ -35,6 +37,7 @@
 - https://en.wikipedia.org/wiki/Edmonds%27_algorithm
 - https://en.wikipedia.org/wiki/Eulerian_path
 - https://en.wikipedia.org/wiki/Five_room_puzzle
+- https://en.wikipedia.org/wiki/Flood_fill
 - https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
 - https://en.wikipedia.org/wiki/Fringe_search
 - https://en.wikipedia.org/wiki/Hamiltonian_path
