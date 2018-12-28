@@ -78,11 +78,12 @@ class Solution:
         return best
 
     def maxProfit(self, prices):
-        buy = float('inf')
         profit = 0
-        for i in range(len(prices)):
-            buy = min(buy, prices[i])
-            profit = max(profit, prices[i]-buy)
+        if prices:
+            buy = prices[0]
+            for i, price in enumerate(prices):
+                buy = price if price < buy else buy
+                profit = price-buy if price - buy > profit else profit
         return profit
 
 
