@@ -5,12 +5,12 @@ Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), pro
 ## 2018 Goal
 I am attempting to complete a total of 15 programming contests and 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), with at least 20 problems solved using dynamic programing (a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`). I am counting contest problems towards my total problem count.
 
-## Current progress: 119/150
-- Easy: 30/30
+## Current progress: 120/150
+- Easy: 31/30
 - Medium: 77/80
 - Hard: 12/40
-- Contests (virtual): 6
-  - LeetCode: #87, #100, #105, #112, #98
+- Contests (virtual): 8
+  - LeetCode: #87, #100, #105, #112, #98, #89, #82
   - CodeForces: #511
 - Dynamic programming: 22/20
 
@@ -26,7 +26,8 @@ I am attempting to complete a total of 15 programming contests and 150 LeetCode 
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
   - #920: thought the problem required hard combinatorics knowledge (was also a contest problem)
 
-#### Contest problems (couldn't complete in time)
+#### Contest problems (I tend to always read solutions after a contest)
+  - #825 (LeetCode Weekly #82)
   - #888 (LeetCode Weekly #98)
   - #898 (LeetCode Weekly #100)
   - #918 (LeetCode Weekly #105)
