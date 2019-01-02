@@ -1,20 +1,16 @@
 # programming-problems
 Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), programming competition and interview questions, and some algorithms / data structures implemented for practice.
 
-
-## 2018 Goal
-I am attempting to complete a total of 15 programming contests and 150 LeetCode problems in 2018 (30 easy, 80 medium, 40 hard), with at least 20 problems solved using dynamic programing (a friend once advised `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`). I am counting contest problems towards my total problem count.
-
-## Current progress: 120/150
-- Easy: 31/30
-- Medium: 77/80
-- Hard: 12/40
-- Contests (virtual): 8
+## 2019 Goal
+I am attempting to complete a total of 52 programming contests and 300 online problems in 2019 (having already done 120 problems and 8 contests already). I am counting contest problems towards my total problem count.
+### Current progress
+#### Problems: 121/420
+  - LeetCode: 121
+#### Contests (virtual): 8/60
   - LeetCode: #87, #100, #105, #112, #98, #89, #82
   - CodeForces: #511
-- Dynamic programming: 22/20
 
-### Problems to reattempt (viewed solution)
+## Problems to revisit
 #### Couldn't complete myself
   - #11: tried multiple failed approaches over a few days
   - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
@@ -25,16 +21,14 @@ I am attempting to complete a total of 15 programming contests and 150 LeetCode 
   - #894: wasn't familiar enough with array representations of trees
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
   - #920: thought the problem required hard combinatorics knowledge (was also a contest problem)
-
-#### Contest problems (I tend to always read solutions after a contest)
+#### Contest problems
   - #825 (LeetCode Weekly #82)
   - #888 (LeetCode Weekly #98)
   - #898 (LeetCode Weekly #100)
   - #918 (LeetCode Weekly #105)
   - #945 (LeetCode Weekly #112)
   - #947 (LeetCode Weekly #112)
-
-### Problems to revisit / improve
+#### Can be improved
   - #2 probably has an in-place solution
   - #5 has a linear time solution (Manacher's algorithm)
   - #37 took 1.6 seconds and only beat 6% of solutions
@@ -72,13 +66,31 @@ I follow a modified form of [Polya's problem solving method](https://math.berkel
   * How short can you make your code without making it unreadable?
   * Are you reinventing the wheel? Can you rely more on standard libraries or lanaguage primatives?
 
-When I get stuck on a problem, I will usually do the following things in order:
-  - Try multiple approaches, sometimes over several days.
-  - If discussuions exist (LeetCode problem discussions, forum posts, etc.), check the titles (but not the bodies) of the posts; the title can be a helpful clue , e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
-  - Google to see if it would be hard to solve without
+## What I do when I get stuck on a problem (in order)
+  1. Try multiple approaches, sometimes over several days.
+  1. If discussuions exist (LeetCode problem discussions, forum posts, etc.), check the titles (but not the bodies) of the posts; the title can be a helpful clue , e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
+  1. Google to see if it would be hard to solve without
   having learned about it first, e.g. [Manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring) for longest palindromic substrings or the [longest common subsequence problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem).
-  - Look at hints, if any are given.
-  - Ask a friend for advice.
-  - Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
+  1. Look at hints, if any are given.
+  1. Ask a friend for advice.
+  1. If it's a dynamic programming problem, consider the advice below.
+  1. Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
 
-I typically review the solutions to contest problems after the contest ends, unless I'm pretty sure I can finish them with more time.
+  I typically review the solutions to contest problems after the contest ends, unless I'm pretty sure I can finish them with more time.
+
+## Stuck on dynamic programming?
+Don't fret - dynamic programming is hard to grasp at first, and everyone struggles with it (including me)! I did the following things to learn dynamic programming:
+- Watch Steve Skiena's lectures on YouTube about DP from his 2012 algorithms class.
+- Read the DP chapter in _The Algorithm Design Manual_.
+- Read these Wikipedia articles:
+  - [Recursion](https://en.wikipedia.org/wiki/Recursion_(computer_science))
+  - [Dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming)
+  - [Optimal substructure](https://en.wikipedia.org/wiki/Optimal_substructure)
+  - [Overlapping subproblems](https://en.wikipedia.org/wiki/Overlapping_subproblems)
+  - [Longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+  - [Wagner-Fischer Algorithm](https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm)
+  - [Partition problem](https://en.wikipedia.org/wiki/Partition_problem#Pseudo-polynomial_time_algorithm)
+  - [Djikstra's Algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Dynamic_programming_perspective)
+- Try 20 dynamic programming problems on LeetCode / HackerRank / etc., even if you need to look at the solution; the best advice I ever heard about mastering DP was `don't assume dynamic programming is "too hard" for you until you've solved 20 problems using it`.
+- Take Bradfield School of Computer Science's Problem Solving with Algorithms and Data Structures class, if you can.
+
