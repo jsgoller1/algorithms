@@ -42,53 +42,25 @@ Input:
 s = "mississippi"
 p = "mis*is*p*."
 Output: false
----------------------------
-- Fuuuuuuuuuuuuuu, never implemented regex before
+---------------------------------
+DP approach - try possible matches by recursively removing characters from the string
+and pattern as they match. I initially considered trying DP but didn't because the iterative
+approach below seemed like it'd work better. After trying and failing the iterative approach,
+I tried this instead.
 
-start with i = 0, j = 0
-while i < len(s) and j < len(p):
-  - To handle normal chars, just do a character-by-character match
-    - if a match fails, check to see if the next character in the pattern was a *; if so, advance over it
-      and continue
-  - To handle just '.',
-    - always pass when we compare anything and '.'
-  - To handle just '*':
-    - get previous character in pattern
-    - match on every similar character in string, including zero
-    - advance string pointer and pattern pointer on first failed match
-    - 'c**','c***', etc are the same as 'c*'; we should probably ignore them.
-  - To handle '.*':
-    - Return True if we reach this; it means zero or more of any character, so it can never be false
-return i == len(s)-1 and j == len(p)-1
--------------------------------
-- Didn't take '.*c' case into account; how do we handle this?
-  - advance through string until we find a c, then return
-  - if we don't find a c, return false
-- After several submissions and resubmissions, I appear to be getting 5 or so edge cases at a time,
-but this doesn't feel like good practice.
-- Posts in submissions are titled with DP. Although we can definitely treat this recursively, will that help us detect
-all edge cases?
--------------------------------
-DP approach
+if string and pattern are empty:
+    return True, matching successful
+else if we have a star pattern like "c*":
+  - if the first char in the string matches the pattern or the pattern uses a '.', try recursing with the
+    first char in the string matched, but still using the pattern
+  - always try removing the star pattern; matching zero is valid (though it may be the wrong path to take)
+  - set the result to an OR of the above
+else if the first char of the pattern and string match or the pattern starts with '.' and string is nonempty:
+  recurse with first char of string and '.' removed from pattern
+otherwise:
+  matching is impossible; return False
 
-Recursive approach:
-  if string and pattern are empty:
-    return True
-  if one is empty and the other isn't:
-    return False
-  if pattern starts with '.':
-      remove first char of pattern and string, recurse
-  if pattern starts with char + '*':
-    remove first char of string and recurse if match or'd with remove char + * from pattern
-  if pattern starts with just char:
-    remove and recurse if match
-    fail otherwise
-
-How do we handle .*c and a*a?
-  - handled by or-ing
-Is "**" going to show up?
-
-"aaa" and "a*a"
+Use caching if necessary, switch from string slicing to indices if it's too slow still
 """
 
 
@@ -115,6 +87,38 @@ class Solution:
 
     def isMatch(self, string, pattern):
         return self.match(string, pattern, {})
+
+
+"""
+---------------------------
+Below are the notes and flaming trash pile first solution I attempted. This worked
+for 3/4 of test cases before it became unmaintainable
+
+start with i = 0, j = 0
+while i < len(s) and j < len(p):
+  - To handle normal chars, just do a character-by-character match
+    - if a match fails, check to see if the next character in the pattern was a *; if so, advance over it
+      and continue
+  - To handle just '.',
+    - always pass when we compare anything and '.'
+  - To handle just '*':
+    - get previous character in pattern
+    - match on every similar character in string, including zero
+    - advance string pointer and pattern pointer on first failed match
+    - 'c**','c***', etc are the same as 'c*'; we should probably ignore them.
+  - To handle '.*':
+    - Return True if we reach this; it means zero or more of any character, so it can never be false
+return i == len(s)-1 and j == len(p)-1
+-------------------------------
+- Didn't take '.*c' case into account; how do we handle this?
+  - advance through string until we find a c, then return
+  - if we don't find a c, return false
+- After several submissions and resubmissions, I appear to be getting 5 or so edge cases at a time,
+but this doesn't feel like good practice.
+- Posts in submissions are titled with DP. Although we can definitely treat this recursively, will that help us detect
+all edge cases?
+-------------------------------
+"""
 
 
 class SolutionHolyShitWhatWasIEvenThinking:
@@ -184,17 +188,14 @@ class SolutionHolyShitWhatWasIEvenThinking:
 
 if __name__ == '__main__':
     s = Solution()
-    # assert s.isMatch("aa", "a") == False
-    # assert s.isMatch("dogma", "dogma") == True
-    # assert s.isMatch("foobar", "foo...") == True
-    # assert s.isMatch("aa", "a*") == True
-    # #assert s.isMatch("aa", "a**") == True
-    # #assert s.isMatch("aaa", "*aaa") == True
-    # assert s.isMatch("ab", ".*") == True
-    # assert s.isMatch("aab", "c*a*b") == True
-    # assert s.isMatch("mississippi", "mis*is*p*.") == False
-    # assert s.isMatch("ab", ".*c") == False
-    # assert s.isMatch("aaa", "a*a") == True
-    # assert s.isMatch("a", ".*..a*") == False
-    s.isMatch("aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*a*a*b")
-    # print(s.callCount, s.duplicateCount, s.duplicateCount/s.callCount)
+    assert s.isMatch("aa", "a") == False
+    assert s.isMatch("dogma", "dogma") == True
+    assert s.isMatch("foobar", "foo...") == True
+    assert s.isMatch("aa", "a*") == True
+    assert s.isMatch("ab", ".*") == True
+    assert s.isMatch("aab", "c*a*b") == True
+    assert s.isMatch("mississippi", "mis*is*p*.") == False
+    assert s.isMatch("ab", ".*c") == False
+    assert s.isMatch("aaa", "a*a") == True
+    assert s.isMatch("a", ".*..a*") == False
+    assert s.isMatch("aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*a*a*b") == True
