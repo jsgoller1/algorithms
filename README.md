@@ -1,48 +1,14 @@
 # programming-problems
-Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), programming competition and interview questions, and some algorithms / data structures implemented for practice.
+Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), programming competition and interview questions, and some algorithms / data structures implemented for practice. Problems that I need to reattempt are listed in `unsolved/unsolved.md`.
 
 ## 2019 Goal
 I am attempting to complete a total of 52 programming contests and 300 online problems in 2019 (having already done 120 problems and 8 contests already). I am counting contest problems towards my total problem count.
 ### Current progress
-#### Problems: 121/420
-  - LeetCode: 121
+#### Problems: 124/420
+  - LeetCode: 124
 #### Contests (virtual): 8/60
   - LeetCode: #87, #100, #105, #112, #98, #89, #82
   - CodeForces: #511
-
-## Problems to revisit
-#### Couldn't complete myself
-  - #11: tried multiple failed approaches over a few days
-  - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
-  - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
-  - #647: trying to understand DP
-  - #750: already had correct algorithm minus one detail.
-  - #790: trying to understand DP
-  - #894: wasn't familiar enough with array representations of trees
-  - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
-  - #920: thought the problem required hard combinatorics knowledge (was also a contest problem)
-#### Contest problems
-  - #825 (LeetCode Weekly #82)
-  - #888 (LeetCode Weekly #98)
-  - #898 (LeetCode Weekly #100)
-  - #918 (LeetCode Weekly #105)
-  - #945 (LeetCode Weekly #112)
-  - #947 (LeetCode Weekly #112)
-#### Can be improved
-  - #2 probably has an in-place solution
-  - #5 has a linear time solution (Manacher's algorithm)
-  - #37 took 1.6 seconds and only beat 6% of solutions
-  - #94 can be implemented using threaded BSTs / Morris traversal
-  - #130 only beat #17.26% of solutions
-  - #133 only beat 16% of solutions
-  - #138 has a O(c) space solution
-  - #148 is technically not O(c) for space because it uses recursion (thereby relying on the stack)
-  - #207 has a solution that does not involve deleting nodes from the graph
-  - #238 has a O(c) space solution that I sketched out but didn't implement
-  - #329 only ran faster than 2% of solutions despite having an O(mn) solution (best for that problem)
-  - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
-  - #665 has a linear space solution
-  - #861 should be redone with goroutines
 
 ## How I work on programming problems
 I follow a modified form of [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf) that I call `SUPER`:
@@ -65,8 +31,7 @@ I follow a modified form of [Polya's problem solving method](https://math.berkel
   * Does your solution do any work it shouldn't? Are you creating any intermediary data structures (especially accidentally) that are hurting performance?
   * How short can you make your code without making it unreadable?
   * Are you reinventing the wheel? Can you rely more on standard libraries or lanaguage primatives?
-
-## What I do when I get stuck on a problem (in order)
+* **What I do when I get stuck on a problem (in order)**
   1. Try multiple approaches, sometimes over several days.
   1. If discussuions exist (LeetCode problem discussions, forum posts, etc.), check the titles (but not the bodies) of the posts; the title can be a helpful clue , e.g. `concise Java DP approach` or `Python 12 lines, O(n^2 * m)`.
   1. Google to see if it would be hard to solve without
@@ -76,9 +41,7 @@ I follow a modified form of [Polya's problem solving method](https://math.berkel
   1. If it's a dynamic programming problem, consider the advice below.
   1. Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
 
-  I typically review the solutions to contest problems after the contest ends, unless I'm pretty sure I can finish them with more time.
-
-## Stuck on dynamic programming?
+## Struggling with dynamic programming?
 Don't fret - dynamic programming is hard to grasp at first, and everyone struggles with it (including me)! I did the following things to learn dynamic programming:
 - Watch Steve Skiena's lectures on YouTube about DP from his 2012 algorithms class.
 - Read the DP chapter in _The Algorithm Design Manual_.
