@@ -1,6 +1,9 @@
 Problems to revisit
 ---
 ## Couldn't complete myself
+  - #4: I did solve this one without looking at the answer, but in nlogn time when
+  a log(n) solution was required. It worked but I looked at the solution afterwords to
+  see the log(n) technique.
   - #11: tried multiple failed approaches over a few days
   - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia

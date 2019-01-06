@@ -4,8 +4,8 @@ Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), pro
 ## 2019 Goal
 I am attempting to complete a total of 52 programming contests and 300 online problems in 2019 (having already done 120 problems and 8 contests already). I am counting contest problems towards my total problem count.
 ### Current progress
-#### Problems: 124/420
-  - LeetCode: 124
+#### Problems: 125/420
+  - LeetCode: 125
 #### Contests (virtual): 8/60
   - LeetCode: #87, #100, #105, #112, #98, #89, #82
   - CodeForces: #511
