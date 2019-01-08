@@ -81,105 +81,22 @@ Review:
 - Finding maxes and pos maxes is SUPER complicated.
 - Do we even need to find "maxes"? Is finding just the positional maxes sufficient?
   - No, there are cases where the positional max is not the correct choice.
+------------------------------
+Got asked this again in a mock interview and screwed it up again; reimplemented the correct answer for practice.
 """
-import collections
-
-def bruteForce(heights):
-  amounts = collections.Counter()
-  most = -float('inf')
-  mostBounds = None
-  for l in range(len(heights)):
-    for r in range(l+1, len(heights)):
-      caught = min(heights[l], heights[r])*(r-l)
-      if caught > most:
-        most = caught
-        mostBounds = (l,r)
-      amounts[l,r] = caught
-  #print("Heights: {0}".format(heights))
-  #print(amounts)
-  #print("Solution: {0}".format(most))
-  #print("Bounds: {0}".format(mostBounds))
-  return most
-
-def experiment(heights):
-  lMax = l = 0
-  rMax = r = len(heights)-1
-  maxCaught = -float('inf')
-  while (l < r):
-    l+=1
-    r-=1
-    caughtAmounts = {}
-    caughtAmounts[min(heights[l], heights[r])*(r-l)] = (l,r)
-    caughtAmounts[min(heights[lMax], heights[r])*(r-lMax)] = (lMax,r)
-    caughtAmounts[min(heights[l], heights[rMax])*(rMax-l)] = (l,rMax)
-    caughtAmounts[min(heights[lMax], heights[rMax])*(rMax-lMax)] = (lMax,rMax)
-    if max(caughtAmounts) > maxCaught:
-      maxCaught = max(caughtAmounts)
-      l, r = caughtAmounts[maxCaught]
-  return maxCaught
 
 class Solution:
-    def posMaxIncorrect(self, heights):
-        # Scan array for two max values
-        max1i = max2i = 0
-        for i, val in enumerate(heights):
-          if val >= heights[max1i]:
-            max2i = max1i
-            max1i = i
-          elif  heights[max1i] > val > heights[max2i]:
-            max2i = i
-
-        if max1i < max2i:
-          lmaxi = max1i
-          rmaxi = max2i
-        else:
-          lmaxi = max2i
-          rmaxi = max1i
-
-        # Get pmax between left max and left bound
-        posLeftMax = 0
-        for i in range(lmaxi):
-          if heights[i]*(len(heights)-1-i) >= heights[posLeftMax]*(len(heights)-1-posLeftMax):
-            posLeftMax = i
-
-        # Get pmax between right max and right bound
-        posRightMax = len(heights)-1
-        for i in range(len(heights)-1, rmaxi, -1):
-          if heights[i]*i > heights[posRightMax]*posRightMax:
-            posRightMax = i
-
-        # Get the highest of the 4 possible combinations of bounds; return max
-        maxes = [
-          min(heights[rmaxi], heights[lmaxi])*(rmaxi-lmaxi),
-          min(heights[rmaxi], heights[posLeftMax])*(rmaxi-posLeftMax),
-          min(heights[posRightMax], heights[lmaxi])*(posRightMax-lmaxi),
-          min(heights[posRightMax], heights[posLeftMax])*(posRightMax-posLeftMax)
-        ]
-
-        # Print info about index selection
-        print("Heights: {0}".format(heights))
-        print("L pmaxes:  {0}".format([val*(len(heights)-1-i) for i, val in enumerate(heights)]))
-        print("R pmaxes:  {0}".format([heights[i]*i for i in range(len(heights)-1, -1, -1)][::-1]))
-        print("Left max: arr[{0}] = {1}".format(lmaxi, heights[lmaxi]))
-        print("Right max: arr[{0}] = {1}".format(rmaxi, heights[rmaxi]))
-        print("posLeftMax: arr[{0}] = {1}".format(posLeftMax, heights[posLeftMax]))
-        print("posRightMax: arr[{0}] = {1}".format(posRightMax, heights[posRightMax]))
-        print("maxes: {0}".format(maxes))
-        print("answer: {0}\n".format(max(maxes)))
-        return max(maxes)
-
     def maxArea(self, heights):
-      area = -float('inf')
-      l = 0
-      r = len(heights)-1
-      while(l != r):
-        total = min(heights[l], heights[r])*(r-l)
-        area = max(area,total)
-        if heights[l] <= heights[r]:
-         l+=1
-        else:
-          r-=1
-      return area
+        l = 0
+        r = len(heights)-1
+        area = -1
+        while l < r:
+            area = max(area, min(heights[l], heights[r]) * abs(l - r))
+            if heights[l] <= heights[r]:
+                l += 1
+            else:
+                r -= 1
+        return area
 
 if __name__ == '__main__':
     s = Solution()
