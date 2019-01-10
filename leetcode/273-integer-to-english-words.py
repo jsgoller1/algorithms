@@ -61,7 +61,6 @@ class Solution(object):
 
     def threeTranslate(self, digits):
         translated = []
-        print("threeTranslate() | {0}".format(digits))
 
         if len(digits) == 1:
             translated = [self.ones[digits]]
@@ -77,17 +76,16 @@ class Solution(object):
     def numberToWords(self, num):
         if num == 0:
             return 'Zero'
-        print("Original: {0}".format(num))
         solution = []
         num = str(num)
         place = 0
         while num:
             field = num[-3:]
             num = num[:-3]
-            solution = self.threeTranslate(
-                field) + [self.places[place]] + solution
+            translated = self.threeTranslate(field)
+            if translated:
+                solution = translated + [self.places[place]] + solution
             place += 1
-            print(solution)
 
         return ' '.join([string for string in solution if string])
 
