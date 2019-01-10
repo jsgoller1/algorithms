@@ -7,6 +7,7 @@ Problems to revisit
   - #11: tried multiple failed approaches over a few days
   - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
+  - #301: Looked at "related topics"
   - #647: trying to understand DP
   - #750: already had correct algorithm minus one detail.
   - #790: trying to understand DP
