@@ -24,8 +24,10 @@ Problems to revisit
   - #947 (LeetCode Weekly #112)
 ## Can be improved
   - #2 probably has an in-place solution
+  - #4 needs to be redone because I did an O(n*log(n)) solution when I should've done an O(log(n)) one
   - #5 has a linear time solution (Manacher's algorithm)
   - #37 took 1.6 seconds and only beat 6% of solutions
+  - #76 only beat .99% of solutions
   - #94 can be implemented using threaded BSTs / Morris traversal
   - #130 only beat #17.26% of solutions
   - #133 only beat 16% of solutions
