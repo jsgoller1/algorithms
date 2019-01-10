@@ -6,11 +6,11 @@ I am attempting to complete a total of 52 programming contests and 300 online pr
 **Addendum, 1/9/19**: On LeetCode moving forward, I am only picking random new problems or `Hard` ones (except in contests).
 
 ### Current progress
-#### Problems: 130/420
+#### Problems: 131/420
   - LeetCode: 127
     - Easy: 32
     - Medium: 81
-    - Hard: 17
+    - Hard: 18
 #### Contests (virtual): 8/60
   - LeetCode: #87, #100, #105, #112, #98, #89, #82
   - CodeForces: #511
