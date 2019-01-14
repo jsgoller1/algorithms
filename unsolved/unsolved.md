@@ -8,6 +8,7 @@ Problems to revisit
   - #31: Looked at related topics dropdown and discussion titles; consulted Skiena (14.4) then Knuth (7.2)
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
   - #301: Looked at "related topics"
+  - #417: Looked at titles, got to a solution that misses only one cell on the last test case but does almost exactly what every other solution does.
   - #647: trying to understand DP
   - #750: already had correct algorithm minus one detail.
   - #790: trying to understand DP
@@ -40,8 +41,8 @@ Problems to revisit
   - #378 was solved with a brute force solution, and has a O(N) solution for an N x M matrix; see [this solution](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/discuss/85170/O(n)-from-paper.-Yes-O(rows).) and [this paper](http://www.cse.yorku.ca/~andy/pubs/X+Y.pdf)
   - #665 has a linear space solution
   - #861 should be redone with goroutines
-
-
+## Other
+  - #489 - started this on a car trip but never got around to finishing it
 
 ### Misc.
 - Find the number of components in a graph. [HackerRank article](https://www.hackerrank.com/challenges/components-in-graph/problem), [YouTube video](https://www.youtube.com/watch?v=IWvbPIYQPFM)
