@@ -1,5 +1,5 @@
 ## The SUPER heuristic
-This is the process I follow when I solve programming problems; it is based on [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf).
+This is the process I follow when I solve programming problems; it is based on [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf). The entire process can be stated as `DO NOT TRY SOLVING PROBLEMS YOU DO NOT UNDERSTAND; DO NOT WRITE CODE UNTIL YOU HAVE A PLAN.`
 
 * **State the problem**
   * What are you trying solve?
@@ -7,9 +7,12 @@ This is the process I follow when I solve programming problems; it is based on [
   * What constraints exist on the input? How large can it be? What range of values is expected?
   * What is the expected performance of the solution? What complexity classes are allowable?
 * **Understand the problem**
+  * Try listing small inputs and what their correct output should be. If the input size can be between 0 and 10^6, try solving n=3, n=4, and n=5 by hand and seeing if a common pattern emerges.
+  * Try drawing a picture. Really.
   * What cases _could_ occur, even if you don't expect them? List some of them. Is a null/empty input possible? What about a singleton input?
   * What work _must_ you do? Do you have to look at every portion of the input? Is there a way to avoid doing unnecessary work?
-  * Does the problem feel like it can be "boiled down" to a common type of problem? Are there obviously usable data structures or algorithms that could be used to make the solution trivial?
+  * Does the problem feel like it can be "boiled down" to a common type of problem or problem you already solved? If the problem as stated is too complicated, try solving a simpler problem or reducing complexity and seeing if you can build off of that.
+  * Are there obviously usable data structures or algorithms that could be used to make the solution trivial?
     * Avoid framing questions like `is this a dynamic programming problem` as opposed to `can I use dynamic programming here` - many problems can be solved by multiple approaches.
     * Try running through this list of approaches, asking some of the provided questions:
       * Linked lists
