@@ -9,6 +9,7 @@ Problems to revisit
   - #94: Have not ever implemented in-order or post-order DFS for trees, looked them up on Wikipedia
   - #301: Looked at "related topics"
   - #417: Looked at titles, got to a solution that misses only one cell on the last test case but does almost exactly what every other solution does.
+  - #560: Looked at unhelpful hint
   - #647: trying to understand DP
   - #750: already had correct algorithm minus one detail.
   - #790: trying to understand DP
