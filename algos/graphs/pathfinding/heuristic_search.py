@@ -2,7 +2,8 @@
 Heuristic graph searches; here is a generic implementation used
 to demonstrate A* search and Uniform Cost Search (i.e. Dijkstra's algorithm)
 """
-import util
+import graphs.pathfinding.util as util
+import graphs.pathfinding.drawing as drawing
 
 
 def euclidean_distance(current_cell, next_cell):
@@ -52,7 +53,7 @@ def heuristic_search(maze, heuristic):
                     parents[next_cell] = curr
                     costs[next_cell] = next_cost
 
-    return util.draw_path(maze, parents, start, end)
+    return drawing.draw_path(maze, parents, start, end)
 
 
 def a_star_search(maze):

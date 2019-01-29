@@ -14,6 +14,7 @@ def dfs(maze, parents, node, target, ordering=PRE_ORDER):
     """
     if node:
         if ordering == PRE_ORDER:
+            return
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 setup:
-	virtualenv ./algos
+	-rm -r ./algos
+	python3 -m venv ./algos
 	source ./algos/bin/activate; \
-	pip install -e .
+	pip3 install -e .
