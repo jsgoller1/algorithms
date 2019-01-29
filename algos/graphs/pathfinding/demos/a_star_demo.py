@@ -1,4 +1,4 @@
-import pathfinding.heuristic_search as heuristic_search
+import graphs.pathfinding.heuristic_search as heuristic_search
 import pathfinding.util as util
 import pathfinding.drawing as drawing
 
