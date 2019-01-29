@@ -61,11 +61,3 @@ def a_star_search(maze):
 
 def uniform_cost_search(maze):
     return heuristic_search(maze, null_heuristic)
-
-
-if __name__ == '__main__':
-    mazeFiles = ['maze1.txt', 'maze2.txt', 'maze3.txt', 'maze4.txt']
-    for filename in mazeFiles:
-        maze = util.parse_maze('mazes/' + filename)
-        modified_maze = a_star_search(maze)
-        util.render(modified_maze)
