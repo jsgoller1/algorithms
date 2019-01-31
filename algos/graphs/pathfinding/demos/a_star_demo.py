@@ -1,18 +1,16 @@
-import graphs.pathfinding.heuristic_search as heuristic_search
-import graphs.pathfinding.util as util
-import graphs.pathfinding.drawing as drawing
+from graphs.pathfinding.heuristic_search import a_star_search
+from graphs.pathfinding.util import Maze
 
-from curses import wrapper
 
 MAZES_DIR = 'graphs/pathfinding/maze_files'
-MAZE_FILE = 'multiple_paths.txt'
-
-def main(screen):
-    drawing.initialize_curses(screen)
-    maze = util.parse_maze(MAZES_DIR + '/' + MAZE_FILE)
-    modified_maze = heuristic_search.a_star_search(maze)
-    drawing.curses_render(modified_maze)
+MAZE_FILE = 'empty.txt'
 
 
 if __name__ == '__main__':
-  wrapper(main)
+    maze = Maze(MAZES_DIR + '/' + MAZE_FILE)
+    path = a_star_search(maze, show_state=True)
+    if path:
+        path_length = maze.trace_path(path)
+        maze.render("Path length: {0}".format(path_length))
+    else:
+        raise ValueError("Maze contains no viable path.")

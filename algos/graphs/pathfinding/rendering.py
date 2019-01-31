@@ -1,3 +1,0 @@
-import curses
-import subprocess
-
