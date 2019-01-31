@@ -2,13 +2,21 @@
 Utility code for working with the mazes.
 """
 
-directions = [
+CARDINALS = [
     (-1, 0),  # Up
     (1, 0),  # Down
-    (0, 1),  # Left
-    (0, -1)  # Right
+    (0, 1),  # Right
+    (0, -1)  # Left
 ]
 
+DIAGONALS = [
+    (-1, -1),  # Up, right
+    (-1, 1),  # Up, left
+    (1, -1),  # Down, right
+    (1, 1),  # Down, left
+]
+
+DIRECTIONS = CARDINALS + DIAGONALS
 
 def valid_neighbor_cell(maze, cell):
     """

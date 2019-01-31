@@ -2,7 +2,7 @@
 ## Intro
 Let's start with some Polya-ing:
 
-**Problem**
+**Problem, v1**
 Suppose we are playing a maze game. The maze is represented by a N x M grid of cells.
 The player starts in cell O at (y1, x1) and wins by navigating to cell X at (y2,x2).
 Every cell is either empty, or contains an impenetrable wall. How do we find the
@@ -41,5 +41,8 @@ what algorithms should we reach for?
 - Djikstra's algorithm _is_ just a BFS for unweighted graphs.
 - A* search is excellent and will get us most of the way there.
 
-**Execute and review**
-Show how A* works and wastes space on graphs with open zones.
+**Execute**
+Show that A* works.
+
+**Review**
+Show that A* wastes space on graphs with open zones.
