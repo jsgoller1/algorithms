@@ -5,7 +5,7 @@ import graphs.pathfinding.util as util
 import graphs.pathfinding.drawing as drawing
 
 MAZES_DIR = 'graphs/pathfinding/maze_files'
-MAZE_FILE = 'multiple_paths.txt'
+MAZE_FILE = 'empty.txt'
 
 
 def main(screen=None):

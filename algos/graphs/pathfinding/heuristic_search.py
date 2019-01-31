@@ -47,7 +47,7 @@ def heuristic_search(maze, heuristic, show_state):
         _, cost, curr = pq_item
         if show_state:
           drawing.render_search_state(maze, [cell for cell in parents], [queued_item[2] for queued_item in pq], [
-              "start: {0}".format(start), "curr: {0}".format(curr), "end: {0}".format(end), pq])
+              "start: {0}".format(start), "curr: {0}".format(curr), "end: {0}".format(end), "cells visited: {0}".format(len(parents)), "queue size: {0}".format(len(pq)), pq])
         if curr == end:
             break
 

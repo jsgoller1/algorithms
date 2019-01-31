@@ -5,7 +5,7 @@ import graphs.pathfinding.drawing as drawing
 from curses import wrapper
 
 MAZES_DIR = 'graphs/pathfinding/maze_files'
-MAZE_FILE = 'cave.txt'
+MAZE_FILE = 'multiple_paths.txt'
 
 def main(screen):
     drawing.initialize_curses(screen)
