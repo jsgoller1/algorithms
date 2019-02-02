@@ -2,7 +2,7 @@
 Heuristic graph searches; here is a generic implementation used
 to demonstrate A* search and Uniform Cost Search (i.e. Dijkstra's algorithm)
 """
-from graphs.pathfinding.util import DIRECTIONS, CARDINALS
+from graphs.pathfinding.maze import DIRECTIONS, CARDINALS
 import heapq
 
 

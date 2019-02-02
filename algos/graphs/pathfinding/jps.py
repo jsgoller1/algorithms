@@ -84,7 +84,7 @@ jps(maze, start, exit):
 """
 import collections
 from graphs.pathfinding.heuristic_search import chebyshev_distance
-from graphs.pathfinding.util import DIAGONALS
+from graphs.pathfinding.maze import HORIZONTALS, VERTICALS, DIAGONALS, DIRECTIONS
 
 
 def get_natural_neighbors(current, direction):
@@ -95,18 +95,24 @@ def get_natural_neighbors(current, direction):
     return neighbors
 
 
-"""
-  neighbors = []
-  if direction is diagonal:
-    add next diagonal after cell, plus each cardinal neighbor for each cardinal component
-  if direction is horizontal/vertical:
-    add next horizontal/vertical cell after cell
-  return neighbors
-"""
-
-
-def get_forced_neighbors(current, direction):
-    return
+def get_forced_neighbors(maze, current, direction):
+    neighbors = []
+    if direction in HORIZONTALS:
+        if maze.is_wall((current[0] - 1, current[1])):
+            neighbors.append((current[0] - 1, current[1]+direction[1]))
+        if maze.is_wall((current[0] + 1, current[1])):
+            neighbors.append((current[0] + 1, current[1]+direction[1]))
+    elif direction in VERTICALS:
+        if maze.is_wall((current[0], current[1]-1)):
+            neighbors.append((current[0]+direction[0], current[1]-1))
+        if maze.is_wall((current[0], current[1]+1)):
+            neighbors.append((current[0]+direction[0], current[1]+1))
+    elif direction in DIAGONALS:
+        if maze.is_wall((current[0]-direction[0], current[1])):
+            neighbors.append((current[0]-direction[0], current[1]+direction[1]))
+        if maze.is_wall((current[0], current[1]-direction[1])):
+            neighbors.append((current[0]+direction[0], current[1]-direction[1]))
+    return neighbors
 
 
 def jump(maze, cell, direction):
@@ -133,10 +139,22 @@ def successors(maze, current, direction):
     return successors
 
 
-def jps(maze, show_state=False):
+def initialize(maze):
     parents = {}
     costs = {}
-    pq = collections.deque()
+    pq = collections.deque([])
+    for direction in DIRECTIONS:
+        neighbor = (maze.entrance[0] + direction[0], maze.entrance[1] + direction[1])
+        if maze.is_visitable(neighbor):
+            priority = 1 + chebyshev_distance(neighbor, maze.exit)
+            pq.append((priority, 1, neighbor))
+            parents[neighbor] = maze.entrance
+            costs[neighbor] = 1
+    return parents, costs, pq
+
+
+def jps(maze, show_state=False):
+    parents, costs, pq = initialize(maze)
     while pq:
         _, cost, current = pq.popleft()
         if show_state:

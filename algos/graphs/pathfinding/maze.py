@@ -4,9 +4,11 @@ Utility code for working with the mazes.
 import subprocess
 import copy
 
-CARDINALS = [
+VERTICALS = [
     (-1, 0),  # Up
-    (1, 0),  # Down
+    (1, 0)  # Down
+]
+HORIZONTALS = [
     (0, 1),  # Right
     (0, -1)  # Left
 ]
@@ -18,11 +20,12 @@ DIAGONALS = [
     (1, 1),  # Down, left
 ]
 
+CARDINALS = HORIZONTALS + VERTICALS
 DIRECTIONS = CARDINALS + DIAGONALS
 
 
 class Maze():
-    def __init__(self, filepath):
+    def __init__(self, filepath, wall_char='#'):
         with open(filepath) as f:
             mazeData = f.read().split('\n')
             matrix = [list(line) for line in mazeData if line]
@@ -30,6 +33,7 @@ class Maze():
             self.height = len(matrix)
             self.width = len(matrix[0])
             self.size = self.height * self.width
+            self.wall_char = wall_char
 
         self.unvisitable_count = 0
         self.visitable_count = 0
@@ -61,15 +65,23 @@ class Maze():
 
     def is_visitable(self, cell):
         """
-        Determines if cell coords are visitable in a given
-        maze, i.e. if they are valid and if they do not contain
-        a wall.
+        Determines if cell coords are empty.
 
         :type cell: tuple(int,int)
         :rtype: bool
         """
         y, x = cell
-        return self.is_valid(cell) and self.matrix[y][x] != '#'
+        return self.is_valid(cell) and self.matrix[y][x] != self.wall_char
+
+    def is_wall(self, cell):
+        """
+        Determines if cell coords contain a wall.
+
+        :type cell: tuple(int,int)
+        :rtype: bool
+        """
+        y, x = cell
+        return self.is_valid(cell) and self.matrix[y][x] == self.wall_char
 
     def trace_path(self, parents, numbered=False):
         """

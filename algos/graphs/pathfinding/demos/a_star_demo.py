@@ -2,7 +2,7 @@ from graphs.pathfinding.heuristic_search import a_star_search
 from graphs.pathfinding.util import Maze
 
 
-MAZES_DIR = 'graphs/pathfinding/maze_files'
+MAZES_DIR = '/Users/joshua.goller/Code/programming-problems/algos/graphs/pathfinding/maze_files'
 MAZE_FILE = 'empty.txt'
 
 

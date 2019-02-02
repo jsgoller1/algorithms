@@ -1,7 +1,7 @@
-from graphs.pathfinding.util import Maze
+from graphs.pathfinding.maze import Maze
 from graphs.pathfinding.jps import jps
 
-MAZES_DIR = 'graphs/pathfinding/maze_files'
+MAZES_DIR = '/Users/joshua.goller/Code/programming-problems/algos/graphs/pathfinding/maze_files'
 MAZE_FILE = 'multiple_paths.txt'
 
 if __name__ == '__main__':
