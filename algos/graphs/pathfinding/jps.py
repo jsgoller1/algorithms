@@ -98,20 +98,38 @@ def get_natural_neighbors(current, direction):
 def get_forced_neighbors(maze, current, direction):
     neighbors = []
     if direction in HORIZONTALS:
-        if maze.is_wall((current[0] - 1, current[1])):
-            neighbors.append((current[0] - 1, current[1]+direction[1]))
-        if maze.is_wall((current[0] + 1, current[1])):
-            neighbors.append((current[0] + 1, current[1]+direction[1]))
+        up = (current[0] - 1, current[1])
+        up_diag = (current[0] - 1, current[1]+direction[1])
+        if maze.is_wall(up) and maze.is_visitable(up_diag):
+            neighbors.append(up_diag)
+
+        down = (current[0] + 1, current[1])
+        down_diag = (current[0] + 1, current[1]+direction[1])
+        if maze.is_wall(down):
+            neighbors.append(down_diag)
+
     elif direction in VERTICALS:
-        if maze.is_wall((current[0], current[1]-1)):
-            neighbors.append((current[0]+direction[0], current[1]-1))
-        if maze.is_wall((current[0], current[1]+1)):
-            neighbors.append((current[0]+direction[0], current[1]+1))
+        left = (current[0], current[1]-1)
+        left_diag = (current[0] + direction[0], current[1] - 1)
+        if maze.is_wall(left) and maze.is_visitable(left_diag):
+            neighbors.append(left_diag)
+
+        right = (current[0], current[1]+1)
+        right_diag = (current[0] + direction[0], current[1] + 1)
+        if maze.is_wall(right) and maze.is_visitable(right_diag):
+            neighbors.append(right_diag)
+
     elif direction in DIAGONALS:
-        if maze.is_wall((current[0]-direction[0], current[1])):
-            neighbors.append((current[0]-direction[0], current[1]+direction[1]))
-        if maze.is_wall((current[0], current[1]-direction[1])):
-            neighbors.append((current[0]+direction[0], current[1]-direction[1]))
+        vert = (current[0] - direction[0], current[1])
+        vert_diag = (current[0] - direction[0], current[1] + direction[1])
+        if maze.is_wall(vert) and maze.is_visitable(vert_diag):
+            neighbors.append(vert_diag)
+
+        horiz = (current[0], current[1]-direction[1])
+        horiz_diag = (current[0]+direction[0], current[1]-direction[1])
+        if maze.is_wall(horiz) and maze.is_visitable(horiz_diag):
+            neighbors.append(horiz_diag)
+
     return neighbors
 
 
@@ -121,7 +139,7 @@ def jump(maze, cell, direction):
         return None
     if next_cell == maze.exit:
         return next_cell
-    if get_forced_neighbors(next_cell, direction):
+    if get_forced_neighbors(maze, next_cell, direction):
         return next_cell
     if direction in DIAGONALS:
         if jump(maze, next_cell, (direction[0], 0)) or jump(maze, next_cell, (0, direction[1])):
@@ -131,17 +149,17 @@ def jump(maze, cell, direction):
 
 def successors(maze, current, direction):
     successors = []
-    neighbors = get_natural_neighbors(current, direction) + get_forced_neighbors(current, direction)
+    neighbors = get_natural_neighbors(current, direction) + get_forced_neighbors(maze, current, direction)
     for cell in neighbors:
         jump_neighbor = jump(maze, cell, direction)
         if jump_neighbor:
-            successors += jump_neighbor
+            successors += [jump_neighbor]
     return successors
 
 
 def initialize(maze):
-    parents = {}
-    costs = {}
+    parents = {maze.entrance: None}
+    costs = {maze.entrance: 0}
     pq = collections.deque([])
     for direction in DIRECTIONS:
         neighbor = (maze.entrance[0] + direction[0], maze.entrance[1] + direction[1])
@@ -165,12 +183,13 @@ def jps(maze, show_state=False):
         parent = parents[current]
         direction = (current[0]-parent[0], current[1]-parent[1])
         jump_neighbors = successors(maze, current, direction)
-        for jn_cost, jn_cell in jump_neighbors:
+        for jn_cell in jump_neighbors:
+            jn_cost = costs[current]
             if jn_cell not in parents:
                 parents[jn_cell] = current
-                cost[jn_cell] = cost + jn_cost
+                costs[jn_cell] = cost + jn_cost
                 distance = chebyshev_distance(current, jn_cell)
-                pq.append((cost[jn_cell] + distance, cost[jn_cell], jn_cell))
+                pq.append((costs[jn_cell] + distance, costs[jn_cell], jn_cell))
             elif jn_cost < costs[jn_cell]:
                 costs[jn_cell] = jn_cost + cost
                 parents[jn_cell] = current

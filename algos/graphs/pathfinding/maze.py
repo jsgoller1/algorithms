@@ -129,7 +129,6 @@ class Maze():
             maze_copy.matrix[y][x] = visited_char
         for y, x in queue:
             maze_copy.matrix[y][x] = queued_char
-        input("")
         maze_copy.render("start: {0}".format(maze_copy.entrance),
                          "curr: {0}".format(current_cell),
                          "end: {0}".format(maze_copy.exit),
@@ -153,3 +152,4 @@ class Maze():
         if args:
             for arg in args:
                 print(arg)
+        input("")
