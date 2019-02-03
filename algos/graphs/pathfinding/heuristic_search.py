@@ -2,7 +2,7 @@
 Heuristic graph searches; here is a generic implementation used
 to demonstrate A* search and Uniform Cost Search (i.e. Dijkstra's algorithm)
 """
-from graphs.pathfinding.maze import DIRECTIONS, CARDINALS
+from graphs.pathfinding.mazes import DIRECTIONS, CARDINALS
 import heapq
 
 
@@ -47,6 +47,7 @@ def heuristic_search(maze, heuristic, show_state):
         if show_state:
             maze.draw_search_state(parents.keys(), [item[2] for item in pq], curr)
             print(pq)
+            input("")
         if curr == maze.exit:
             break
 

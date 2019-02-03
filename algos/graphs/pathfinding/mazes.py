@@ -151,4 +151,4 @@ class Maze():
         if args:
             for arg in args:
                 print(arg)
-        input("")
+        # input("")

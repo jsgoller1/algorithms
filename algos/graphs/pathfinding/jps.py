@@ -89,10 +89,17 @@ from graphs.pathfinding.maze import HORIZONTALS, VERTICALS, DIAGONALS, DIRECTION
 
 def get_natural_neighbors(maze, current, direction):
     # TODO: Check cell validity you idiot
-    neighbors = [(current[0]+direction[0], current[1]+direction[1])]
+    forward = (current[0] + direction[0], current[1] + direction[1])
+    if maze.is_wall(forward):
+        return []
+    neighbors = [forward]
     if direction in DIAGONALS:
-        neighbors.append((current[0], current[1]+direction[1]))
-        neighbors.append((current[0] + direction[0], current[1]))
+        horizontal = (current[0], current[1] + direction[1])
+        vertical = (current[0] + direction[0], current[1])
+        if maze.is_visitable(horizontal):
+            neighbors.append(horizontal)
+        if maze.is_visitable(vertical):
+            neighbors.append(vertical)
     print("Natural neighbors of {0} heading {1}: {2}".format(current, direction, neighbors))
     input("")
     return neighbors
@@ -157,7 +164,7 @@ def jump(maze, cell, direction):
 
 def successors(maze, current, direction):
     successors = []
-    neighbors = get_natural_neighbors(current, direction) + get_forced_neighbors(maze, current, direction)
+    neighbors = get_natural_neighbors(maze, current, direction) + get_forced_neighbors(maze, current, direction)
     for cell in neighbors:
         jump_neighbor = jump(maze, cell, direction)
         if jump_neighbor:

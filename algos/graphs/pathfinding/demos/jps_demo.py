@@ -5,7 +5,7 @@ MAZES_DIR = '/Users/joshua.goller/Code/programming-problems/algos/graphs/pathfin
 MAZE_FILE = 'multiple_paths.txt'
 
 if __name__ == '__main__':
-    maze = Maze(MAZES_DIR + '/' + MAZE_FILE)
+    maze = Maze(filepath=MAZES_DIR + '/' + MAZE_FILE)
     path = jps(maze, show_state=True)
     if path:
         path_length = maze.trace_path(path)
