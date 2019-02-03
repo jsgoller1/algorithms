@@ -4,36 +4,33 @@ Utility code for working with the mazes.
 import subprocess
 import copy
 
-VERTICALS = [
-    (-1, 0),  # Up
-    (1, 0)  # Down
-]
-HORIZONTALS = [
-    (0, 1),  # Right
-    (0, -1)  # Left
-]
-
-DIAGONALS = [
-    (-1, -1),  # Up, right
-    (-1, 1),  # Up, left
-    (1, -1),  # Down, right
-    (1, 1),  # Down, left
-]
-
+UP = (-1, 0)
+DOWN = (1, 0)
+LEFT = (0, -1)
+RIGHT = (0, 1)
+UP_LEFT = (-1, -1)
+UP_RIGHT = (-1, 1)
+DOWN_LEFT = (1, -1)
+DOWN_RIGHT = (1, 1)
+VERTICALS = [UP, DOWN]
+HORIZONTALS = [LEFT, RIGHT]
+DIAGONALS = [UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT]
 CARDINALS = HORIZONTALS + VERTICALS
 DIRECTIONS = CARDINALS + DIAGONALS
 
 
 class Maze():
-    def __init__(self, filepath, wall_char='#'):
-        with open(filepath) as f:
-            mazeData = f.read().split('\n')
-            matrix = [list(line) for line in mazeData if line]
-            self.matrix = matrix
-            self.height = len(matrix)
-            self.width = len(matrix[0])
-            self.size = self.height * self.width
-            self.wall_char = wall_char
+    def __init__(self, *, filepath=None, matrix=None, wall_char='#'):
+        if filepath:
+            with open(filepath) as f:
+                mazeData = f.read().split('\n')
+                matrix = [list(line) for line in mazeData if line]
+
+        self.matrix = matrix
+        self.height = len(matrix)
+        self.width = len(matrix[0])
+        self.size = self.height * self.width
+        self.wall_char = wall_char
 
         self.unvisitable_count = 0
         self.visitable_count = 0
@@ -129,6 +126,8 @@ class Maze():
             maze_copy.matrix[y][x] = visited_char
         for y, x in queue:
             maze_copy.matrix[y][x] = queued_char
+        y, x = current_cell
+        maze_copy.matrix[y][x] = 'C'
         maze_copy.render("start: {0}".format(maze_copy.entrance),
                          "curr: {0}".format(current_cell),
                          "end: {0}".format(maze_copy.exit),

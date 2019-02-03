@@ -87,11 +87,14 @@ from graphs.pathfinding.heuristic_search import chebyshev_distance
 from graphs.pathfinding.maze import HORIZONTALS, VERTICALS, DIAGONALS, DIRECTIONS
 
 
-def get_natural_neighbors(current, direction):
+def get_natural_neighbors(maze, current, direction):
+    # TODO: Check cell validity you idiot
     neighbors = [(current[0]+direction[0], current[1]+direction[1])]
     if direction in DIAGONALS:
         neighbors.append((current[0], current[1]+direction[1]))
-        neighbors.append((current[0]+direction[0], current[1]))
+        neighbors.append((current[0] + direction[0], current[1]))
+    print("Natural neighbors of {0} heading {1}: {2}".format(current, direction, neighbors))
+    input("")
     return neighbors
 
 
@@ -105,7 +108,7 @@ def get_forced_neighbors(maze, current, direction):
 
         down = (current[0] + 1, current[1])
         down_diag = (current[0] + 1, current[1]+direction[1])
-        if maze.is_wall(down):
+        if maze.is_wall(down) and maze.is_visitable(down_diag):
             neighbors.append(down_diag)
 
     elif direction in VERTICALS:
@@ -130,10 +133,15 @@ def get_forced_neighbors(maze, current, direction):
         if maze.is_wall(horiz) and maze.is_visitable(horiz_diag):
             neighbors.append(horiz_diag)
 
+    print("Forced neighbors of {0} heading {1}: {2}".format(current, direction, neighbors))
+    input("")
     return neighbors
 
 
 def jump(maze, cell, direction):
+    maze.draw_search_state([], [], cell)
+    print("Jumping - cell: {0} direction: {1}".format(cell, direction))
+    input("")
     next_cell = (cell[0] + direction[0], cell[1] + direction[1])
     if not maze.is_visitable(next_cell):
         return None
@@ -181,7 +189,9 @@ def jps(maze, show_state=False):
         if current == maze.exit:
             break
         parent = parents[current]
-        direction = (current[0]-parent[0], current[1]-parent[1])
+        direction = (current[0] - parent[0], current[1] - parent[1])
+        print("starting jump in direction {0} from {1} (parent: {2})".format(direction, current, parent))
+        input("")
         jump_neighbors = successors(maze, current, direction)
         for jn_cell in jump_neighbors:
             jn_cost = costs[current]
