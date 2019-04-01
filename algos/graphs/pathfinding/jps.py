@@ -84,11 +84,24 @@ jps(maze, start, exit):
 """
 import collections
 from graphs.pathfinding.heuristic_search import chebyshev_distance
-from graphs.pathfinding.maze import HORIZONTALS, VERTICALS, DIAGONALS, DIRECTIONS
+from graphs.pathfinding.mazes import HORIZONTALS, VERTICALS, DIAGONALS, DIRECTIONS
+
+
+def get_direction(cell, parent):
+    y_dir = x_dir = 0
+    if cell[0] - parent[0] > 0:
+        y_dir = 1
+    elif cell[0] - parent[0] < 0:
+        y_dir = -1
+    if cell[1] - parent[1] > 0:
+        x_dir = 1
+    elif cell[1] - parent[1] < 0:
+        x_dir = -1
+    return (y_dir, x_dir)
+    # return (1 if cell[0] > 0 else max(cell[0], -1), 1 if cell[1] > 0 else max(cell[1], -1))
 
 
 def get_natural_neighbors(maze, current, direction):
-    # TODO: Check cell validity you idiot
     forward = (current[0] + direction[0], current[1] + direction[1])
     if maze.is_wall(forward):
         return []
@@ -100,6 +113,8 @@ def get_natural_neighbors(maze, current, direction):
             neighbors.append(horizontal)
         if maze.is_visitable(vertical):
             neighbors.append(vertical)
+
+    maze.draw_search_state([], neighbors, current)
     print("Natural neighbors of {0} heading {1}: {2}".format(current, direction, neighbors))
     input("")
     return neighbors
@@ -140,6 +155,7 @@ def get_forced_neighbors(maze, current, direction):
         if maze.is_wall(horiz) and maze.is_visitable(horiz_diag):
             neighbors.append(horiz_diag)
 
+    maze.draw_search_state([], neighbors, current)
     print("Forced neighbors of {0} heading {1}: {2}".format(current, direction, neighbors))
     input("")
     return neighbors
@@ -165,8 +181,9 @@ def jump(maze, cell, direction):
 def successors(maze, current, direction):
     successors = []
     neighbors = get_natural_neighbors(maze, current, direction) + get_forced_neighbors(maze, current, direction)
-    for cell in neighbors:
-        jump_neighbor = jump(maze, cell, direction)
+    for neighbor in neighbors:
+        direction = get_direction(neighbor, current)
+        jump_neighbor = jump(maze, current, direction)
         if jump_neighbor:
             successors += [jump_neighbor]
     return successors
@@ -196,7 +213,7 @@ def jps(maze, show_state=False):
         if current == maze.exit:
             break
         parent = parents[current]
-        direction = (current[0] - parent[0], current[1] - parent[1])
+        direction = get_direction(current, parent)
         print("starting jump in direction {0} from {1} (parent: {2})".format(direction, current, parent))
         input("")
         jump_neighbors = successors(maze, current, direction)
@@ -204,6 +221,7 @@ def jps(maze, show_state=False):
             jn_cost = costs[current]
             if jn_cell not in parents:
                 parents[jn_cell] = current
+                # TODO: This returns shortest path in terms of number of jumps, not actual path length
                 costs[jn_cell] = cost + jn_cost
                 distance = chebyshev_distance(current, jn_cell)
                 pq.append((costs[jn_cell] + distance, costs[jn_cell], jn_cell))
