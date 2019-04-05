@@ -39,9 +39,10 @@ complements:
 - At each element, map the value to the index it is found at.
 - If the target - current is in the dict, return current index and
 map[target-current]
+----------------------
+Runtime: 12 ms, faster than 91.11% of C++ online submissions for Two Sum.
+Memory Usage: 10.1 MB, less than 54.74% of C++ online submissions for Two Sum.
 
-This is actually technically slower, interestingly! My less efficient approach
-completed 4ms faster and used less memory; it might be due to using a std::map.
 */
 
 #include <algorithm>
