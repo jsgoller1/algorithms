@@ -30,7 +30,8 @@ This is the process I follow when I solve contest or interview programming probl
         * Some good clues that DP might work include prompts like `find the minimum number of ways` or `find the longest of many`, especially when the output doesn't require an explicit answer (e.g. if the question is `find the length of the longest common subsequence between two strings`, and the required output is the length, not the LCS itself).
       * Recursion - `What is my base case / termination condition? When do I need to recurse?`
       * Math - `Is there some simple equation that describes the problem and explicitly calculates the answer?`
-      * Sorting - `Is the problem simpler to think about if the input is sorted first?`
+      * Sorting - `Is the problem simpler to think about if the input is always in some order?`
+      * Randomization - `Is the problem simpler to think about if the input is _never_ in any order? Does this remove some bad edge cases?`
       * Binary - `Can I represent the input or state with a bit string? As I evaluate the input, is a core question "do I include this part or not?" Can binary operations like XOR or AND be used to simplify mutating state?`
 
 ## Plan your approach
