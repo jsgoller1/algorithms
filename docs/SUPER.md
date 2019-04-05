@@ -21,8 +21,8 @@ This is the process I follow when I solve contest or interview programming probl
     * Try running through this list of approaches, asking some of the provided questions:
       * Linked lists
       * Array with two pointers / sliding window
-      * Stack
-      * Queues
+      * Stack - `Should processing occur in last-in, first-out order?`
+      * Queues - `Should processing occur in first-in, first out order?`
       * Trees - `Is there an obvious parent-child relationship? Can I exclude half the input data at each step?`
       * Graphs - `If I frame the problem using a graph, what would the nodes represent? What would the edges represent? Would it be directed? Cyclic? Weighted?`
       * Backtracking / exhaustive search - `Should I try every possible answer? Is it possible I might get to a partial answer but go down a wrong path and need to bail out?`
