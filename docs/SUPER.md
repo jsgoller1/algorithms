@@ -55,5 +55,5 @@ This is the process I follow when I solve contest or interview programming probl
   having learned about it first, e.g. [Manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring) for longest palindromic substrings or the [longest common subsequence problem](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem).
   1. Look at hints, if any are given.
   1. Ask a friend for advice.
-  1. If it's a dynamic programming problem, consider the advice below.
+  1. If it's a dynamic programming problem, consider the advice in [learning-dp.md](learning-dp.md).
   1. Finally, if all else fails, look at the solution and mark the problem below for reattempting later.
