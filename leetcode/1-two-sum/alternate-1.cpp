@@ -57,32 +57,64 @@ like [0,4,4,9] and 8.
 #include <algorithm>
 #include <iostream>
 #include <vector>
-using namespace std;
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+using std::vector;
 
 class Solution {
  public:
   vector<int> getValues(vector<int>& nums, int target) {
-    vector<int> solution = new vector();
+    // Create a sorted copy of the vector; apparently you can do this in
+    // C++11???
+    vector<int> solution;
     vector<int> sorted = vector(nums);
-    sort(sorted.front, sorted.back);
-    while (sorted.front != sorted.back) {
+    string temp;
+    std::sort(sorted.begin(), sorted.end());
+    for (auto num : sorted) {
+      cout << num << endl;
     }
+
+    auto left = sorted.begin();
+    auto right = sorted.rbegin();
+
+    while ((*left + *right) != target) {
+      // find the matching elements; move the right inwards
+      // if too high, otherwise move the left.
+      if ((*left + *right) > target) {
+        right++;
+      } else {
+        left++;
+      }
+    }
+    solution.push_back(*left);
+    solution.push_back(*right);
+
+    return solution;
   }
 
   vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> solution = getValues(nums, target);
+    cout << "Initial solution values: " << solution[0] << " " << solution[1]
+         << endl;
 
     // Find index of second value, replace in values vector
-    for (int i = 0; i < nums.size(); i++) {
+    for (size_t i = 0; i < nums.size(); i++) {
       if (nums[i] == solution[0]) {
-        solution[0] = nums[i];
+        cout << "Match: " << solution[0] << " " << static_cast<int>(i) << endl;
+        solution[0] = static_cast<int>(i);
+        break;
       }
     }
+    cout << "Solution after first assign: " << solution[0] << " " << solution[1]
+         << endl;
 
     // Find index of second value; replace in values vector
-    for (int i = 0; i < nums.size(); i++) {
-      if (nums[i] == solution[1] && nums[i] != solution[0]) {
-        solution[1] = nums[i];
+    for (size_t i = 0; i < nums.size(); i++) {
+      if (nums[i] == solution[1] && static_cast<int>(i) != solution[0]) {
+        solution[1] = static_cast<int>(i);
       }
     }
 
@@ -91,6 +123,10 @@ class Solution {
 };
 
 int main() {
-  cout << "Hello, leetcode!" << endl;
+  Solution s;
+  vector<int> nums{-18, 12, 3, 0};
+  int target = -6;
+  auto solution = s.twoSum(nums, target);
+  cout << solution[0] << " " << solution[1] << endl;
   return 0;
 }

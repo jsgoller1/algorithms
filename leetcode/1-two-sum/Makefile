@@ -1,5 +1,3 @@
-include ../../Makefile
-
-solution: clear clean setup
-	$(COMPILE) *.cpp -o $(ROOT_DIR)/bin/solution
-	$(ROOT_DIR)/bin/solution
+include ../../makefiles/settings.mk
+include ../../makefiles/compile.mk
+include ../../makefiles/build.mk
