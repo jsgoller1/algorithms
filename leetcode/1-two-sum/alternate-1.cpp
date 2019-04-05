@@ -52,6 +52,9 @@ like [0,4,4,9] and 8.
   - first = answer[0]
   - find answer[0] in original vector, return index
   - find answer[1] in original vector not equal to answer[0]
+------
+This was in the top 1% of LeetCode answers, despite being asymptotically slower
+than the map/complement approach.
 */
 
 #include <algorithm>

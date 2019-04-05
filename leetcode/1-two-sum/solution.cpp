@@ -33,91 +33,48 @@ like [0,4,4,9] and 8.
   - Maybe we can just do searches but skip if index is the same?
 ---------------------------------------------------------------------------
 
-// this finds the actual elements
-- sort elements
-- create answer vector
-- hi = len-1
-- lo = 0
-- while hi != lo (catches empty):
-  - if arr[lo] + arr[hi] = target
-    - push arr[hi]
-    - push arr[lo]
-  - elif arr[lo] + arr[hi] > target
-    - hi--
-  - else:
-    - lo--
+// The more efficient way of doing this (O(N)) is to use a map and look for
+complements:
+- Initialize a std::map
+- At each element, map the value to the index it is found at.
+- If the target - current is in the dict, return current index and
+map[target-current]
 
-// then, passed back to the main method:
-  - new solution vector
-  - first = answer[0]
-  - find answer[0] in original vector, return index
-  - find answer[1] in original vector not equal to answer[0]
+This is actually technically slower, interestingly! My less efficient approach
+completed 4ms faster and used less memory; it might be due to using a std::map.
 */
 
 #include <algorithm>
 #include <iostream>
+#include <map>
 #include <vector>
 
 using std::cin;
 using std::cout;
 using std::endl;
+using std::map;
 using std::string;
 using std::vector;
 
 class Solution {
  public:
-  vector<int> getValues(vector<int>& nums, int target) {
-    // Create a sorted copy of the vector; apparently you can do this in
-    // C++11???
-    vector<int> solution;
-    vector<int> sorted = vector(nums);
-    string temp;
-    std::sort(sorted.begin(), sorted.end());
-    for (auto num : sorted) {
-      cout << num << endl;
-    }
-
-    auto left = sorted.begin();
-    auto right = sorted.rbegin();
-
-    while ((*left + *right) != target) {
-      // find the matching elements; move the right inwards
-      // if too high, otherwise move the left.
-      if ((*left + *right) > target) {
-        right++;
-      } else {
-        left++;
-      }
-    }
-    solution.push_back(*left);
-    solution.push_back(*right);
-
-    return solution;
-  }
-
   vector<int> twoSum(vector<int>& nums, int target) {
-    vector<int> solution = getValues(nums, target);
-    cout << "Initial solution values: " << solution[0] << " " << solution[1]
-         << endl;
+    map<int, size_t> indices;
+    vector<int> solution;
 
-    // Find index of second value, replace in values vector
+    // Look for complements if they exist; if so, push into solution and return
     for (size_t i = 0; i < nums.size(); i++) {
-      if (nums[i] == solution[0]) {
-        cout << "Match: " << solution[0] << " " << static_cast<int>(i) << endl;
-        solution[0] = static_cast<int>(i);
+      if (indices.find(target - nums[i]) != indices.end()) {
+        int comp_i = static_cast<int>(indices[target - nums[i]]);
+        solution.push_back(comp_i);
+        int curr_i = static_cast<int>(i);
+        solution.push_back(curr_i);
         break;
+      } else {
+        // otherwise note we find this number here
+        indices[nums[i]] = i;
       }
     }
-    cout << "Solution after first assign: " << solution[0] << " " << solution[1]
-         << endl;
-
-    // Find index of second value; replace in values vector
-    for (size_t i = 0; i < nums.size(); i++) {
-      if (nums[i] == solution[1] && static_cast<int>(i) != solution[0]) {
-        solution[1] = static_cast<int>(i);
-      }
-    }
-
     return solution;
   }
 };
