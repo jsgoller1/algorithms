@@ -71,71 +71,74 @@ using std::vector;
 class Solution {
  public:
   vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    vector<int> solution;
+    pair<int, int> position{0, -1};
+
     // R, D, L U
     vector<pair<int, int>> directions{pair{0, 1}, pair{1, 0}, pair{0, -1},
                                       pair{-1, 0}};
-    vector<int> solution;
     size_t current_dir = 0;
-    pair<int, int> current{0, -1};
-    size_t cols = matrix[0].size();
-    size_t rows = matrix.size() - 1;
-    while (cols > 0 && rows > 0) {
-      // move cols units
-      for (size_t j = 0; j < cols; j++) {
-        current.first += directions[current_dir].first;
-        current.second += directions[current_dir].second;
-
-        /* TODO: Remove this
-        cout << static_cast<size_t>(current.first) << ", "
-             << static_cast<size_t>(current.second) << ": " << endl;
-        cout << matrix[static_cast<size_t>(current.first)]
-                      [static_cast<size_t>(current.second)]
-             << endl;
-        */
-        solution.push_back(matrix[static_cast<size_t>(current.first)]
-                                 [static_cast<size_t>(current.second)]);
+    vector<size_t> distances{matrix[0].size(), matrix.size() - 1};
+    size_t current_distance = 0;
+    while (distances[current_distance] > 0) {
+      for (size_t j = 0; j < distances[current_distance]; j++) {
+        position.first += directions[current_dir].first;
+        position.second += directions[current_dir].second;
+        solution.push_back(matrix[static_cast<size_t>(position.first)]
+                                 [static_cast<size_t>(position.second)]);
       }
+      distances[current_distance]--;
+      current_distance = (current_distance + 1) % 2;
       current_dir = (current_dir + 1) % 4;
-      cols--;
-
-      // move rows units
-      for (size_t j = 0; j < rows; j++) {
-        current.first += directions[current_dir].first;
-        current.second += directions[current_dir].second;
-
-        /* TODO: Remove this
-        cout << static_cast<size_t>(current.first) << ", "
-             << static_cast<size_t>(current.second) << ": " << endl;
-        cout << matrix[static_cast<size_t>(current.first)]
-                      [static_cast<size_t>(current.second)]
-             << endl;
-        */
-
-        solution.push_back(matrix[static_cast<size_t>(current.first)]
-                                 [static_cast<size_t>(current.second)]);
-      }
-      current_dir = (current_dir + 1) % 4;
-      rows--;
     }
 
     return solution;
   }
+
+  bool test(vector<vector<int>>& matrix, vector<int> solution) {
+    vector<int> answer = spiralOrder(matrix);
+    if (answer.size() != solution.size()) {
+      return false;
+    }
+    for (size_t i = 0; i < solution.size(); i++) {
+      if (answer[i] != solution[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 };
 
 int main() {
+  Solution s;
+
   /*
   1,  2,  3,  4
   5,  6,  7,  8,
   9,  10, 11, 12
   13, 14, 15, 16
   */
-  vector<vector<int>> matrix{vector<int>{1, 2, 3, 4}, vector<int>{5, 6, 7, 8},
-                             vector<int>{9, 10, 11, 12},
-                             vector<int>{13, 14, 15, 16}};
-  Solution s;
-  for (auto val : s.spiralOrder(matrix)) {
-    cout << val << " ";
-  }
-  cout << endl;
+  vector<vector<int>> matrix1{vector<int>{1, 2, 3, 4}, vector<int>{5, 6, 7, 8},
+                              vector<int>{9, 10, 11, 12},
+                              vector<int>{13, 14, 15, 16}};
+  vector<int> actual1{1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10};
+  cout << s.test(matrix1, actual1) << endl;
+
+  /*
+  1,  2,
+  5,  6,
+  9,  10,
+  13, 14
+  */
+  vector<vector<int>> matrix2{vector<int>{1, 2}, vector<int>{5, 6},
+                              vector<int>{9, 10}, vector<int>{13, 14}};
+  vector<int> actual2{1, 2, 6, 10, 14, 13, 9, 5};
+  cout << s.test(matrix2, actual2) << endl;
+
+  vector<vector<int>> matrix3{vector<int>{}};
+  vector<int> actual3;
+  cout << s.test(matrix3, actual3) << endl;
+
   return 0;
 }
