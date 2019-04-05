@@ -2,10 +2,10 @@
 Solutions to all of my [LeetCode problems](https://leetcode.com/jsgoller1/), programming competition and interview questions, and some algorithms / data structures implemented for practice. Problems that I need to reattempt are listed in `unsolved/unsolved.md`.
 
 ## Contents
-- [algos/](algos/) - algorithms and data structures implemented for practice / training (mostly from Skiena's _Algorithm Design Manual_, Wikipedia, or research papers)
-- [codeforces/](codeforces/), [exercism/](exercism), [hackerrank/](hackerrank/), [leetcode/](leetcode/) - solutions to problems from various programming problem websites
-- [failures/](failures/) - things I tried as experiments that didn't work (or haven't worked yet)
-- [unsolved/](unsolved/) - problems I tried and haven't finished yet
+- [algos](algos/) - algorithms and data structures implemented for practice / training (mostly from Skiena's _Algorithm Design Manual_, Wikipedia, or research papers)
+- [codeforces](codeforces/), [exercism](exercism), [hackerrank](hackerrank/), [leetcode](leetcode/) - solutions to problems from various programming problem websites
+- [failures](failures/) - things I tried as experiments that didn't work (or haven't worked yet)
+- [unsolved](unsolved/) - problems I tried and haven't finished yet
 
 ## Building
 To actually run code in this repo, I use:
