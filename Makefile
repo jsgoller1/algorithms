@@ -3,6 +3,7 @@
 ### Everything in this repo is supported only within the   ###
 ### container environment																   ###
 ##############################################################
+include makefiles/settings.mk
 
 # Remove existing containers
 docker-clean:

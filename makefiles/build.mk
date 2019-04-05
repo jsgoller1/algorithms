@@ -4,7 +4,7 @@ EXERCISE:= `basename $$PWD`
 # Duplicated because GNU Make doesn't support mixing implicit and explicit rules, *eyeroll*
 solution: reset clean setup
 	$(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
-	$(ROOT_DIR)/execs/$(EXERCISE)-$@
+	$(BUILD_DIR)/$(EXERCISE)-$@
 
 alternate-%: reset clean setup
 	$(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
