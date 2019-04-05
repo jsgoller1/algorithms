@@ -53,17 +53,14 @@ like [0,4,4,9] and 8.
   - find answer[0] in original vector, return index
   - find answer[1] in original vector not equal to answer[0]
 ------
-This was in the top 1% of LeetCode answers, despite being asymptotically slower
-than the map/complement approach.
+Runtime: 8 ms, faster than 99.93% of C++ online submissions for Two Sum.
+Memory Usage: 9.3 MB, less than 93.93% of C++ online submissions for Two Sum.
 */
 
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
-using std::cin;
-using std::cout;
-using std::endl;
 using std::string;
 using std::vector;
 
@@ -76,9 +73,6 @@ class Solution {
     vector<int> sorted = vector(nums);
     string temp;
     std::sort(sorted.begin(), sorted.end());
-    for (auto num : sorted) {
-      cout << num << endl;
-    }
 
     auto left = sorted.begin();
     auto right = sorted.rbegin();
@@ -100,24 +94,19 @@ class Solution {
 
   vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> solution = getValues(nums, target);
-    cout << "Initial solution values: " << solution[0] << " " << solution[1]
-         << endl;
 
     // Find index of second value, replace in values vector
     for (size_t i = 0; i < nums.size(); i++) {
       if (nums[i] == solution[0]) {
-        cout << "Match: " << solution[0] << " " << static_cast<int>(i) << endl;
         solution[0] = static_cast<int>(i);
         break;
       }
     }
-    cout << "Solution after first assign: " << solution[0] << " " << solution[1]
-         << endl;
-
     // Find index of second value; replace in values vector
     for (size_t i = 0; i < nums.size(); i++) {
       if (nums[i] == solution[1] && static_cast<int>(i) != solution[0]) {
         solution[1] = static_cast<int>(i);
+        break;
       }
     }
 
@@ -130,6 +119,6 @@ int main() {
   vector<int> nums{-18, 12, 3, 0};
   int target = -6;
   auto solution = s.twoSum(nums, target);
-  cout << solution[0] << " " << solution[1] << endl;
+  std::cout << solution[0] << " " << solution[1] << std::endl;
   return 0;
 }
