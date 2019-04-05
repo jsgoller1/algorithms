@@ -10,5 +10,6 @@ alternate-%: reset clean setup
 	$(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
 	$(BUILD_DIR)/$(EXERCISE)-$@
 
+# There may not be a Python solution, but if there is, you can $make python
 python:
 	python solution.py
