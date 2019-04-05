@@ -108,6 +108,7 @@ algos/algos/
 **/.git
 
 # Ignore binaries
+bins/
 bin/
 bin/*
 **/*.zip
