@@ -13,7 +13,7 @@ This is the process I follow when I solve contest or interview programming probl
 ## Understand the problem
   * Try listing small inputs and what their correct output should be. If the input size can be between 0 and 10^6, try solving n=3, n=4, and n=5 by hand and seeing if a common pattern emerges.
   * Try drawing a picture. Really.
-  * What cases _could_ occur, even if you don't expect them? List some of them. Is a null/empty input possible? What about a singleton input?
+  * What cases _could_ occur given the problem statement, even if you don't expect them? List some of them. Is a null/empty input possible? What about a singleton input?
   * What work _must_ you do? Do you have to look at every portion of the input? Is there a way to avoid doing unnecessary work?
   * Does the problem feel like it can be "boiled down" to a common type of problem or problem you already solved? If the problem as stated is too complicated, try solving a simpler problem or reducing complexity and seeing if you can build off of that.
   * Are there obviously usable data structures or algorithms that could be used to make the solution trivial?
