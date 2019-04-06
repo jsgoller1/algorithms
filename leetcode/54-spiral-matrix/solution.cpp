@@ -58,6 +58,12 @@ so we halt then
   - Move N cells in direction[i]
   - i = i + 1 % 3, N--
   - print cell
+
+------------------------------
+Runtime: 4 ms, faster than 100.00% of C++ online submissions for Spiral Matrix.
+
+Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for Spiral
+Matrix.
 */
 
 #include <iostream>
@@ -72,6 +78,9 @@ class Solution {
  public:
   vector<int> spiralOrder(vector<vector<int>>& matrix) {
     vector<int> solution;
+    if (matrix.empty()) {
+      return solution;
+    }
     pair<int, int> position{0, -1};
 
     // R, D, L U
@@ -139,6 +148,8 @@ int main() {
   vector<vector<int>> matrix3{vector<int>{}};
   vector<int> actual3;
   cout << s.test(matrix3, actual3) << endl;
+
+  cout << s.test(nullptr, vector<int>{}) << endl;
 
   return 0;
 }
