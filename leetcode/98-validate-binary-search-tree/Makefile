@@ -1,3 +1,3 @@
 include ../../makefiles/settings.mk
-include ../../makefiles/compile.mk
+include ../../makefiles/cpp-compile.mk
 include ../../makefiles/build.mk
