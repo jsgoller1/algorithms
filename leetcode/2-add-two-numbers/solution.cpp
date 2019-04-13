@@ -1,41 +1,18 @@
+// See alternate for full SUPER writeup
+
 /*
-You are given two non-empty linked lists representing two nonnegative
-integers. The digits are stored in reverse order and each of their nodes
-contains a single digit. Add the two numbers and return the result
-as a linked list. You may assume the two numbers do not contain any
-leading zeros, except for the number zero itself.
+- a function that takes the two list heads
+- adds each one, stores result % 10 in new node; adds carry if set, sets carry
+if need be
+- if either head is null, just add value of other head
+- proceed til both heads are null
+----------------------------------------------------------
+Runtime: 28 ms, faster than 98.15% of C++ online submissions for Add Two
+Numbers.
 
-Example:
-In: (2->4->3) + (5->6->4)
-Out: 7->0->8
-Explanation: 342 + 465 = 807
+Memory Usage: 10.3 MB, less than 99.76% of C++ online submissions for
+Add Two Numbers.
 
-Constraints:
-  - Zero or positive numbers
--------------------------------------
-In: two linked list heads
-Out: int
-
-- maintain two strings
-- go node by node casting/appending to string
-- reverse strings
-- return atoi(str1) + atoi(str2)
-
-The intended solution for this is probably to do something like keeping
-track of the ones/tens/zeros place. Would that be simpler?
-
-sum = 0
-place = 1;
-while node != nullptr:
-  sum += node.val * place
-  place *= 10
-
-then do division for the opposite
-
-IRL, we'd want to write a LL class (or use STL if one's available)
-that does RAII cleanup, but not for leetcode (don't even care about
-freeing stuff for this)
----------------------------------
 */
 
 #include <iostream>
@@ -53,50 +30,48 @@ struct ListNode {
 
 class Solution {
  public:
-  ListNode* intToList(int val) {
+  ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     ListNode empty{0};
     ListNode *head = &empty, *curr = &empty;
+    bool carry = false;
+    int total = 0;
 
-    // calculation is int((value / 10^place) % 10)
-    while (val > 0) {
-      curr->next = new ListNode{val % 10};
+    // calculation is long((value / 10^place) % 10)
+    while (l1 != nullptr || l2 != nullptr) {
+      curr->next = new ListNode{0};
       curr = curr->next;
-      val /= 10;
+      if (l1 == nullptr) {
+        total = l2->val;
+        l2 = l2->next;
+      } else if (l2 == nullptr) {
+        total = l1->val;
+        l1 = l1->next;
+      } else {
+        total = l1->val + l2->val;
+        l1 = l1->next;
+        l2 = l2->next;
+      }
+      total += (carry ? 1 : 0);
+      carry = (total >= 10 ? true : false);
+      curr->val = total % 10;
     }
+
+    // in the event the two largest places cause carry, add a node
+    curr->next = (carry ? new ListNode{1} : nullptr);
 
     return head->next;
-  }
-
-  int listToInt(ListNode* node) {
-    int sum = 0;
-    int place = 1;
-    while (node != nullptr) {
-      sum += (node->val * place);
-      place *= 10;
-      node = node->next;
-    }
-    return sum;
-  }
-
-  ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    int val1 = listToInt(l1);
-    // cout << val1 << endl;
-    int val2 = listToInt(l2);
-    // cout << val2 << endl;
-
-    return intToList(val1 + val2);
   }
 };
 
 int main() {
   Solution s;
-  ListNode lista1{0}, lista2{0}, lista3{9};
+  ListNode lista1{9}, lista2{8}, lista3{9};
   lista1.next = &lista2;
-  lista2.next = &lista3;
+  // lista2.next = &lista3;
 
-  ListNode listb1{0}, listb2{0}, listb3{1};
-  listb1.next = &listb2;
-  listb2.next = &listb3;
+  ListNode listb1{1}, listb2{0}, listb3{1};
+  // listb1.next = &listb2;
+  // listb2.next = &listb3;
 
   ListNode* solution = s.addTwoNumbers(&lista1, &listb1);
 
