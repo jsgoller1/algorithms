@@ -8,7 +8,7 @@ ANALYZER:=scan-build --status-bugs
 
 ### Compiler settings
 CC:=clang++
-CFLAGS :=-std=c++17 -g -lm -Wno-c++98-compat
+CFLAGS :=-std=c++17 -g -lm -Wno-c++98-compat -fstandalone-debug
 WARNINGS :=-Weverything -Werror
 COMPILE:=$(ANALYZER) $(CC) $(CFLAGS) $(WARNINGS)
 
