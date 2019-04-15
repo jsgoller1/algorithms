@@ -6,6 +6,8 @@ RUN apt-get -qq install -y \
   cdecl \
   clang \
   clang-tools \
+  g++ \
+  gcc \
   git \
   lldb \
   make \
