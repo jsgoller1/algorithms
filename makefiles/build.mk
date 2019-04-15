@@ -20,7 +20,7 @@ good: reset clean setup
 	$(ANALYZER) $(COMPILE) solution.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
 	$(VALGRIND) $(BUILD_DIR)/$(EXERCISE)-$@
 
-fast: reset clean setup
+solution fast: reset clean setup
 	$(COMPILE) solution.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
 	$(BUILD_DIR)/$(EXERCISE)-$@
 
