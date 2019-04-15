@@ -1,6 +1,8 @@
-PWD:= `pwd`
-EXERCISE:= `basename $$PWD`
+### Run Clang's static analyzer while building; this makes the build slower.
+ANALYZER:=scan-build --status-bugs
 
+### Valgrind target for memory analysis
+VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=42
 
 ### Binary cleanup
 setup:
@@ -14,15 +16,19 @@ clean:
 reset:
 	reset
 
+good: reset clean setup
+	$(ANALYZER) $(COMPILE) solution.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
+	$(VALGRIND) $(BUILD_DIR)/$(EXERCISE)-$@
+
+fast: reset clean setup
+	$(COMPILE) solution.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
+	$(BUILD_DIR)/$(EXERCISE)-$@
+
 # Duplicated because GNU Make doesn't support mixing implicit and explicit rules, *eyeroll*
-solution: reset clean setup
-	$(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
-	$(VALGRIND) $(BUILD_DIR)/$(EXERCISE)-$@
-
 alternate-%: reset clean setup
-	$(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
+	$(ANALYZER) $(COMPILE) $@.cpp -o $(BUILD_DIR)/$(EXERCISE)-$@
 	$(VALGRIND) $(BUILD_DIR)/$(EXERCISE)-$@
 
-# There may not be a Python solution, but if there is, you can $make python
+# There may not be a Python solution, but if there is, this runs it.
 python:
-	python solution.py
+	python3 solution.py

@@ -1,3 +1,9 @@
+PWD:= `pwd`
+
+## The name of the exercise being compiled; this is
+## also the dir name.
+EXERCISE= `basename $$PWD`
+
 ## Name of the Docker container once started
 CONTAINER_NAME:=programming-problems-workspace
 
