@@ -6,7 +6,7 @@ RUN apt-get -qq install -y \
   cdecl \
   clang \
   clang-tools \
-  g++ \
+  g++=4:7.3.0-3ubuntu2.1 \
   gcc \
   git \
   lldb \
