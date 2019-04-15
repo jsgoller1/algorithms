@@ -1,4 +1,4 @@
-Problems to revisit
+Unsolved Leetcode
 ---
 ## Couldn't complete myself
   - #4: I did solve this one without looking at the answer, but in nlogn time when
@@ -16,6 +16,7 @@ Problems to revisit
   - #894: wasn't familiar enough with array representations of trees
   - #904: didn't look at solution, but checked "related topics" and saw "two pointers"
   - #920: thought the problem required hard combinatorics knowledge (was also a contest problem)
+
 ## Contest problems
   I typically review the solutions to contest problems after the contest ends, unless I'm pretty sure I can finish them with more time.
 
@@ -25,6 +26,7 @@ Problems to revisit
   - #918 (LeetCode Weekly #105)
   - #945 (LeetCode Weekly #112)
   - #947 (LeetCode Weekly #112)
+
 ## Can be improved
   - #2 probably has an in-place solution
   - #4 needs to be redone because I did an O(n*log(n)) solution when I should've done an O(log(n)) one
@@ -45,8 +47,3 @@ Problems to revisit
 ## Other
   - #489 - started this on a car trip but never got around to finishing it
 
-### Misc.
-- Find the number of components in a graph. [HackerRank article](https://www.hackerrank.com/challenges/components-in-graph/problem), [YouTube video](https://www.youtube.com/watch?v=IWvbPIYQPFM)
-- Problems from [this Reddit post complaining about Peloton's interview process](https://www.reddit.com/r/cscareerquestions/comments/9l6vzp/peloton_hackerrank_wtf_rant/)
-- Problems from [this Reddit post about Google's process](https://www.reddit.com/r/cscareerquestions/comments/1z97rx/from_a_googler_the_google_interview_process/)
-- Big word finder
