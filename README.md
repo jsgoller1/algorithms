@@ -17,16 +17,10 @@ This repo contains the following docs:
 - [unix-philosophy.md](docs/unix-philosophy.md): a reproduction of Eric S. Raymond's "Unix Philosophy"
 - [make-system.md](docs/make-system.md): documentation for this repo's Makefile system
 
-## 2019 Goal
-I am attempting to complete a total of 52 programming contests and 300 online problems in 2019 (having already done 120 problems and 8 contests in 2018). I am counting contest problems towards my total problem count.
-**Addendum, 1/9/19**: On LeetCode moving forward, I am only picking random new problems or `Hard` ones (except in contests).
+## 2019 Goal (updated 4/15/19)
+After some discussions with my therapist about quality vs quantity in goals, I've decided that I'm going to switch to CodeForces instead of LeetCode and attempt to reach Master status by the end of 2019 (instead of just a number of problems). I will still be attempting 52 programming contests (having done one in 2018), with at least 10 being non-virtual ones (when I feel ready).
 
 ### Current progress
-#### Problems: 132/420
-  - LeetCode: 132
-    - Easy: 32
-    - Medium: 81
-    - Hard: 19
-#### Contests (virtual): 8/60
-  - LeetCode: #87, #100, #105, #112, #98, #89, #82
-  - CodeForces: #511
+#### Virtual contests: 1/43
+  - #511
+#### Rated contests: 0/10
