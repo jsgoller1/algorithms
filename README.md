@@ -4,6 +4,7 @@ Solutions to all of my programming competition and interview questions, and some
 ## Contents
 - [algos](algos/) - algorithms and data structures implemented for practice / training (mostly from Skiena's _Algorithm Design Manual_, Wikipedia, or research papers)
 - [codeforces](codeforces/), [exercism](exercism), [hackerrank](hackerrank/), [leetcode](leetcode/) - solutions to problems from various programming problem websites
+- [patterns](patterns/) - implementations of software design patterns (predominantly from _Design Patterns: Elements of Reusable Object-Oriented Software_ (i.e. the "Gang of Four" book))
 
 ## Building
 To actually run code in this repo, I use:
