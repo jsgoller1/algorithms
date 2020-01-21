@@ -16,33 +16,49 @@ Understand:
 - We should be able to easily change which partitioning strategy we use in the implementation.
 - Skiena points out that some inputs (which?) can be pathological, but that pre-shuffling our input takes care of most of these
 """
+import random
 
 
+def lomuto_partition(arr, low, high):
+    """
+    The Lomuto partition boils down to "pick a partition element,
+    move everything smaller to the right of it, then swap it in at the end":
+    """
+    pivot = arr[high]
+    i = low
+    for j in range(low, high):
+        if arr[j] < pivot:
+            arr[j], arr[i] = arr[i], arr[j]
+            i += 1
+    arr[i], arr[high] = arr[high], arr[i]
+    return i
 
-def lomuto_partition():
-    pass
 
-def hoare_partition():
-    pass
-
-def sort(arr, partition_fn):
-    return arr
-
-def quicksort(arr, partition_fn, shuffle=True):
+def quicksort(arr, partition_fn, shuffle=False):
     if shuffle:
         # do shuffling here
-        pass
-    return sort(arr, partition_fn)
+        random.shuffle(arr)
 
-if __name__ == '__main__':
-    test_arrs = [
-        [],
-        [1]
-        [6, 5, 4, 3, 2, 1],
-        [1, 2, 3, 4, 5, 6]
-        [1, 1, 1, 1, 1, 1],
-        [5, 1, 3, 4, 5, 10],
+    def sort(arr, low, high):
+        if low < high:
+            pivot = partition_fn(arr, low, high)
+            sort(arr, low, pivot - 1)
+            sort(arr, pivot + 1, high)
+
+    sort(arr, 0, len(arr) - 1)
+
+
+if __name__ == "__main__":
+    test_pairs = [
+        ([], []),
+        ([1], [1]),
+        # Pathological case 1
+        ([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],),
+        ([1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]),
+        ([1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]),
+        ([5, 1, 3, 4, 5, 10], [1, 3, 4, 5, 5, 10]),
     ]
-    for arr in test_arrs:
-        assert quicksort(arr, lomuto_partition) == sorted(arr)
-        assert quicksort(arr, hoare_partition) == sorted(arr)
+    for pair in test_pairs:
+        actual, expected = pair
+        quicksort(actual, lomuto_partition)
+        assert actual == expected
