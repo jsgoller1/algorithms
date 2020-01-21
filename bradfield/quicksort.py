@@ -36,7 +36,8 @@ def lomuto_partition(arr, low, high):
 
 def quicksort(arr, partition_fn, shuffle=False):
     if shuffle:
-        # do shuffling here
+        # Skiena voice: "Hokay, so - what happens if we shuffle first?"
+        # This can effectively eliminate some pathological cases of input.
         random.shuffle(arr)
 
     def sort(arr, low, high):
