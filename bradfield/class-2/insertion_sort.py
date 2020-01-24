@@ -1,10 +1,9 @@
 import cProfile
 import io
 import pstats
-import random
 
-ARR_SIZE = 10000000
-HUGE_ARR_SIZE = 1000000000
+ARR_SIZE = 1000
+HUGE_ARR_SIZE = 100000000
 
 
 def insertion_sort(arr, in_place=False):
@@ -16,8 +15,15 @@ def insertion_sort(arr, in_place=False):
     else:
         sorted_arr = arr
 
-    # do actual sorting
-    sorted_arr = sorted(sorted_arr)
+    # actual insertion sort code
+    i = 0
+    arr_len = len(sorted_arr)
+    while i < arr_len:
+        j = i
+        while j > 0 and sorted_arr[j] < sorted_arr[j - 1]:
+            sorted_arr[j], sorted_arr[j - 1] = sorted_arr[j - 1], sorted_arr[j]
+            j -= 1
+        i += 1
 
     if not in_place:
         return sorted_arr
@@ -47,6 +53,7 @@ if __name__ == '__main__':
     # Base cases
     assert insertion_sort([], ) == sorted([])
     assert insertion_sort([1]) == sorted([1])
+    assert insertion_sort([2, 0, 5, 8, 3, 1, 4, 7, 6, 9]) == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     # Pre-sorted array case
     pre_sorted = sorted([i for i in range(ARR_SIZE)])
@@ -61,6 +68,11 @@ if __name__ == '__main__':
     print_stats(timed_insertion_sort(reversed_sorted_timed))
 
     # Very large case
-    huge_arr = random.shuffle([i for i in range(HUGE_ARR_SIZE)])
+    # Here is a weird way to build a large array; trying to instantiate an
+    # array of HUGE_ARR_SIZE and shuffle it proved to be non-feasible,
+    # but appending multiple smalller arrays seems to work.
+    huge_arr = []
+    while len(huge_arr) < HUGE_ARR_SIZE:
+        huge_arr += [i for i in range(ARR_SIZE)]
     print_stats(timed_insertion_sort(huge_arr))
 
