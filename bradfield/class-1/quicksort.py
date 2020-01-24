@@ -15,6 +15,16 @@ Understand:
        values and separately to the sub-array of elements with greater values.
 - We should be able to easily change which partitioning strategy we use in the implementation.
 - Skiena points out that some inputs (which?) can be pathological, but that pre-shuffling our input takes care of most of these
+----------
+Review 
+- This algorithm does poorly when non-unique elements are in the array. Consider this alternative:
+    - When partitioning, divide the array into four portions: greater than partition, equal to partition, and less than partition
+    - Put the partition in the middle (i.e. middle index) of the array. This divides the array into a left unknown and right unknown portion.
+    - Then for each element in each unknown portion:
+        - If it's greater than the partition, put it to the right of the equal partition group.
+        - If it's less, put it to the left.
+        - If it's equal, put it adjacent to the partition.
+    - Do this process recursively til there's no greater than / less than portions left.
 """
 import random
 
