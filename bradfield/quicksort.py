@@ -50,26 +50,42 @@ def quicksort(arr, partition_fn, shuffle=False):
         # This can effectively eliminate some pathological cases of input.
         random.shuffle(arr)
 
+    global recursive_depth
+    recursive_depth = 0
+
     def sort(arr, low, high):
+        global recursive_depth
+        recursive_depth += 1
+
         if low < high:
             pivot = partition_fn(arr, low, high)
             sort(arr, low, pivot - 1)
             sort(arr, pivot + 1, high)
 
     sort(arr, 0, len(arr) - 1)
+    print(recursive_depth)
+
+
+class SortingTestCase:
+    def __init__(self, name, actual):
+        self.name = name
+        self.actual = actual
+
+    def test(self):
+        expected = self.actual.copy()
+        quicksort(self.actual, lomuto_partition)
+        assert self.actual == sorted(expected)
 
 
 if __name__ == "__main__":
-    test_pairs = [
-        ([], []),
-        ([1], [1]),
-        # Pathological case 1
-        ([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],),
-        ([1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]),
-        ([1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1]),
-        ([5, 1, 3, 4, 5, 10], [1, 3, 4, 5, 5, 10]),
+    test_cases = [
+        # SortingTestCase("Empty", []),
+        # SortingTestCase("Singleton", [1]),
+        SortingTestCase("Average", [random.randint(-100, 100) for i in range(1000)]),
+        SortingTestCase("Sorted", [i for i in range(1000)]),
+        SortingTestCase("Perfectly unsorted", list(reversed([i for i in range(1000)]))),
+        SortingTestCase("Huge", [random.randint(-100, 100) for i in range(100000)]),
     ]
-    for pair in test_pairs:
-        actual, expected = pair
-        quicksort(actual, lomuto_partition)
-        assert actual == expected
+    for case in test_cases:
+        print("Testing: {0}".format(case.name))
+        case.test()
