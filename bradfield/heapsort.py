@@ -1,4 +1,9 @@
 def heapsort(arr):
+    """
+    1) Turn input array into a heap
+    2) Divide elements into a sorted and unsorted portion while maintaining
+       invariant (which is the heap invariant for the unsorted portion)
+    """
     pass
 
 
