@@ -7,7 +7,6 @@ Algorithms / data structures implemented for practice, as well as solutions to a
 - [algos](algos/) - Algorithms and data structures implemented for practice / training (mostly from Skiena's _Algorithm Design Manual_, Wikipedia, or research papers)
 - [leetcode](leetcode/) - All of my LeetCode problems / solutions
 - [misc](misc/) - Questions mock interviews, friendly challenges, or other competition sites where I only did a few problems.
--
 
 ## Building
 
