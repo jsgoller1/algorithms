@@ -1,7 +1,7 @@
 """
-Given an array of integers that are out of order, determine the 
+Given an array of integers that are out of order, determine the
 bounds of the smallest window that must be sorted in order for
-the entire array to be sorted. 
+the entire array to be sorted.
 
 Ex: [3,7,5,6,9] -> (1,3)
 
@@ -10,13 +10,13 @@ Leetcode #581; question in the book calls for indexes, Leetcode calls for length
 LC constraints:
     - between 1 and 10,000 numbers
     - Individual numbers between -100,000 and 100,000
-    
+
 - Cases:
-    - 2+ unsorted subarrays: 
-        - require sorting entire subarray from first unsorted element to last unsorted; in the above case, whole array
+    - 2+ unsorted subarrays:
+        - require sorting entire subarray from first unsorted element to last unsorted; smallest cover covering all unsorted elements
         - Don't have a choice about this; picking smaller of the two leaves the array unsorted
         - Even if a third is found, we still have to sort from the first
-        - [3,2,1,4,5,6,7,8,9,12,11,10] 
+        - [3,2,1,4,5,6,7,8,9,12,11,10]
               ^                ^
     - 2 unsorted arrays; i.e. two sorted subarrays in wrong order
         - Pick shorter of two
@@ -29,55 +29,52 @@ LC constraints:
     - Singleton: [1]
         - Return 0
 -----------------------------------
+This problem was _HARD_ - I spent maybe 2.5 hours on it with multiple approaches. I didn't fully understand 
+the statement, but still struggled. In the end, some key insights were:
+- We are looking for the "minimum cover" of the set that covers the unsorted portion
+- if we only rearrange the elements there, it comes out completed sorted. 
+- This means that if the first element of the array is greater than the last, the entire array must be sorted. 
 
-    
-Problem feels like it has some kind of optimal substructure:
-    - [2,3,4,5,1] depends on [2,3,4,5] depends on [2,3,4]
-    - [3,2,1,4,5,6,7,8,9,12,11] = whole array = [3,1,2,3,4,5,6,7,8,9,12,11]; answer is same if going from left to right vs right to left
+Solution:
+- Do one pass from left to right. Any element that is less than the current known maximum element is "out of order".
+- Do a pass from right to left. Any element greater than the current minimum is out of order. 
+- The cover will be from the lowest out-of-order element to the greatest out of order element. 
 
-- One edge case: [5,6,7,1,2,3,4] vs [4,5,6,7,1,2,3] - same values, two adjacent sorted arrays that are not in the correct order themselves. 
-    - [5,6,7,1,2,3,4] -> optimal is 5,6,7,1, not 7,1,2,3,4
-    - [4,5,6,7,1,2,3] -> optimal is 7,1,2,3, not 4,5,6,7,1
-
-- Should we look for sorted or unsorted?
-    - if there's multiple unsorted ranges, the entire range in between needs to be sorted:
-        - [2,1,3,4,5,6,8,7] -> whole array 
--------------------------
-Going from left to right
-    i = 0, j = 1
-    unsorted_subarrays = 0
-    cover_start = None
-    cover_end = None
-    while j < len(arr):
-        if arr[j] > arr[i]:
-            cover_start = i if cover_start == None else cover_start
-            if cover_end != j-1:
-                unsorted_subarrays += 1
-            cover_end = j
-    
-    cover_size = cover_end - cover_start + 1
-    remainder_size = len(arr) - cover_size
-    if unsorted_subarrays == 0:
-        return 0
-    elif unsorted_subarrays == 1:
-        return min(cover_size, remainder_size)
-    else:
-        return cover_size
 """
 from typing import List
 
 
 class Solution:
-    def findUnsortedSubarray(self, nums: List[int]) -> int:
-        return 0
+    def findUnsortedSubarray(self, arr: List[int]) -> int:
+        curr_min = min_wrong_i = float('inf')
+        curr_max = max_wrong_i = -float('inf')
+        # Do left to right pass; any where val is lt max is out of order
+        for i, val in enumerate(arr):
+            if val < curr_max:
+                min_wrong_i = min(i, min_wrong_i)
+                max_wrong_i = max(i, max_wrong_i)
+            else:
+                curr_max = val
+        for i, val in list(enumerate(arr))[::-1]:
+            if val > curr_min:
+                min_wrong_i = min(i, min_wrong_i)
+                max_wrong_i = max(i, max_wrong_i)
+            else:
+                curr_min = val
+        cover_size = max_wrong_i - min_wrong_i + 1
+        return 0 if abs(cover_size) == float('inf') else cover_size
 
 
 if __name__ == '__main__':
     s = Solution()
     cases = [
-        # ([2, 6, 4, 8, 10, 9, 15], 5),  # Need to sort [6, 4, 8, 10, 9] in ascending order
-        # ([1, 2, 3, 4], 0),  # already sorted
         ([1], 0),  # single element array, already sorted
+        ([1, 2, 3, 4], 0),  # already sorted
+        ([5, 6, 1, 2, 3], 5),  # two sorted subarrays in unsorted order; pick smaller cover
+        ([5, 6, 7, 1, 2, 3], 6),  # two equal-sized sorted subarrays in unsorted order; pick smaller cover
+        ([20, 4, 5, 6, 3], 5),  # whole array
+        ([20, 4, 5, 6, 3, 4, 5], 7),  # whole array
+        ([19, 20, 4, 5, 6, 3, 4, 5], 8)  # whole array
     ]
     for input_args, expected in cases:
         actual = s.findUnsortedSubarray(input_args)
