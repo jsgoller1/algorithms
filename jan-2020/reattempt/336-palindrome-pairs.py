@@ -39,10 +39,15 @@ Brute force (n^2):
 What do we know about palindromes?
     - For words a,b, a+b is a palindrome does not mean b+a is; ca / tac is, tac/ca is not. 
     - Two words have to share at least one letter combine to palindromes: abcdcb + a is a palindrome, xyz + q is not
-    - If two words combined are palindromes, one must contain the other in reversed order starting from its end:
-        - tac, cat; 'tac' contains 'cat' in reversed order
-        - cata, c: 'cata' contains 'c' in reversed order (trivally)
-        - ca, tac: 'tac' contains 'ca' in reversed order 
+    - If two words combined are palindromes, one start with the other in reverse
+        - if c+b isn't a palindrome, then c doesn't start reversed b:
+            - xx + qrs: 'xx' doesn't start with 'srq'
+        - if a+b is a palindrome, then a starts with reversed b:
+            - 'srqxx' + 'qrs' - 'srqxx' starts with 'srq' 
+        - Note though that here c+a is a palindrome
+        - if c+b doesn't work but a+b does, can we rule out any of the other four (b+c, b+a, c+a, a+c)
+            - To get unconditional disqualification of cases, we need to be able to at least knock out one case 
+
 
 What must we do?
     - We must look at every word at least one time; otherwise we might miss a case where a word is a palindrome
