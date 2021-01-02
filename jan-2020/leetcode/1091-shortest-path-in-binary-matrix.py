@@ -105,8 +105,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    from huge_binary_grid import huge_grid
-
     sol = Solution()
     cases = [
         ([
