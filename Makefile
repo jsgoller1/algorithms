@@ -31,4 +31,8 @@ shell:
 # All-in-one command to build and start workspace.
 workspace: docker-clean image docker shell
 
+venv:
+	-rm -r algorithms
+	python3 -m venv ./algorithms
+	source algorithms/bin/activate; pip3 install requirements.txt
 
