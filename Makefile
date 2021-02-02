@@ -1,38 +1,41 @@
-##############################################################
-### Dockerized Linux workspace for consistent environment. ###
-### Everything in this repo is supported only within the   ###
-### container environment																   ###
-##############################################################
-include tools/makefiles/settings.mk
+VENV:=venv/algos
+BUILD_DIR:=bin/
 
-# Remove existing containers
-docker-clean:
-	-docker stop $(CONTAINER_NAME)
-	-docker rm $(CONTAINER_NAME)
+### Uncomment this to run Clang's static analyzer while building; this makes the build slower.
+ANALYZER:=scan-build --status-bugs
 
-# Build image from Dockerfile
-image:
-	-docker pull ubuntu
-	docker build . -t $(CONTAINER_NAME)
+### Valgrind target for memory analysis
+VALGRIND := valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=42
 
-# Start running container from built image
-docker:
-	docker run \
-	-dt \
-	--privileged \
-	--name $(CONTAINER_NAME) \
-	-v `pwd`:/$(CONTAINER_NAME) \
-	$(CONTAINER_NAME)
+### C compilation flags
+C_COMPILER:=clang
+C_FLAGS :=-std=gnu11 -g -lm -pthread
+C_WARNINGS :=-Weverything -Werror
+C_COMPILE:=$(ANALYZER) $(CC) $(CFLAGS) $(WARNINGS) $(EXTRA_FLAGS)
 
-# Create running shell session inside container
-shell:
-	docker exec -it $(CONTAINER_NAME) /bin/bash
+### C++ compilation flags for different scenarios
+CC_QUALITY_COMPILER:=clang++
+CC_QUALITY_FLAGS :=-std=c++17 -g -lm -Wno-c++98-compat -fstandalone-debug
+CC_QUALITY_WARNINGS :=-Weverything -Werror
+CC_QUALITY_COMPILE:= $(CC_QUALITY_COMPILER) $(CC_QUALITY_FLAGS) $(CC_QUALITY_WARNINGS)
 
-# All-in-one command to build and start workspace.
-workspace: docker-clean image docker shell
+CC_CONTEST_COMPILER:=g++
+CC_CONTEST_FLAGS :=-std=c++11 -O2
+CC_CONTEST_WARNINGS :=-Wall -Wno-c++98-compat
+CONTEST_COMPILE:= $(CC_CONTEST_COMPILER) $(CC_CONTEST_FLAGS) $(CC_CONTEST_WARNINGS)
 
-venv:
-	-rm -r algorithms
-	python3 -m venv ./algorithms
-	source algorithms/bin/activate; pip3 install requirements.txt
+install:
+	-rm -r $(VENV)
+	python3 -m venv ./$(VENV)
+	source $(VENV)/bin/activate; pip3 install requirements.txt
 
+# Run this with $sudo
+sudo-install:
+	apt-get install clang valgrind	
+
+notebooks:
+	source $(VENV)/bin/activate; jupyter-notebook
+
+clean:
+	-rm -r $(BUILD_DR)
+	-mkdir $(BUILD_DIR)

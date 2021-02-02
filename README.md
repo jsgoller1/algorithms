@@ -1,25 +1,24 @@
 # algorithms
 
-Algorithms / data structures implemented for practice, as well as solutions to all of my programming competition and mock interview questions.
+Programming problems, plus my notes on algorithms, data structures, and programming techniques. 
 
 ## Contents
 
-- [algos](algos/) - Algorithms and data structures implemented for practice / training (mostly from Skiena's _Algorithm Design Manual_, Wikipedia, or research papers)
+- [notebooks](notebooks/) - Jupyter notebooks with explanations of various data structures, algorithms, and techniques
 - [leetcode](leetcode/) - All of my LeetCode problems / solutions
+- [patterns](patterns/) - Various software design patterns
 - [misc](misc/) - Questions mock interviews, friendly challenges, or other competition sites where I only did a few problems.
 
-## Building
+## Running
+```
+make install notebooks
+```
 
-To actually run code in this repo, I use:
-
-- The Dockerized workspace that is automated via the top-level Makefile
-- The Makefile system (see below for docs)
-
-## Docs
-
-This repo contains the following docs:
-
-- [SUPER.md](docs/SUPER.md): a modified form of [Polya's problem solving method](https://math.berkeley.edu/~gmelvin/polya.pdf) that I use for programming problems
-- [learning-dp.md](docs/learning-dp.md): some general advice for mastering dynamic programming
-- [unix-philosophy.md](docs/unix-philosophy.md): a reproduction of Eric S. Raymond's "Unix Philosophy"
-- [make-system.md](docs/make-system.md): documentation for this repo's Makefile system
+## Recommended Reading, References, and Resources
+- __[The Algorithm Design Manual](https://www.amazon.com/Algorithm-Design-Manual-Computer-Science/dp/3030542556)__
+- __[Intro to Algorithms, 3rd Ed.](https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844)__
+- __[Head First Design Patterns](https://www.amazon.com/Head-First-Design-Patterns-Brain-Friendly/dp/0596007124)__
+- __[Daily Coding Problem](https://www.amazon.com/Daily-Coding-Problem-exceptionally-interviews/dp/1793296634)__
+- __[Elements of Programming Interviews](https://www.amazon.com/Elements-Programming-Interviews-Python-Insiders/dp/1537713949)__ ([C++ version](https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836))
+- Leetcode solutions and writeups from [@lee215](https://leetcode.com/lee215/) and [@StefanPochmann](https://leetcode.com/StefanPochmann/)
+- [Problem Solving with Algorithms and Data Structures](https://bradfieldcs.com/courses/algorithms/) at Bradfield School of Computer Science
