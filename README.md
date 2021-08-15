@@ -1,9 +1,12 @@
 # algorithms
 
-Programming problems, plus my notes on algorithms, data structures, and programming techniques. 
+Programming problems, plus my notes on algorithms, data structures, and programming techniques. I store solutions from every iteration of interviews here, of which there have been several:
+1. Oct - Dec 2018; first ever LeetCode grind, solutions from Bradfield's algos class and prep for an internal team switch at ATG.
+1. Jan 2021;  switched teams from Uber ATG to main Uber org (5 weeks).
+1. August and September 2021; preparing for external interviews (~2 months)
+
 
 ## Contents
-
 - [notebooks](notebooks/) - Jupyter notebooks with explanations of various data structures, algorithms, and techniques
 - [leetcode](leetcode/) - All of my LeetCode problems / solutions
 - [patterns](patterns/) - Various software design patterns

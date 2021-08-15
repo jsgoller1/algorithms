@@ -1,4 +1,4 @@
-VENV:=venv/algos
+VENV:=algos-venv
 BUILD_DIR:=bin/
 
 ### Uncomment this to run Clang's static analyzer while building; this makes the build slower.
@@ -27,13 +27,13 @@ CONTEST_COMPILE:= $(CC_CONTEST_COMPILER) $(CC_CONTEST_FLAGS) $(CC_CONTEST_WARNIN
 install:
 	-rm -r $(VENV)
 	python3 -m venv ./$(VENV)
-	source $(VENV)/bin/activate; pip3 install requirements.txt
+	source $(VENV)/bin/activate; pip3 install -r requirements.txt
 
 # Run this with $sudo
 sudo-install:
 	apt-get install clang valgrind	
 
-notebooks:
+notebook:
 	source $(VENV)/bin/activate; jupyter-notebook
 
 clean:

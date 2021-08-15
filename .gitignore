@@ -139,4 +139,4 @@ bin/*
 hs_err_pid*
 
 # venv
-algorithms/**
+algos-venv/**
