@@ -732,7 +732,7 @@ problem_mapping = {
         },
         "7.04 Test for overlapping lists---lists are cycle-free": {
             "C++: do_terminated_lists_overlap.cc": {
-                "passed": 5,
+                "passed": 106,
                 "total": 106
             },
             "Java: DoTerminatedListsOverlap.java": {

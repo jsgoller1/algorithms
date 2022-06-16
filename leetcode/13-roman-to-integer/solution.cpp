@@ -3,7 +3,6 @@
 - 15 chars long, valid numeral
 - val fits in int
 
-
 greatest = 0
 sum = 0
 i = len-1
