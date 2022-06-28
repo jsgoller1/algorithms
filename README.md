@@ -1,8 +1,9 @@
 # algorithms
 
-Solutions to programming problems, plus my notes on algorithms, data structures, and programming techniques. 
+Solutions to programming problems (competitive, interview, etc), plus my notes on algorithms, data structures, and programming techniques. 
 
 ## Contents
+- [codeforces](codeforces/) - My solutions to CodeForces problems ([my CF profile](https://codeforces.com/profile/jsgoller1))
 - [notebooks](notebooks/) - Jupyter notebooks with explanations of various data structures, algorithms, and techniques
 - [leetcode](leetcode/) - LeetCode problems / solutions
 - [epi](epi/) - _Elements of Programming Interviews_ solutions
