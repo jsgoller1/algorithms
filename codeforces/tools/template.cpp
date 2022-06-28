@@ -8,6 +8,9 @@
 #define rep(i, n) for (int i=0; i<(n); i++)
 #define endl "\n"
 #define output(val) cout << val << endl;
+#define fi first
+#define se second
+#define pb push_back
 
 typedef long long ll;
 typedef unsigned long long ull;
