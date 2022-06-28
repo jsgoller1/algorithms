@@ -21,5 +21,5 @@ make install notebooks
 - __[Programming Pearls](https://www.amazon.com/Programming-Pearls-2nd-Jon-Bentley/dp/0201657880)__
 ### Interviews
 - __[Daily Coding Problem](https://www.amazon.com/Daily-Coding-Problem-exceptionally-interviews/dp/1793296634)__
-- __[Elements of Programming Interviews](https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836)([Python version](https://www.amazon.com/Elements-Programming-Interviews-Python-Insiders/dp/1537713949))
+- __[Elements of Programming Interviews](https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836)__([Python version](https://www.amazon.com/Elements-Programming-Interviews-Python-Insiders/dp/1537713949))
 - Leetcode solutions and writeups from [@lee215](https://leetcode.com/lee215/) and [@StefanPochmann](https://leetcode.com/StefanPochmann/)
