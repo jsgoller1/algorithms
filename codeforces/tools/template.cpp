@@ -68,26 +68,28 @@ typedef vector<pll> vll;
 #endif
 
 clock_t start_time, case_time;
-double getCurrentTime() {
-  return (double)(clock() - start_time) / CLOCKS_PER_SEC;
-}
+double getCurrentTime() { return ((double)clock()) / CLOCKS_PER_SEC; }
 
-static void solve() {}
+static void solve() {
+  /*
+    Solution goes here
+  */
+}
 
 int main() {
   sanic_io();
   // cout << setprecision(12);
-  // read_from_files();
+  //  read_from_files();
   lin(cases);
 
 #ifdef LOCAL
-  startTime = clock();
+  start_time = getCurrentTime();
   rep(i, cases) {
     case_time = getCurrentTime();
     solve();
-    output("Case " << i << " time (s): " << getCurrentTime() - case_time);
+    eprintf("Case %d: %f sec \n", i, getCurrentTime() - case_time);
   }
-  output("Total time (s): " << getCurrentTime());
+  eprintf("Total time: %f sec \n", getCurrentTime() - start_time);
 #else
   rep(i, cases) {}
 #endif
