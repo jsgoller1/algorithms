@@ -91,7 +91,7 @@ int main() {
   }
   eprintf("Total time: %f sec \n", getCurrentTime() - start_time);
 #else
-  rep(i, cases) {}
+  rep(i, cases) { solve(); }
 #endif
 
   return 0;
