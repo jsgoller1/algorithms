@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import sys
 
-COMPILE_CMD = "g++ -static -DONLINE_JUDGE -lm -s -x c++ -O2 -std=c++17 -D__USE_MINGW_ANSI_STDIO=0 -Wall"
+COMPILE_CMD = "g++ -static -DLOCAL -lm -s -x c++ -O2 -std=c++17 -D__USE_MINGW_ANSI_STDIO=0 -Wall"
 TEMPLATE_PATH = "tools/template.cpp"
 
 @click.group()

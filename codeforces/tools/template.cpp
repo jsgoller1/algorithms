@@ -55,6 +55,23 @@ typedef vector<ll> vl;
 typedef vector<pii> vii;
 typedef vector<pll> vll;
 
+// -- Testing --
+#ifdef LOCAL
+#define eprintf(...)              \
+  {                               \
+    fprintf(stderr, __VA_ARGS__); \
+    fflush(stderr);               \
+  }
+
+#else
+#define eprintf(...) 0
+#endif
+
+clock_t start_time, case_time;
+double getCurrentTime() {
+  return (double)(clock() - start_time) / CLOCKS_PER_SEC;
+}
+
 static void solve() {}
 
 int main() {
@@ -62,9 +79,18 @@ int main() {
   // cout << setprecision(12);
   // read_from_files();
   lin(cases);
-  while (cases--) {
+
+#ifdef LOCAL
+  startTime = clock();
+  rep(i, cases) {
+    case_time = getCurrentTime();
     solve();
+    output("Case " << i << " time (s): " << getCurrentTime() - case_time);
   }
+  output("Total time (s): " << getCurrentTime());
+#else
+  rep(i, cases) {}
+#endif
 
   return 0;
 }
