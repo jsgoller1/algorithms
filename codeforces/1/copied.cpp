@@ -2,7 +2,9 @@
 // Email: joshua.goller@hey.com
 // Website: https://jsgoller1.github.io
 
-#include <cstdio>
+#include <bits/stdc++.h>
+using namespace std;
+
 void g(int t) {
   /*
   This recursive helper procedure converts a decimal number to Excel column
@@ -33,9 +35,32 @@ void g(int t) {
     n % 26 == 1 in our procedure, it really means "use the second character".
 
   However, suppose we make two slight adjustments:
-  - Each time we do a subsequent division,
-  - Whenever we have N % 26 == 0, emit "Z"
+  - If n % 26 == 0, emit "Z"
+  - Whenever we emit Z, decrement the quotient by 1 before doing the next
+  division.
 
+  Now converting 494 works correctly:
+  494 / 26 = 19    494 % 26 = 0   // Z
+    19 - 1 = 18
+   18 / 26 = 0      18 % 26 = 18  // R; A = 1, B = 2, ... , R = 18
+
+  And other divisions do as well; decimal 1000000 converts to BDWGN:
+  1000000 / 26 = 38461    1000000 % 26 = 14   // N
+    38461 / 26 = 1479       38461 % 26 = 7    // G
+     1479 / 26 = 56          1479 % 26 = 23   // W
+       56 / 26 = 2             56 % 26 = 4    // D
+        2 / 26 = 0              2 % 26 = 2    // B
+
+  The "decrement by 1 if we emit Z" is a bit confusing, but consider this:
+  in decimal addition when we overflow a place with a multiple of the current
+  place, we emit 0 and carry to the next number. E.g. in 17+13, 3+7=10, so we
+  emit 0 and carry the 1 to the 10s place so we get 30. So a sort of opposite
+  happens here - instead of overflowing and wrapping to 0, we emit our 26th
+  character and subtract 1 from the next place.
+
+  The code here implements this in a roundabout way by decrementing 1 from
+  _every_ quotient, but effectively adding it back by starting at 65 (ASCII
+  for 'A')
   */
   if (t) {  // base case t == 0; terminates recursion
     g((t - 1) / 26);
@@ -50,9 +75,13 @@ void g(int t) {
 
 int main() {
   int n, x, y;
-  char s[64], *p;
+  char *s, *p;
+  string input_str;
   for (scanf("%d ", &n); n--;) {
-    gets(s);
+    // Slight modification to original,
+    // gets() no longer supported.
+    cin >> input_str;
+    s = (char *)input_str.c_str();
     if (sscanf(s, "%*c%d%*c%d", &x, &y) == 2) {
       // RC to Excel
       // y contains col number as numeric, needs to be converted to alphabetical

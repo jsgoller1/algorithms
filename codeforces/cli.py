@@ -32,7 +32,9 @@ def create(problemset, letter, tests):
 @click.argument("problemset")
 @click.argument("letter")
 def build(problemset, letter):
-    cp = subprocess.run(f"{COMPILE_CMD} ./{problemset}/{letter}.cpp -o /tmp/{problemset}-{letter}.out", shell=True)
+    command = f"{COMPILE_CMD} ./{problemset}/{letter}.cpp -o /tmp/{problemset}-{letter}.out"
+    click.echo(command)
+    cp = subprocess.run(command, shell=True)
     if cp.returncode != 0:
         sys.exit(cp.stdout)
     click.echo(f"Compiled ./{problemset}/{letter}.cpp.")
