@@ -2226,7 +2226,7 @@ problem_mapping = {
                 "total": 100
             },
             "Python: knapsack.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 100
             }
         },
