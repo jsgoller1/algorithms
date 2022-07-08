@@ -23,6 +23,8 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "valarray": "cpp",
+        "system_error": "cpp"
     }
 }
