@@ -71,39 +71,28 @@ clock_t start_time, case_time;
 double getCurrentTime() { return ((double)clock()) / CLOCKS_PER_SEC; }
 
 static void solve() {
-  /*
-    - iterate over inputs; map each i to (first, last) appearance
-    - for each query, return start[0] < end[1]; no route from start to end if
-    the first time we see start is after the last time we see end.
-  */
-  // iin(empty);
-  lin(stops);
-  lin(queries);
+  // strin(empty);
+  iin(n);
+  iin(k);
+  unordered_map<int, int> first_stops;
+  unordered_map<int, int> last_stops;
 
-  map<ll, pair<ll, ll>> first_last;
-  rep(i, stops) {
-    lin(stop);
-    // output(stop);
-    if (first_last.find(stop) == first_last.end()) {
-      first_last[stop] = pair<ll, ll>((ll)i, (ll)i);
-    } else {
-      first_last[stop].second = (ll)i;
+  // printf("empty: %s\n", empty.c_str());
+  rep(i, n) {
+    iin(stop);
+    if (first_stops.find(stop) == first_stops.end()) {
+      first_stops[stop] = i;
     }
+    last_stops[stop] = i;
   }
 
-  rep(i, queries) {
-    lin(start);
-    lin(end);
-    // output(start);
-    // output(end);
-    if (first_last.find(start) != first_last.end() &&
-        first_last.find(end) != first_last.end()) {
-      if (first_last[start].first <= first_last[end].second) {
-        output("YES");
-        continue;
-      }
-    }
-    output("NO");
+  rep(j, k) {
+    iin(stop1);
+    iin(stop2);
+    bool possible = (first_stops.find(stop1) != first_stops.end() &&
+                     last_stops.find(stop2) != last_stops.end() &&
+                     first_stops[stop1] < last_stops[stop2]);
+    output((possible ? "YES" : "NO"));
   }
 }
 
