@@ -25,6 +25,15 @@
         "variant": "cpp",
         "vector": "cpp",
         "valarray": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "deque": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "initializer_list": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "string_view": "cpp",
+        "source_location": "cpp"
     }
 }
