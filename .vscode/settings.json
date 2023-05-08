@@ -1,4 +1,10 @@
 {
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_fallbackStyle": "Google",
