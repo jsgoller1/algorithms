@@ -12,7 +12,7 @@
     "files.insertFinalNewline": true,
     "editor.tabSize": 4,
     "python.pythonPath": "/usr/bin/python3",
-    "python.formatting.provider": "autopep8",
+    "python.formatting.provider": "none",
     "files.associations": {
         "unordered_set": "cpp",
         "iostream": "cpp",
@@ -41,5 +41,8 @@
         "span": "cpp",
         "string_view": "cpp",
         "source_location": "cpp"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
     }
 }

@@ -8,9 +8,11 @@ COMPILE_CMD = "g++ -static -DLOCAL -lm -s -x c++ -O2 -std=c++17 -D__USE_MINGW_AN
 CPP_TEMPLATE_PATH = "templates/template.cpp"
 PYTHON_TEMPLATE_PATH = "templates/template.py"
 
+
 @click.group()
 def cli():
     pass
+
 
 @click.command("create")
 @click.argument("problemset")
@@ -34,6 +36,7 @@ def create(problemset, letter, tests, python):
             open(test_path, "a").close()
             click.echo(f"Created empty {test_path}")
 
+
 @click.command("build")
 @click.argument("problemset")
 @click.argument("letter")
@@ -53,13 +56,15 @@ def build(problemset, letter):
 @click.option("--python", is_flag=True, default=False, help="Look for Python executable instead of CPP")
 def test(problemset, letter, python):
     exec_cmd = f"python3 ./{problemset}/{letter}.py" if python else f"/tmp/{problemset}-{letter}.out"
-    input_files = subprocess.run(f"ls ./{problemset} | grep '{letter}_input'", shell=True, capture_output=True, text=True).stdout
+    input_files = subprocess.run(f"ls ./{problemset} | grep '{letter}_input'",
+                                 shell=True, capture_output=True, text=True).stdout
     test_inputs = [filename for filename in input_files.split('\n') if filename]
     for input_file in test_inputs:
-            cmd = f"cat ./{problemset}/{input_file} | {exec_cmd}"
-            click.echo(f"{cmd}")
-            subprocess.run(cmd, shell=True)
-            print(" ")
+        cmd = f"cat ./{problemset}/{input_file} | {exec_cmd}"
+        click.echo(f"{cmd}")
+        subprocess.run(cmd, shell=True)
+        print(" ")
+
 
 if __name__ == '__main__':
     cli.add_command(create)
