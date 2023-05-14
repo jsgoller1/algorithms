@@ -42,7 +42,8 @@
         "span": "cpp",
         "string_view": "cpp",
         "source_location": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "cmath": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
