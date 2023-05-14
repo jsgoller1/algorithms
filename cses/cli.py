@@ -4,9 +4,10 @@ import shutil
 import subprocess
 import sys
 
-COMPILE_CMD = "/usr/local/bin/g++-13 -std=c++20 -O2 -Wall"
+COMPILE_CMD = "/usr/local/bin/g++-13 -g -std=c++20 -O2 -Wall"
 CPP_TEMPLATE_PATH = "templates/template.cpp"
 PYTHON_TEMPLATE_PATH = "templates/template.py"
+CPP_EXE_PATH = "../bin"
 
 
 @click.group()
@@ -14,10 +15,6 @@ def cli():
     pass
 
 
-@click.command("create")
-@click.argument("problem-id")
-@click.option("--tests", default=1, help="Number of empty test input files to create")
-@click.option("--python", is_flag=True, default=False, help="Create a Python template instead of CPP")
 def create(problem_id, tests, python):
     if not os.path.exists(f"./{problem_id}"):
         os.mkdir(f"./{problem_id}")
@@ -40,24 +37,32 @@ def create(problem_id, tests, python):
             click.echo(f"Created empty solution {solution_path}")
 
 
-@click.command("build")
+@click.command("create")
 @click.argument("problem-id")
+@click.option("--tests", default=1, help="Number of empty test input files to create")
+@click.option("--python", is_flag=True, default=False, help="Create a Python template instead of CPP")
+def create_cmd(problem_id, tests, python):
+    create(problem_id, tests, python)
+
+
 def build(problem_id):
-    command = f"{COMPILE_CMD} ./{problem_id}/{problem_id}.cpp -o /tmp/{problem_id}-{problem_id}.out"
+    command = f"{COMPILE_CMD} ./{problem_id}/{problem_id}.cpp -o  {CPP_EXE_PATH}/{problem_id}.out"
     click.echo(command)
     cp = subprocess.run(command, shell=True)
     if cp.returncode != 0:
         sys.exit(cp.stdout)
     click.echo(f"Compiled ./{problem_id}/{problem_id}.cpp.")
-    click.echo(f"Bin path: /tmp/{problem_id}-{problem_id}.out")
+    click.echo(f"Bin path: {CPP_EXE_PATH}/{problem_id}.out")
 
 
-@click.command("test")
+@click.command("build")
 @click.argument("problem-id")
-@click.option("--python", is_flag=True, default=False, help="Look for Python executable instead of CPP")
-@click.option("--show-output", is_flag=True, default=False, help="If enabled, will show program output")
+def build_cmd(problem_id):
+    build(problem_id)
+
+
 def test(problem_id, python, show_output):
-    exec_cmd = f"python3 ./{problem_id}/{problem_id}.py" if python else f"/tmp/{problem_id}-{problem_id}.out"
+    exec_cmd = f"python3 ./{problem_id}/{problem_id}.py" if python else f"{CPP_EXE_PATH}/{problem_id}.out"
     input_files = subprocess.run(f"ls ./{problem_id} | grep '{problem_id}_input'",
                                  shell=True, capture_output=True, text=True).stdout
     test_inputs = [filename for filename in input_files.split('\n') if filename]
@@ -68,8 +73,32 @@ def test(problem_id, python, show_output):
         print(" ")
 
 
+@click.command("test")
+@click.argument("problem-id")
+@click.option("--python", is_flag=True, default=False, help="Look for Python executable instead of CPP")
+@click.option("--show-output", is_flag=True, default=False, help="If enabled, will show program output")
+def test_cmd(problem_id, python, show_output):
+    test(problem_id, python, show_output)
+
+
+def retry(problem_id, python, show_output):
+    python = False
+    if not python:
+        build(problem_id)
+    test(problem_id, python, show_output)
+
+
+@click.command("retry")
+@click.argument("problem-id")
+@click.option("--python", is_flag=True, default=False, help="Look for Python executable instead of CPP")
+@click.option("--show-output", is_flag=True, default=False, help="If enabled, will show program output")
+def retry_cmd(problem_id, python, show_output):
+    retry(problem_id, python, show_output)
+
+
 if __name__ == '__main__':
-    cli.add_command(create)
-    cli.add_command(build)
-    cli.add_command(test)
+    cli.add_command(create_cmd)
+    cli.add_command(build_cmd)
+    cli.add_command(test_cmd)
+    cli.add_command(retry_cmd)
     cli()
