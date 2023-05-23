@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import sys
 
-COMPILE_CMD = "/usr/local/bin/g++-13 -g -std=c++20 -Wall"
+COMPILE_CMD = "/usr/local/bin/g++-13 -g -std=c++20 -Wall -Werror"
 # COMPILE_CMD += "-L/usr/local/Cellar/gperftools/2.10/lib/ -lprofiler -ltcmalloc"
 CPP_TEMPLATE_PATH = "templates/template.cpp"
 PYTHON_TEMPLATE_PATH = "templates/template.py"
