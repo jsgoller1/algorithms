@@ -147,11 +147,7 @@ int main() {
     k--;
     passes += calculateSwap(nums, j, k);
     passes += calculateSwap(nums, k, j);
-
-    // Don't double count reorderings
-    if (sortedPlaces[nums[j]] + 1 == sortedNums[j + 1]) {
-      passes--;
-    }
+    // TODO: Don't double count reorderings
 
     swap(nums, j, k);
     places[nums[j]] = k;
