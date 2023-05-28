@@ -70,20 +70,27 @@ typedef vector<pll> vll;
 clock_t start_time, case_time;
 double getCurrentTime() { return ((double)clock()) / CLOCKS_PER_SEC; }
 
-ll updateSweepCount(const vl& nums, size_t idx) {
-  ll modifier = 0;
-  if (idx < nums.size() - 1 && nums[idx] < nums[idx + 1]) {
-    modifier++;
-  } else {
-    modifier--;
-  }
+ll calculateSwap(vl& nums, ll oldIdx, ll newIdx) {
+  bool beforePredecessorLeft = false;
+  bool beforeSuccessorRight = false;
 
-  if (0 < idx && nums[idx - 1] < nums[idx]) {
-    modifier++;
-  } else {
-    modifier--;
+  bool afterPredecessorLeft = false;
+  bool afterSuccessorRight = false;
+
+  ll sweepModifier = 0;
+  if (beforePredecessorLeft != afterPredecessorLeft) {
+    sweepModifier += (afterPredecessorLeft) ? -1 : 1;
   }
-  return modifier;
+  if (beforeSuccessorRight != afterSuccessorRight) {
+    sweepModifier += (afterSuccessorRight) ? -1 : 1;
+  }
+  return sweepModifier;
+}
+
+void swap(vl& nums, ll left, ll right) {
+  ll temp = nums[left];
+  nums[left] = nums[right];
+  nums[right] = temp;
 }
 
 int main() {
@@ -92,32 +99,63 @@ int main() {
   // read_from_files();
   lin(count);
   lin(swaps);
+
+  vector<ll> sortedNums;
+  map<ll, size_t> sortedPlaces;
   vector<ll> nums;
   map<ll, size_t> places;
+
   rep(i, count) {
     lin(num);
     nums.pb(num);
+    sortedNums.pb(num);
+
     places[num] = i;
   }
-  sort(nums.begin(), nums.end());
+  sort(sortedNums.begin(), sortedNums.end());
+  rep(i, count) { sortedPlaces[sortedNums[i]] = i; }
 
+  // First, determine the number of passes needed for the initial array
   ll passes = 1;
-  rep(i, int(nums.size() - 1)) {
-    ll first = nums[i];
-    ll second = nums[i + 1];
+  rep(i, int(sortedNums.size() - 1)) {
+    ll first = sortedNums[i];
+    ll second = sortedNums[i + 1];
     if (places[first] > places[second]) {
       passes++;
     }
   }
+
+  /*
+  Then handle the swaps. For both numbers we are swapping:
+  - if the swap moved its predecessor from its left to its right, add one pass.
+  - if the swap moved its predecessor from its right to its left, remove one
+  pass.
+  - if the swap didn't change the side its predecessor was on (correct or not),
+  no change.
+  - then do the same but opposite thing for the successor.
+
+  Note: if the two numbers are successors of each other make sure we don't
+  double count; if we swapped 3 and 4, we still need to account for 4's
+  successor and 3's predecessor, but we only need to account for 4's predecessor
+  xor 3's successor.
+
+  */
   rep(i, swaps) {
     lin(j);
+    j--;
     lin(k);
-    ll temp = nums[k];
-    nums[k] = nums[j];
-    nums[j] = temp;
-    passes += updateSweepCount(nums, k);
-    passes += updateSweepCount(nums, j);
-    output(passes);
+    k--;
+    passes += calculateSwap(nums, j, k);
+    passes += calculateSwap(nums, k, j);
+
+    // Don't double count reorderings
+    if (sortedPlaces[nums[j]] + 1 == sortedNums[j + 1]) {
+      passes--;
+    }
+
+    swap(nums, j, k);
+    places[nums[j]] = k;
+    places[nums[k]] = j;
   }
 
   return 0;
