@@ -31,10 +31,11 @@ untied, doing it to be safe.
 #define iin(var) var_in(int, var)
 #define lin(var) var_in(ll, var)
 #define strin(var) var_in(string, var)
+#define chin(var) var_in(char, var)
 
 // --- Abbreviations --
-#define rep(i, n) for (int i = 0; i < (n); i++)
-#define rep1(i, n) for (int i = 1; i <= (n); i++)
+#define rep(i, n) for (ll i = 0; i < (n); i++)
+#define rep1(i, n) for (ll i = 1; i <= (n); i++)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()  // reverse iterator
 #define fi first
