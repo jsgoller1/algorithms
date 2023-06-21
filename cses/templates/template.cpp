@@ -81,19 +81,16 @@ int main() {
   sanic_io();
   // cout << setprecision(12);
   // read_from_files();
-  lin(cases);
-
 #ifdef LOCAL
   start_time = getCurrentTime();
-  rep(i, cases) {
-    case_time = getCurrentTime();
-    solve();
-    eprintf("Case %d: %f sec \n", i, getCurrentTime() - case_time);
-  }
-  eprintf("Total time: %f sec \n", getCurrentTime() - start_time);
-#else
-  rep(i, cases) { solve(); }
 #endif
 
+  /*
+   * TODO: Solution code goes here.
+   */
+
+#ifdef LOCAL
+  eprintf("Total time: %f sec \n", getCurrentTime() - start_time);
+#endif
   return 0;
 }

@@ -32,10 +32,13 @@ def create(problem_id, tests, python):
         if not os.path.exists(test_path):
             open(test_path, "a").close()
             click.echo(f"Created empty test {test_path}")
-        solution_path = f"./{problem_id}/{problem_id}_expected{i}.txt"
-        if not os.path.exists(solution_path):
-            open(solution_path, "a").close()
-            click.echo(f"Created empty solution {solution_path}")
+
+        # TODO: For now, I don't find creating solution files helpful,
+        # but I may bring this back later.
+        # solution_path = f"./{problem_id}/{problem_id}_expected{i}.txt"
+        # if not os.path.exists(solution_path):
+        #    open(solution_path, "a").close()
+        #    click.echo(f"Created empty solution {solution_path}")
 
 
 @click.command("create")
