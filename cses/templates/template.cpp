@@ -25,6 +25,7 @@ untied, doing it to be safe.
   freopen(in_path, "r", stdin);            \
   freopen(out_path, "w", stdout);
 #define output(val) cout << val << endl;
+#define outputstr(val) cout << val;
 #define var_in(type, var) \
   type var;               \
   cin >> var;
@@ -63,19 +64,18 @@ typedef vector<pll> vll;
     fprintf(stderr, __VA_ARGS__); \
     fflush(stderr);               \
   }
+#define eprintfspaces(spaces, ...)         \
+  rep(i, spaces) { fprintf(stderr, " "); } \
+  fprintf(stderr, __VA_ARGS__);            \
+  fflush(stderr);
 
 #else
-#define eprintf(...) 0
+#define eprintfspaces(...) ;
+#define eprintf(...) ;
 #endif
 
 clock_t start_time, case_time;
 double getCurrentTime() { return ((double)clock()) / CLOCKS_PER_SEC; }
-
-static void solve() {
-  /*
-    Solution goes here
-  */
-}
 
 int main() {
   sanic_io();
