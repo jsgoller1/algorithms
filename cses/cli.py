@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import sys
 
-COMPILE_CMD = "/usr/local/bin/g++-13 -g -std=c++20 -Wall -Werror -DTIMER_ENABLED"  # -DLOCAL"
+COMPILE_CMD = f"/usr/local/bin/g++-13 -g -std=c++20 -Wall -Werror -DTIMER_ENABLED -DLOCAL "
 # COMPILE_CMD += "-L/usr/local/Cellar/gperftools/2.10/lib/ -lprofiler -ltcmalloc"
 CPP_TEMPLATE_PATH = "templates/template.cpp"
 PYTHON_TEMPLATE_PATH = "templates/template.py"
@@ -68,7 +68,7 @@ def build_cmd(problem_id):
 def test(problem_id, python, show_output):
     python_exec = f"time python3 ./{problem_id}/{problem_id}.py"
     cpp_exec = f"{CPP_EXE_PATH}/{problem_id}.out"
-    # cpp_exec = f"CPUPROFILE={CPP_EXE_PATH}/{problem_id}.prof time -h" + cpp_exec
+    cpp_exec = f"CPUPROFILE={CPP_EXE_PATH}/{problem_id}.prof " + cpp_exec
     exec_cmd = python_exec if python else cpp_exec
     input_files = subprocess.run(f"ls ./{problem_id} | grep '{problem_id}_input'",
                                  shell=True, capture_output=True, text=True).stdout
