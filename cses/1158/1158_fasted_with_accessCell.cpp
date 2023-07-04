@@ -134,11 +134,11 @@ int main() {
 
       // eprintf("book: %lld (cost: %lld, pages: %lld), amount: %lld\n", y,
       // currPrice, currPages, x); ignore new book
-      ll a = ACCESS_CELL(y - 1, x, amount + 1, dp);
+      ll a = accessCell(y - 1, x, amount + 1, dp);
       // eprintf("Ignoring new book val: %lld\n", a);
       // use new book
       ll b = (currPrice <= x)
-                 ? ACCESS_CELL(y - 1, x - currPrice, amount + 1, dp) + currPages
+                 ? accessCell(y - 1, x - currPrice, amount + 1, dp) + currPages
                  : 0;
 
       // eprintf("buy new book val: %lld + %lld\n",
@@ -150,7 +150,7 @@ int main() {
       // : a));
     }
   }
-  printDpTable(dp, n, amount + 1);
+  //printDpTable(dp, n, amount + 1);
   printf("%lld\n", dp[n * (amount + 1) - 1]);
 #ifdef TIMER_ENABLED
   printf("Total time: %f sec \n", getCurrentTime() - start_time);
