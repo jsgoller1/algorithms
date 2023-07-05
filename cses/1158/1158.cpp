@@ -81,15 +81,6 @@ double getCurrentTime() { return ((double)clock()) / CLOCKS_PER_SEC; }
 #define MAX_AMOUNT 10000
 #define MAX_ELEMENTS ll(MAX_BOOKS* MAX_AMOUNT)
 
-void printDpTable(ll* dp, ll n, ll amount) {
-  for (int y = 0; y < n; y++) {
-    for (int x = 0; x < amount; x++) {
-      eprintf("%lld ", dp[(y * amount) + x]);
-    }
-    eprintf("\n");
-  }
-}
-
 int main() {
   sanic_io();
   // cout << setprecision(12);
@@ -97,57 +88,53 @@ int main() {
 #ifdef TIMER_ENABLED
   start_time = getCurrentTime();
 #endif
-  lin(n);
-  lin(amount);
+  iin(n);
+  iin(amount);
   amount += 1;  // to account for 0;
-  ll* dp = new ll[n * (amount)];
-  vl prices;
-  vl pages;
+  int* dp = new int[n * (amount)];
+  vector<int> prices;
+  vector<int> pages;
   rep(i, n) {
-    lin(price);
+    iin(price);
     prices.pb(price);
   };
   rep(i, n) {
-    lin(count);
+    iin(count);
     pages.pb(count);
   }
 
   // y or row is book #
-  for (ll y = 0; y < n; y++) {
+  for (int y = 0; y < n; y++) {
+    int currPrice = prices[y];
+    int currPages = pages[y];
     // x or col is amount we can spend
-    for (ll x = 0; x < amount; x++) {
-      eprintf("books: %lld, amount: %lld\n", y, x);
+    for (int x = 0; x < amount; x++) {
 
       // We have two options:
       // a: the same solution when we had one less book (new book doesn't make
       // for a better solution)
-      ll a = 0;
+      int a = 0;
       if (y >= 1) {
         a = dp[((y - 1) * amount) + x];
       }
-      eprintf("previous: %lld\n", a);
 
       // b: use the new book, plus the best solution minus its cost (we can onlh
       // use the new book if we can afford it)
-      ll b = 0;
-      if (x - prices[y] >= 0) {
-        b = pages[y];
-        eprintf("buy current: (pages: %lld, cost: %lld)", pages[y], prices[y]);
+      int b = 0;
+      if (x - currPrice >= 0) {
+        b = currPages;
         if (y - 1 >= 0) {
           // There might not be a previous book to choose, i.e. if we're picking
           // the first one
-          b += dp[((y - 1) * amount) + (x - prices[y])];
-          eprintf(", best with remaining funds: (pages: %lld)",
-                  dp[((y - 1) * amount) + (x - prices[y])]);
+          b += dp[((y - 1) * amount) + (x - currPrice)];
+
         }
-        eprintf(", total pages: %lld\n", b);
       }
       dp[(y * amount) + x] = (a > b) ? a : b;
-      eprintf("choice: %lld\n\n", dp[(y * amount) + x]);
     }
   }
-  printDpTable(dp, n, amount);
-  printf("%lld\n", dp[(n * amount) - 1]);
+  cout << dp[(n * amount) - 1] << endl;
+  // output(dp[(n * amount) - 1]);
 #ifdef TIMER_ENABLED
   printf("Total time: %f sec \n", getCurrentTime() - start_time);
 
