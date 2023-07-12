@@ -78,9 +78,10 @@ def test_cmd(problemset, letter, python):
     test(problemset, letter, python)
 
 
-@click.command("test")
+@click.command("retry")
 @click.argument("problemset")
 @click.argument("letter")
+@click.option("--python", is_flag=True, default=False, help="Look for Python executable instead of CPP")
 def retry_cmd(problemset, letter, python):
     build(problemset, letter)
     test(problemset, letter, python)
