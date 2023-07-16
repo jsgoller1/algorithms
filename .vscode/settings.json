@@ -9,7 +9,7 @@
     "editor.formatOnSave": true,
     "C_Cpp.default.compilerPath": "/usr/local/bin/g++-13 ",
     "C_Cpp.clang_format_fallbackStyle": "Google",
-    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "C_Cpp.clang_format_path": "/usr/local/bin/clang-format",
     "files.insertFinalNewline": true,
     "editor.tabSize": 4,
     "python.pythonPath": "/usr/bin/python3",
@@ -43,7 +43,22 @@
         "string_view": "cpp",
         "source_location": "cpp",
         "random": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "iosfwd": "cpp",
+        "complex": "cpp",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__split_buffer": "cpp",
+        "__tree": "cpp",
+        "filesystem": "cpp",
+        "map": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "string": "cpp",
+        "rope": "cpp",
+        "format": "cpp",
+        "stacktrace": "cpp",
+        "__locale": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
