@@ -58,7 +58,7 @@ problem_mapping = {
         },
         "4.04 Find a closest integer with the same weight": {
             "C++: closest_int_same_weight.cc": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             },
             "Java: ClosestIntSameWeight.java": {
