@@ -72,7 +72,7 @@ problem_mapping = {
         },
         "4.05 Compute product without arithmetical operators": {
             "C++: primitive_multiply.cc": {
-                "passed": 0,
+                "passed": 10006,
                 "total": 10006
             },
             "Java: PrimitiveMultiply.java": {
