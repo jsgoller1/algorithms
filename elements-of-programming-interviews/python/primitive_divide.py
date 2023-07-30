@@ -1,9 +1,22 @@
 from test_framework import generic_test
 
 
-def divide(x: int, y: int) -> int:
-    # TODO - you fill in here.
-    return 0
+def divide(x, y):
+    if (x < y or y == 0):
+        return 0
+    amount = 1
+    quotient = 0
+    while x > y:
+        y <<= 1
+        amount <<= 1
+    while x:
+        if x >= y:
+            x -= y
+            quotient += amount
+        else:
+            y >>= 1
+            amount >>= 1
+    return quotient
 
 
 if __name__ == '__main__':
