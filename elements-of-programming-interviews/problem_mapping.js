@@ -128,7 +128,7 @@ problem_mapping = {
         },
         "4.09 Check if a decimal integer is a palindrome": {
             "C++: is_number_palindromic.cc": {
-                "passed": 0,
+                "passed": 20000,
                 "total": 20000
             },
             "Java: IsNumberPalindromic.java": {
@@ -136,7 +136,7 @@ problem_mapping = {
                 "total": 20000
             },
             "Python: is_number_palindromic.py": {
-                "passed": 0,
+                "passed": 20000,
                 "total": 20000
             }
         },
