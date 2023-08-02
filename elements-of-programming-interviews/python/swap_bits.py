@@ -1,9 +1,25 @@
 from test_framework import generic_test
 
 
+def swap_bits_strings(x, i, j):
+    """
+    Different strategy; complicated binary operations can be hard to read
+    and reason about, but python makes it easy to convert an integer to a list of bits,
+    which we can then manipulate and recombine to an integer. 
+    """
+    bits = list(bin(x)[2:].zfill(64)[::-1])
+    swapped = [val for val in bits]
+    swapped[i] = bits[j]
+    swapped[j] = bits[i]
+    return int("".join(swapped[::-1]), 2)
+
+
 def swap_bits(x, i, j):
-    # TODO - you fill in here.
-    return 0
+    # Check if bits are different; if so, flip them both.
+    if ((x >> i) & 1) != ((x >> j) & 1):
+        mask = (1 << i) | (1 << j)
+        x ^= mask
+    return x
 
 
 if __name__ == '__main__':
