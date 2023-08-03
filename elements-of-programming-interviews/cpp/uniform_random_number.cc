@@ -17,9 +17,27 @@ int ZeroOneRandom() {
 }
 
 int UniformRandom(int lower_bound, int upper_bound) {
-  // TODO - you fill in here.
-  return 0;
+  int bound = upper_bound - lower_bound;
+  int bound_copy = bound;
+  int bits_needed = 0;
+  while (bound_copy) {
+    bound_copy >>= 1;
+    bits_needed++;
+  }
+  while (true) {
+    int guess = 0;
+    for (int i = 0; i < bits_needed; i++) {
+      guess <<= 1;
+      if (ZeroOneRandom()) {
+        guess |= 1;
+      }
+    }
+    if (guess <= bound) {
+      return guess;
+    }
+  }
 }
+
 bool UniformRandomRunner(TimedExecutor& executor, int lower_bound,
                          int upper_bound) {
   using namespace test_framework;
