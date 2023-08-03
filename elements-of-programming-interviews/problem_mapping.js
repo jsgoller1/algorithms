@@ -186,7 +186,7 @@ problem_mapping = {
         },
         "5.01 The Dutch national flag problem": {
             "C++: dutch_national_flag.cc": {
-                "passed": 1,
+                "passed": 204,
                 "total": 204
             },
             "Java: DutchNationalFlag.java": {
@@ -194,13 +194,13 @@ problem_mapping = {
                 "total": 204
             },
             "Python: dutch_national_flag.py": {
-                "passed": 0,
+                "passed": 204,
                 "total": 204
             }
         },
         "5.02 Increment an arbitrary-precision integer": {
             "C++: int_as_array_increment.cc": {
-                "passed": 0,
+                "passed": 505,
                 "total": 505
             },
             "Java: IntAsArrayIncrement.java": {
@@ -208,7 +208,7 @@ problem_mapping = {
                 "total": 505
             },
             "Python: int_as_array_increment.py": {
-                "passed": 0,
+                "passed": 505,
                 "total": 505
             }
         },
