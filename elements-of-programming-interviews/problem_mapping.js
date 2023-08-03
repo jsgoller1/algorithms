@@ -80,7 +80,7 @@ problem_mapping = {
                 "total": 10006
             },
             "Python: primitive_multiply.py": {
-                "passed": 0,
+                "passed": 10006,
                 "total": 10006
             }
         },
