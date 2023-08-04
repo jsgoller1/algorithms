@@ -214,7 +214,7 @@ problem_mapping = {
         },
         "5.03 Multiply two arbitrary-precision integers": {
             "C++: int_as_array_multiply.cc": {
-                "passed": 0,
+                "passed": 1000,
                 "total": 1000
             },
             "Java: IntAsArrayMultiply.java": {
@@ -222,7 +222,7 @@ problem_mapping = {
                 "total": 1000
             },
             "Python: int_as_array_multiply.py": {
-                "passed": 0,
+                "passed": 1000,
                 "total": 1000
             }
         },
