@@ -58,7 +58,8 @@
         "rope": "cpp",
         "format": "cpp",
         "stacktrace": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "locale": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
