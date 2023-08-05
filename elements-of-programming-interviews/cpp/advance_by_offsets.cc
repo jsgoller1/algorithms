@@ -2,8 +2,17 @@
 
 #include "test_framework/generic_test.h"
 using std::vector;
-bool CanReachEnd(const vector<int>& max_advance_steps) {
-  // TODO - you fill in here.
+bool CanReachEnd(const vector<int>& arr) {
+  int best = arr[0];
+  for (int curr = 0; curr < arr.size(); curr++) {
+    if (best >= arr.size() - 1) {
+      return true;
+    }
+    if (curr > best) {
+      return false;
+    }
+    best = (curr + arr[curr] > best) ? curr + arr[curr] : best;
+  }
   return true;
 }
 
