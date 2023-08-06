@@ -2,7 +2,15 @@ from test_framework import generic_test
 
 
 def is_palindromic(s: str) -> bool:
-    # TODO - you fill in here.
+    if not s:
+        return False
+    l = 0
+    r = len(s)-1
+    while l <= r:
+        if s[l] != s[r]:
+            return False
+        l += 1
+        r -= 1
     return True
 
 

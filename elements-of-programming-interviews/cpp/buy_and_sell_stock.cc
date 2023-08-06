@@ -3,8 +3,13 @@
 #include "test_framework/generic_test.h"
 using std::vector;
 double BuyAndSellStockOnce(const vector<double>& prices) {
-  // TODO - you fill in here.
-  return 0.0;
+  double bestBuy = prices[0];
+  double bestSell = 0.0;
+  for (auto price : prices) {
+    bestBuy = (bestBuy < price) ? bestBuy : price;
+    bestSell = (bestSell > price - bestBuy) ? bestSell : price - bestBuy;
+  }
+  return bestSell;
 }
 
 int main(int argc, char* argv[]) {

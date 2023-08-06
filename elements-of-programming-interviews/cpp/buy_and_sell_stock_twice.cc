@@ -1,10 +1,23 @@
+#include <limits>
 #include <vector>
 
 #include "test_framework/generic_test.h"
 using std::vector;
 double BuyAndSellStockTwice(const vector<double>& prices) {
-  // TODO - you fill in here.
-  return 0.0;
+  double negative_infinity = -std::numeric_limits<double>::infinity();
+  double firstBuy = negative_infinity;
+  double firstSell = 0.0;
+  double secondBuy = negative_infinity;
+  double secondSell = 0.0;
+  for (auto price : prices) {
+    firstBuy = (firstBuy > -price) ? firstBuy : -price;
+    firstSell = (firstSell > (price + firstBuy)) ? firstSell : price + firstBuy;
+    secondBuy =
+        (secondBuy > (firstSell - price)) ? secondBuy : firstSell - price;
+    secondSell =
+        (secondSell > (secondBuy + price)) ? secondSell : secondBuy + price;
+  }
+  return secondSell;
 }
 
 int main(int argc, char* argv[]) {

@@ -256,7 +256,7 @@ problem_mapping = {
         },
         "5.06 Buy and sell a stock once": {
             "C++: buy_and_sell_stock.cc": {
-                "passed": 0,
+                "passed": 402,
                 "total": 402
             },
             "Java: BuyAndSellStock.java": {
@@ -264,13 +264,13 @@ problem_mapping = {
                 "total": 402
             },
             "Python: buy_and_sell_stock.py": {
-                "passed": 0,
+                "passed": 402,
                 "total": 402
             }
         },
         "5.07 Buy and sell a stock twice": {
             "C++: buy_and_sell_stock_twice.cc": {
-                "passed": 0,
+                "passed": 402,
                 "total": 402
             },
             "Java: BuyAndSellStockTwice.java": {
@@ -278,13 +278,13 @@ problem_mapping = {
                 "total": 402
             },
             "Python: buy_and_sell_stock_twice.py": {
-                "passed": 0,
+                "passed": 402,
                 "total": 402
             }
         },
         "5.08 Computing an alternation": {
             "C++: alternating_array.cc": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             },
             "Java: AlternatingArray.java": {
@@ -292,13 +292,13 @@ problem_mapping = {
                 "total": 203
             },
             "Python: alternating_array.py": {
-                "passed": 0,
+                "passed": 203,
                 "total": 203
             }
         },
         "5.09 Enumerate all primes to n": {
             "C++: prime_sieve.cc": {
-                "passed": 0,
+                "passed": 24,
                 "total": 24
             },
             "Java: PrimeSieve.java": {
@@ -306,7 +306,7 @@ problem_mapping = {
                 "total": 24
             },
             "Python: prime_sieve.py": {
-                "passed": 0,
+                "passed": 24,
                 "total": 24
             }
         },
@@ -468,7 +468,7 @@ problem_mapping = {
     "Chapter 06: Strings": {
         "6.00 Bootcamp: Strings": {
             "C++: is_string_palindromic.cc": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             },
             "Java: IsStringPalindromic.java": {
@@ -476,7 +476,7 @@ problem_mapping = {
                 "total": 10000
             },
             "Python: is_string_palindromic.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         },
