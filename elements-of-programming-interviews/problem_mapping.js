@@ -312,7 +312,7 @@ problem_mapping = {
         },
         "5.10 Permute the elements of an array": {
             "C++: apply_permutation.cc": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Java: ApplyPermutation.java": {
@@ -320,7 +320,7 @@ problem_mapping = {
                 "total": 101
             },
             "Python: apply_permutation.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -482,7 +482,7 @@ problem_mapping = {
         },
         "6.01 Interconvert strings and integers": {
             "C++: string_integer_interconversion.cc": {
-                "passed": 0,
+                "passed": 15002,
                 "total": 15002
             },
             "Java: StringIntegerInterconversion.java": {
@@ -490,7 +490,7 @@ problem_mapping = {
                 "total": 15002
             },
             "Python: string_integer_interconversion.py": {
-                "passed": 0,
+                "passed": 15002,
                 "total": 15002
             }
         },

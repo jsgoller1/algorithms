@@ -4,7 +4,18 @@ from test_framework import generic_test
 
 
 def apply_permutation(perm: List[int], A: List[int]) -> None:
-    # TODO - you fill in here.
+    for i, idx in enumerate(perm):
+        if idx == -1:
+            continue
+        val = A[idx]
+        nextIdx = perm[idx]
+        while nextIdx != -1:
+            nextVal = A[nextIdx]
+            A[nextIdx] = val
+            val = nextVal
+            perm[idx] = -1
+            idx = nextIdx
+            nextIdx = perm[idx]
     return
 
 
