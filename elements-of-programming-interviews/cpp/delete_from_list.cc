@@ -5,9 +5,13 @@
 #include "test_framework/timed_executor.h"
 using std::shared_ptr;
 
+// If not tail, then the next node might be the tail,
+// so node.next == null.
+
 // Delete the node past this one. Assume node is not a tail.
 void DeleteAfter(const shared_ptr<ListNode<int>>& node) {
-  // TODO - you fill in here.
+  shared_ptr<ListNode<int>> deleteMe = node->next;
+  node->next = node->next->next;
   return;
 }
 shared_ptr<ListNode<int>> DeleteFromListWrapper(
