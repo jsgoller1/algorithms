@@ -3,8 +3,26 @@
 #include "test_framework/timed_executor.h"
 
 // Assumes node_to_delete is not tail.
+/*
+ Linear time: shift node->next's data to node. Then remove the final node
+ from the list.
+
+ while (node && node->next && node->next->next){
+    node->data = node->next->data
+    node = node->next;
+ }
+ node->data = node->next->data
+ node->next = nullptr;
+*/
+
 void DeletionFromList(const shared_ptr<ListNode<int>>& node_to_delete) {
-  // TODO - you fill in here.
+  shared_ptr<ListNode<int>> node = node_to_delete;
+  while (node && node->next && node->next->next) {
+    node->data = node->next->data;
+    node = node->next;
+  }
+  node->data = node->next->data;
+  node->next = nullptr;
   return;
 }
 shared_ptr<ListNode<int>> DeletionFromListWrapper(
