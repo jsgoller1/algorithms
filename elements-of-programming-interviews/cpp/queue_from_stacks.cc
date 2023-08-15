@@ -1,3 +1,4 @@
+#include <stack>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -6,16 +7,40 @@
 #include "test_framework/serialization_traits.h"
 #include "test_framework/test_failure.h"
 using std::length_error;
+using std::stack;
+
+/*
+  - Queue is FIFO, so bottom item of the stack needs to be at the top. Things
+  are enqueued in the order they expect to be retrieved
+  - Our queue has two stacks, inStack and outStack.
+  - Suppose each enqueue just pushes items onto inStack
+  - When dequeue is called, we either pop the top item off (if nonempty), or we
+  completely empty the inStack into it. This will reverse the order.
+
+
+*/
+
 class Queue {
  public:
   void Enqueue(int x) {
-    // TODO - you fill in here.
+    this->inStack.push(x);
     return;
   }
   int Dequeue() {
-    // TODO - you fill in here.
-    return 0;
+    if (this->outStack.empty()) {
+      while (!this->inStack.empty()) {
+        this->outStack.push(this->inStack.top());
+        this->inStack.pop();
+      }
+    }
+    int ret = this->outStack.top();
+    this->outStack.pop();
+    return ret;
   }
+
+ private:
+  stack<int> inStack = stack<int>();
+  stack<int> outStack = stack<int>();
 };
 struct QueueOp {
   enum class Operation { kConstruct, kDequeue, kEnqueue } op;

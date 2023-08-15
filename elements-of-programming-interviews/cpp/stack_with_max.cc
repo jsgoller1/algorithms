@@ -1,28 +1,42 @@
 #include <stdexcept>
+#include <vector>
 
 #include "test_framework/generic_test.h"
 #include "test_framework/serialization_traits.h"
 #include "test_framework/test_failure.h"
 using std::length_error;
+using std::vector;
+
+/*
+  We can implement this with two stacks; whenever we push a new value in, if
+  it's greater than the max's top, push that. If we pop the max's top, pop max
+  too.
+*/
 
 class Stack {
  public:
-  bool Empty() const {
-    // TODO - you fill in here.
-    return true;
-  }
-  int Max() const {
-    // TODO - you fill in here.
-    return 0;
-  }
+  bool Empty() const { return vals.empty(); }
+  int Max() const { return *(maxVals.end() - 1); }
   int Pop() {
-    // TODO - you fill in here.
-    return 0;
+    // NOTE: irl, throw exception for pop from empty stack.
+    int val = *(vals.end() - 1);
+    vals.pop_back();
+    if (!maxVals.empty() && val == *(maxVals.end() - 1)) {
+      maxVals.pop_back();
+    }
+    return val;
   }
   void Push(int x) {
-    // TODO - you fill in here.
+    vals.push_back(x);
+    if (maxVals.empty() || x >= *(maxVals.end() - 1)) {
+      maxVals.push_back(x);
+    }
     return;
   }
+
+ private:
+  vector<int> vals = vector<int>();
+  vector<int> maxVals = vector<int>();
 };
 struct StackOp {
   std::string op;

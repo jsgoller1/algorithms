@@ -704,7 +704,7 @@ problem_mapping = {
         },
         "7.02 Reverse a single sublist": {
             "C++: reverse_sublist.cc": {
-                "passed": 2,
+                "passed": 210,
                 "total": 210
             },
             "Java: ReverseSublist.java": {
@@ -746,7 +746,7 @@ problem_mapping = {
         },
         "7.05 Test for overlapping lists---lists may have cycles": {
             "C++: do_lists_overlap.cc": {
-                "passed": 0,
+                "passed": 120,
                 "total": 120
             },
             "Java: DoListsOverlap.java": {
@@ -874,7 +874,7 @@ problem_mapping = {
     "Chapter 08: Stacks and Queues": {
         "8.01 Implement a stack with max API": {
             "C++: stack_with_max.cc": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             },
             "Java: StackWithMax.java": {
@@ -902,7 +902,7 @@ problem_mapping = {
         },
         "8.03 Is a string well-formed?": {
             "C++: is_valid_parenthesization.cc": {
-                "passed": 0,
+                "passed": 78,
                 "total": 78
             },
             "Java: IsValidParenthesization.java": {
@@ -972,7 +972,7 @@ problem_mapping = {
         },
         "8.08 Implement a queue using stacks": {
             "C++: queue_from_stacks.cc": {
-                "passed": 0,
+                "passed": 65,
                 "total": 65
             },
             "Java: QueueFromStacks.java": {

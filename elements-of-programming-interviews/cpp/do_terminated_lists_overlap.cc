@@ -4,44 +4,84 @@
 #include "test_framework/generic_test.h"
 #include "test_framework/test_failure.h"
 #include "test_framework/timed_executor.h"
+using JoshuaListTools::PrintList;
 using std::shared_ptr;
 
-/* 
-  If two singly linked lists share any node, they will have the same 
-  final node, so we can traverse to the end and compare. The worst case
-  is that two lists share only their final node, which we cannot determine
-  without walking them completely so our best case is O(N) and O(c) space. 
-  -----
-  The book doesn't specify this, but the tests want the _first_ shared node, not 
-  any shared node. We could find this in O(N^2) time and O(C) space by testing
-  every node in l0 against every node in l1 (i.e. advance l0 one at a time and
-  walk l1 each time). We could do it in O(N) time and space by adding every
-  address of l1 to a set, and then checking each address of l0 against it,
-  returning the first or nullptr. 
+/*
+
+Approach 1 (not implemented). O(n) time, O(c) space, but modifies list.
+- Measure length of both
+- Reverse both twice
+- Remeasure lengths:
+  - If lengths change, they overlap (one of them will be shorter because
+    reversal will break joint)
+- Walk both from heads; when shorter's next is null, set it to other's next.
+  Then return that next.
+
+Insight: If two lists are the same length and overlap, then they both meet at
+their ith node (the shared portion will be the same length for both, so they can
+only have the same overall length if their unshared portions are equally as
+long).
+
+Approach 2 (implemented). O(n) time, O(c) space, no side effects.
+We only need to tell if two lists overlap, and if so we can return any node
+in them. They're both sure to terminate, so why not just iterate to the end
+of both and compare the address of the final nodes?
+
+Unfortunately the book doesn't say this, but the test cases expect you to
+return the first node they have in common, not any of them.
+
+
+Approach 3 (implemented). O(n) time, O(c) space, no side effects.
+- Measure length of both
+- If lengths are unequal, advance the head of the longer one until they are.
+- Advance heads one at a time until a joint node is found (or end is reached)
 */
 
-#include <set>
-using std::set;
+shared_ptr<ListNode<int>> OverlappingNoCycleListsAnyNode(
+    shared_ptr<ListNode<int>> l0, shared_ptr<ListNode<int>> l1) {
+  if (!l0 || !l1) {
+    return nullptr;
+  }
+  PrintList(l0);
+  PrintList(l1);
+
+  while (l0->next != nullptr) {
+    l0 = l0->next;
+  };
+  while (l1->next != nullptr) {
+    l1 = l1->next;
+  };
+
+  return (l0.get() == l1.get()) ? l0 : nullptr;
+}
 
 shared_ptr<ListNode<int>> OverlappingNoCycleLists(
     shared_ptr<ListNode<int>> l0, shared_ptr<ListNode<int>> l1) {
-      set<shared_ptr<ListNode<int>>>* l0_nodes = new set<shared_ptr<ListNode<int>>>();
-      while(l0 != nullptr) {
-        l0_nodes->insert(l0);
-        l0 = l0->next;
-      }
-      
-      shared_ptr<ListNode<int>> retval = nullptr;
-      while(l1 != nullptr) {
-        if (l0_nodes->find(l1) != l0_nodes->end()){
-          retval = l1;
-          break;
-        }
-        l1 = l1->next;
-      }
-      delete l0_nodes;
-  return retval;
+  if (!l0 || !l1) {
+    return nullptr;
+  }
+  int l0Length = JoshuaListTools::MeasureListLength(l0),
+      l1Length = JoshuaListTools::MeasureListLength(l1);
+  while (l0Length > l1Length) {
+    l0 = l0->next;
+    l0Length--;
+  }
+  while (l1Length > l0Length) {
+    l1 = l1->next;
+    l1Length--;
+  }
+
+  while (l0 && l1) {
+    if (l0 == l1) {
+      return l0;
+    }
+    l0 = l0->next;
+    l1 = l1->next;
+  }
+  return nullptr;
 }
+
 void OverlappingNoCycleListsWrapper(TimedExecutor& executor,
                                     shared_ptr<ListNode<int>> l0,
                                     shared_ptr<ListNode<int>> l1,
@@ -71,11 +111,20 @@ void OverlappingNoCycleListsWrapper(TimedExecutor& executor,
   auto result = executor.Run([&] { return OverlappingNoCycleLists(l0, l1); });
 
   if (result != common) {
-    throw TestFailure("Invalid result");
+    printf("Invalid result; expected: %p (%d), got %p (%d)\n", common.get(),
+           common->data, result.get(), result->data);
+    throw TestFailure("Test failed.\n");
   }
 }
 
 int main(int argc, char* argv[]) {
+  /*
+  shared_ptr<ListNode<int>> head = ConstructList(5);
+  PrintList(head);
+  auto newHead = ReverseList(head);
+  PrintList(newHead);
+  */
+
   std::vector<std::string> args{argv + 1, argv + argc};
   std::vector<std::string> param_names{"executor", "l0", "l1", "common"};
   return GenericTestMain(
