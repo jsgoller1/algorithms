@@ -1,9 +1,11 @@
+#include <deque>
+#include <stack>
 #include <string>
-#include <vector>
 
 #include "test_framework/generic_test.h"
+using std::deque;
+using std::stack;
 using std::string;
-using std::vector;
 
 /*
 - Cases:
@@ -23,63 +25,69 @@ Otherwise, push it.
     - represents a directory name. Has to be pushed, may be removed.
 */
 
-string assembleFinalPath(const vector<string>& dirs, bool isAbsolute) {
-  string path = isAbsolute ? "/" : "";
-  for (string dir : dirs) {
-    path += dir + "/";
+#define PARENT_DIR ".."
+#define CURR_DIR "."
+#define CONTINUE_PARSING 1
+#define HALT_PARSING 0
+
+string assemblePath(stack<string, deque<string>>& s, bool isAbsolute) {
+  if (s.empty()) {
+    return "";
   }
-  if (path.size() > 1) {
-    path.erase(path.end() - 1);
+  string path = "";
+  while (!s.empty()) {
+    path = s.top() + "/" + path;
+    s.pop();
   }
+  path.erase(path.end() - 1);
+  path = ((isAbsolute) ? "/" : "") + path;
+  printf("Final path: %s\n", path.c_str());
+
   return path;
 }
 
-void processAbsolute(vector<string>& dirs, vector<string>& processedDirs) {
-  for (string dir : dirs) {
-    if (dir == "..") {
-      if (!processedDirs.empty()) {
-        processedDirs.pop_back();
-      }
+void handleDirRelative(stack<string>& s, const string& dir) {
+  if (dir == "..") {
+    if (s.empty() || s.top() == "..") {
+      s.push(dir);
     } else {
-      processedDirs.push_back(dir);
+      s.pop();
     }
+  } else if (!(dir == ".") && !(dir == "")) {
+    s.push(dir);
   }
 }
 
-void processRelative(vector<string>& dirs, vector<string>& processedDirs) {
-  for (string dir : dirs) {
-    if (dir == ".." && !processedDirs.empty() && processedDirs.back() != "..") {
-      processedDirs.pop_back();
-    } else {
-      processedDirs.push_back(dir);
-    }
-  }
-}
-
-void stripPath(const string& path, vector<string>& dirs) {
-  string curr = "";
-  for (int i = 0; i <= path.size(); i++) {
-    if ((i == path.size() || path[i] == '/')) {
-      if (!curr.empty() && curr != ".") {
-        dirs.push_back(curr);
-      }
-      curr.clear();
-    } else {
-      curr += path[i];
-    }
+void handleDirAbsolute(stack<string>& s, const string& dir) {
+  if (dir == ".." && !s.empty()) {
+    s.pop();
+  } else if (!(dir == ".") && !(dir == "")) {
+    s.push(dir);
   }
 }
 
 string ShortestEquivalentPath(const string& path) {
   if (path.empty()) {
-    return path;
+    return "";
   }
+  printf("\nInitial path: %s\n", path.c_str());
+  stack<string> s;
   bool isAbsolute = (path[0] == '/');
-  vector<string> dirs, processedDirs;
-  stripPath(path, dirs);
-  isAbsolute ? processAbsolute(dirs, processedDirs)
-             : processRelative(dirs, processedDirs);
-  return assembleFinalPath(processedDirs, isAbsolute);
+  string currPath = path;
+
+  auto begin_it = path.begin(), end_it = path.begin();
+  for (int i = 0; i < path.size(); i++) {
+    // printf("i: %d\n", i);
+    if (path[i] == '/' || i == path.size() - 1) {
+      end_it = path.begin() + i;
+      string dir(begin_it, end_it);
+      // printf("dir: %s\n", dir.c_str());
+      isAbsolute ? handleDirAbsolute(s, dir) : handleDirRelative(s, dir);
+      begin_it = end_it + 1;
+    }
+  }
+
+  return assemblePath(s, isAbsolute);
 }
 
 int main(int argc, char* argv[]) {
@@ -90,6 +98,7 @@ int main(int argc, char* argv[]) {
   ShortestEquivalentPath("../home/foobar");
   ShortestEquivalentPath("../../home/foobar");
   ShortestEquivalentPath("../../home/../foobar");
+  */
   ShortestEquivalentPath("/");
   ShortestEquivalentPath("/../../");
   ShortestEquivalentPath("/home");
@@ -97,13 +106,12 @@ int main(int argc, char* argv[]) {
   ShortestEquivalentPath("/../home/foobar/");
   ShortestEquivalentPath("/../../home/foobar");
   ShortestEquivalentPath("/../../home/../foobar");
-  ShortestEquivalentPath("/.");
-  */
-
+  /*
   std::vector<std::string> args{argv + 1, argv + argc};
   std::vector<std::string> param_names{"path"};
   return GenericTestMain(args, "directory_path_normalization.cc",
                          "directory_path_normalization.tsv",
                          &ShortestEquivalentPath, DefaultComparator{},
                          param_names);
+  */
 }
