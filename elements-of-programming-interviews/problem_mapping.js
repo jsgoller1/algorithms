@@ -518,7 +518,7 @@ problem_mapping = {
                 "total": 10000
             },
             "Python: spreadsheet_encoding.py": {
-                "passed": 0,
+                "passed": 10000,
                 "total": 10000
             }
         },
@@ -532,7 +532,7 @@ problem_mapping = {
                 "total": 501
             },
             "Python: replace_and_remove.py": {
-                "passed": 0,
+                "passed": 501,
                 "total": 501
             }
         },
@@ -644,7 +644,7 @@ problem_mapping = {
                 "total": 835
             },
             "Python: substring_match.py": {
-                "passed": 0,
+                "passed": 835,
                 "total": 835
             }
         }
