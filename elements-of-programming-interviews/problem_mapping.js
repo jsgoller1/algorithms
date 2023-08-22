@@ -1520,7 +1520,7 @@ problem_mapping = {
                 "total": 505
             },
             "Python: nearest_repeated_entries.py": {
-                "passed": 0,
+                "passed": 505,
                 "total": 505
             }
         },
@@ -1534,7 +1534,7 @@ problem_mapping = {
                 "total": 904
             },
             "Python: smallest_subarray_covering_set.py": {
-                "passed": 0,
+                "passed": 904,
                 "total": 904
             }
         },
