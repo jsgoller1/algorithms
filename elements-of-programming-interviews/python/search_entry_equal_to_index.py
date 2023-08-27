@@ -6,9 +6,31 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def search_entry_equal_to_its_index(A: List[int]) -> int:
-    # TODO - you fill in here.
-    return 0
+"""
+Suppose i < j < k
+If arr[j] > j, we know that every subsequent arr[k] > k, so no candidates are there. 
+If arr[j] > j, we know nothing about arr[i] and i, unless the array is contiguous (which it isn't)
+
+If arr[j] < j, then this is also true for every arr[i] and i, but we know nothing about arr[k] and k.
+
+So do a standard binary search but:
+    if arr[mid] > mid: pick lower
+    if arr[mid] == mid, that's our answer.
+    if arr[mid] < mid, pick higher.
+"""
+
+
+def search_entry_equal_to_its_index(arr: List[int]) -> int:
+    l, r = 0, len(arr)-1
+    while l <= r:
+        mid = l + ((r-l) // 2)
+        if arr[mid] > mid:
+            r = mid - 1
+        elif arr[mid] == mid:
+            return mid
+        else:  # arr[mid] < mid
+            l = mid + 1
+    return -1
 
 
 @enable_executor_hook
