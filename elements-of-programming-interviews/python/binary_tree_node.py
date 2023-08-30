@@ -12,6 +12,7 @@ class BinaryTreeNode:
         return equal_binary_trees(self, other)
 
     def __repr__(self):
+        # return f"BinaryTreeNode({self.data})"
         return str(binary_tree_to_string(self))
 
     def __str__(self):

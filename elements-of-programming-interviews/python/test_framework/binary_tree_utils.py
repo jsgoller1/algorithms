@@ -222,7 +222,7 @@ def binary_tree_size(tree):
 
 def is_object_tree_type(tree):
     return tree and hasattr(tree, 'data') and \
-           hasattr(tree, 'left') and hasattr(tree, 'right')
+        hasattr(tree, 'left') and hasattr(tree, 'right')
 
 
 def convert_binary_tree_to_binary_tree_with_parent(tree):

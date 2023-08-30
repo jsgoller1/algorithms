@@ -1010,7 +1010,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: is_tree_balanced.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1024,7 +1024,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: is_tree_symmetric.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },
@@ -1038,7 +1038,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1052,7 +1052,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: lowest_common_ancestor_with_parent.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1066,7 +1066,7 @@ problem_mapping = {
                 "total": 3849
             },
             "Python: sum_root_to_leaf.py": {
-                "passed": 0,
+                "passed": 3849,
                 "total": 3849
             }
         },
@@ -1080,7 +1080,7 @@ problem_mapping = {
                 "total": 7690
             },
             "Python: path_sum.py": {
-                "passed": 0,
+                "passed": 7690,
                 "total": 7690
             }
         },
@@ -1108,7 +1108,7 @@ problem_mapping = {
                 "total": 3851
             },
             "Python: kth_node_in_tree.py": {
-                "passed": 0,
+                "passed": 3851,
                 "total": 3851
             }
         },
@@ -1122,7 +1122,7 @@ problem_mapping = {
                 "total": 948
             },
             "Python: successor_in_tree.py": {
-                "passed": 0,
+                "passed": 948,
                 "total": 948
             }
         },
@@ -1178,7 +1178,7 @@ problem_mapping = {
                 "total": 3852
             },
             "Python: tree_connect_leaves.py": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             }
         },

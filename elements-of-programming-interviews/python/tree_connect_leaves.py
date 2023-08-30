@@ -8,8 +8,20 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def create_list_of_leaves(tree: BinaryTreeNode) -> List[BinaryTreeNode]:
-    # TODO - you fill in here.
-    return []
+    leaves = []
+
+    def preorder_walk(node):
+        if not (node.left or node.right):
+            leaves.append(node)
+            return
+        if node.left:
+            preorder_walk(node.left)
+        if node.right:
+            preorder_walk(node.right)
+
+    if tree:
+        preorder_walk(tree)
+    return leaves
 
 
 @enable_executor_hook
