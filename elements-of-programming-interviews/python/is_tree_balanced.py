@@ -18,9 +18,6 @@ def display(node, prefix="", margin=0):
 
 
 def is_balanced_binary_tree(tree: BinaryTreeNode) -> bool:
-    # print("")
-    # display(tree)
-
     def balance_height(node):
         if not node:
             return -1, True
