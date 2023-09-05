@@ -1,3 +1,5 @@
+import heapq
+import collections
 import functools
 import math
 from typing import Iterator, List
@@ -28,8 +30,17 @@ class Star:
 
 
 def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
-    # TODO - you fill in here.
-    return []
+    """
+    Could we just create heap, push stars in based on distance to earth, and evict if we store more than k? 
+    O(n * log(k)) time, O(k) space. 
+    """
+
+    heap = []
+    for star in stars:
+        heapq.heappush(heap, (-star.distance, star))
+        if len(heap) > k:
+            heapq.heappop(heap)
+    return [heapq.heappop(heap)[1] for i in range(k)][::-1]
 
 
 def comp(expected_output, output):
