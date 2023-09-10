@@ -2212,7 +2212,7 @@ problem_mapping = {
                 "total": 186
             },
             "Python: is_string_in_matrix.py": {
-                "passed": 0,
+                "passed": 186,
                 "total": 186
             }
         },
@@ -2254,7 +2254,7 @@ problem_mapping = {
                 "total": 101
             },
             "Python: minimum_weight_path_in_a_triangle.py": {
-                "passed": 0,
+                "passed": 101,
                 "total": 101
             }
         },
@@ -2268,7 +2268,7 @@ problem_mapping = {
                 "total": 162
             },
             "Python: picking_up_coins.py": {
-                "passed": 0,
+                "passed": 162,
                 "total": 162
             }
         },
