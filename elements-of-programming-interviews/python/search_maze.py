@@ -12,10 +12,45 @@ WHITE, BLACK = range(2)
 Coordinate = collections.namedtuple('Coordinate', ('x', 'y'))
 
 
+def get_neighbors(coord: Coordinate):
+    x, y = coord.x, coord.y
+    return [
+        Coordinate(x+1, y),
+        Coordinate(x-1, y),
+        Coordinate(x, y+1),
+        Coordinate(x, y-1)
+    ]
+
+
 def search_maze(maze: List[List[int]], s: Coordinate,
                 e: Coordinate) -> List[Coordinate]:
-    # TODO - you fill in here.
-    return []
+    if not maze or not maze[0]:
+        return []
+
+    def valid(coord: Coordinate):
+        return (0 <= coord.x < len(maze)) and (0 <= coord.y < len(maze[0]))
+
+    visits = collections.Counter()
+    parents = {s: None}
+    # BFS vs DFS here depends only on using a stack (DFS) or queue (BFS);
+    # we can use a deque for both - getting the current from a popleft()
+    # treats it as a queue, while getting it from pop() treats it as a stack.
+    q = collections.deque([s])
+    curr = None
+    while q and curr != e:
+        curr = q.popleft()
+        visits[curr] += 1
+        for neighbor in get_neighbors(curr):
+            if valid(neighbor) and (maze[neighbor.x][neighbor.y] != BLACK) and (neighbor not in parents):
+                parents[neighbor] = curr
+                q.append(neighbor)
+
+    path = []
+    curr = e
+    while e in parents and curr:
+        path.append(curr)
+        curr = parents[curr]
+    return path[::-1]
 
 
 def path_element_is_feasible(maze, prev, cur):
@@ -23,9 +58,9 @@ def path_element_is_feasible(maze, prev, cur):
             (0 <= cur.y < len(maze[cur.x])) and maze[cur.x][cur.y] == WHITE):
         return False
     return cur == (prev.x + 1, prev.y) or \
-           cur == (prev.x - 1, prev.y) or \
-           cur == (prev.x, prev.y + 1) or \
-           cur == (prev.x, prev.y - 1)
+        cur == (prev.x - 1, prev.y) or \
+        cur == (prev.x, prev.y + 1) or \
+        cur == (prev.x, prev.y - 1)
 
 
 @enable_executor_hook
