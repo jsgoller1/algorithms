@@ -12,8 +12,17 @@ class GraphVertex:
 
 
 def clone_graph(graph: GraphVertex) -> GraphVertex:
-    # TODO - you fill in here.
-    return GraphVertex(0)
+    cloned_nodes = {graph.label: GraphVertex(graph.label)}
+    stack = [graph]
+    while stack:
+        curr = stack.pop()
+        curr_copy = cloned_nodes[curr.label]
+        for child in curr.edges:
+            if child.label not in cloned_nodes:
+                cloned_nodes[child.label] = GraphVertex(child.label)
+                stack.append(child)
+            curr_copy.edges.append(cloned_nodes[child.label])
+    return cloned_nodes[graph.label]
 
 
 def copy_labels(edges):
