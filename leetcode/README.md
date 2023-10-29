@@ -1,8 +1,8 @@
 # leetcode
 
 ## TODO: general review
-- 56: https://leetcode.com/problems/merge-intervals/description/
 - 42: https://leetcode.com/problems/trapping-rain-water/
+- 56: https://leetcode.com/problems/merge-intervals/description/
 - 59: https://leetcode.com/problems/spiral-matrix-ii/
 - 301: https://leetcode.com/problems/remove-invalid-parentheses/
 - 489: https://leetcode.com/problems/robot-room-cleaner/
