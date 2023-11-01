@@ -5,7 +5,7 @@ from test_framework import generic_test
 
 def intersect_two_sorted_arrays(A: List[int], B: List[int]) -> List[int]:
     # TODO - you fill in here.
-    return []
+    return sorted(list(set(A) & set(B)))
 
 
 if __name__ == '__main__':
