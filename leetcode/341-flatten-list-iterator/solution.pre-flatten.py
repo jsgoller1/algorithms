@@ -23,6 +23,11 @@
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
+"""
+This approach uses a recursive helper function to flatten the entire list as soon as the iterator is created. It's straightforward, but
+not efficient; it has to store all O(n) integers in memory, and it additionally must process them all as soon as the iterator is created. 
+"""
+
 
 class NestedInteger:
     pass
